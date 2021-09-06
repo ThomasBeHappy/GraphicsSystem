@@ -1,0 +1,10 @@
+C:\Users\movec\source\repos\GraphicsSystem\GraphicsSystem\bin\Debug\netcoreapp2.0\cosmos\GraphicsSystem.deps.json
+C:\Users\movec\source\repos\GraphicsSystem\GraphicsSystem\bin\Debug\netcoreapp2.0\cosmos\GraphicsSystem.dll
+C:\Users\movec\source\repos\GraphicsSystem\GraphicsSystem\bin\Debug\netcoreapp2.0\cosmos\GraphicsSystem.pdb
+C:\Users\movec\source\repos\GraphicsSystem\GraphicsSystem\obj\Debug\netcoreapp2.0\cosmos\GraphicsSystem.csproj.AssemblyReference.cache
+C:\Users\movec\source\repos\GraphicsSystem\GraphicsSystem\obj\Debug\netcoreapp2.0\cosmos\GraphicsSystem.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\movec\source\repos\GraphicsSystem\GraphicsSystem\obj\Debug\netcoreapp2.0\cosmos\GraphicsSystem.AssemblyInfoInputs.cache
+C:\Users\movec\source\repos\GraphicsSystem\GraphicsSystem\obj\Debug\netcoreapp2.0\cosmos\GraphicsSystem.AssemblyInfo.cs
+C:\Users\movec\source\repos\GraphicsSystem\GraphicsSystem\obj\Debug\netcoreapp2.0\cosmos\GraphicsSystem.csproj.CoreCompileInputs.cache
+C:\Users\movec\source\repos\GraphicsSystem\GraphicsSystem\obj\Debug\netcoreapp2.0\cosmos\GraphicsSystem.dll
+C:\Users\movec\source\repos\GraphicsSystem\GraphicsSystem\obj\Debug\netcoreapp2.0\cosmos\GraphicsSystem.pdb
