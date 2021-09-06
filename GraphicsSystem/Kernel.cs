@@ -4,6 +4,7 @@ using System.Text;
 using Sys = Cosmos.System;
 using GraphicsSystem.Core;
 using GraphicsSystem.Types;
+using GraphicsSystem.Math;
 
 namespace GraphicsSystem
 {
@@ -26,9 +27,20 @@ namespace GraphicsSystem
         {
             while (true)
             {
+
+                // Base System Draws
                 Graphic.Taskbar.Draw();
-                Graphics.Rectangle(10, 10, 200, 40, Color.blue);
-                Graphics.Rectangle(60, 60, 300, 90, Color.blue, true, Color.white, 2);
+
+
+
+                for (int i = 0; i < Graphics.chunks.Length; i++)
+                {
+                    Graphics.Rectangle(Graphics.chunks[i].startX, Graphics.chunks[i].startY, Graphics.chunks[i].endX, Graphics.chunks[i].endY, Color.gray160, true, Color.red, 1);
+                }
+
+
+                ProcessManager.UpdateProcesses();
+
 
                 Graphics.UpdateCursor();
 
@@ -37,6 +49,9 @@ namespace GraphicsSystem
                 //Graphics.DrawCircle(60, 20, 6, Color.blue, true, Color.white, 2);
                 //Graphics.DrawCircle(90, 20, 6, Color.blue);
 
+
+                Graphics.DrawString(0, 0, new FontMono9x11(), "FPS: " + Graphics.fps);
+                //Graphics.DrawString(0, 13, new FontMono9x11(), "Time Between Frames: " + Time.TimeBetweenFrames(Graphics.fps));
                 Graphics.Update();
             }
         }

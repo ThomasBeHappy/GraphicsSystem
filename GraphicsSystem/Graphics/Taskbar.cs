@@ -11,7 +11,7 @@ namespace GraphicsSystem.Graphic
         public static void Draw()
         {
             Graphics.Rectangle(0, Graphics.height - 40, Graphics.width, Graphics.height, Color.darkBlue);
-            //Graphics.Rectangle(20, Graphics.height - 41, 22, 1, Color.black);
+            Graphics.Rectangle(30, Graphics.height - 39, 35, Graphics.height - 1, Color.black);
 
         }
     }
