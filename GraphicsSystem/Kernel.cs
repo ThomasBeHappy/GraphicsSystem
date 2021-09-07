@@ -41,10 +41,12 @@ namespace GraphicsSystem
                     //}
 
 
-                    ProcessManager.UpdateProcesses();
+                    //ProcessManager.UpdateProcesses();
 
                     //mDebugger.Send("Cursor Update");
+
                     Graphics.UpdateCursor();
+
                     //mDebugger.Send("After Cursor Update");
 
                     //Graphics.Rectangle(10, 10, 40, 40, Color.blue);
@@ -68,6 +70,7 @@ namespace GraphicsSystem
 
         private void Panic(Exception e)
         {
+            mDebugger.Send(e.Message);
             Graphics.ClearBuffer(Color.lightBlue);
             Graphics.DrawString(10, 10, new FontMono9x11(), "FATAL ERROR: " + e.Message);
         }

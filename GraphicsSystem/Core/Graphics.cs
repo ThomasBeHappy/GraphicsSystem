@@ -23,7 +23,7 @@ namespace GraphicsSystem.Core
     {
         public static VMWareSVGAII driver;
 
-        public const int width = 720, height = 480;
+        public const int width = 1920, height = 1080;
         public static int FONT_SPACING = 1;
         public static uint[] buffer;
         private static uint[] oldBuffer;
@@ -79,6 +79,7 @@ namespace GraphicsSystem.Core
             //_debugger.Send("Update");
             if (bufferChanged)
             {
+                bool actualChange = false;
                 for (int i = 0; i < width * height; i++)
                 {
                     if (buffer[i] != oldBuffer[i])
@@ -87,11 +88,14 @@ namespace GraphicsSystem.Core
                         int x = i % width;
                         int y = i / width;
                         driver.SetPixel((uint)x, (uint)y, buffer[i]);
-
+                        actualChange = true;
                     }
                     oldBuffer[i] = buffer[i];
                 }
-                driver.Update(0, 0, width, height);
+                if (actualChange)
+                {
+                    driver.Update(0, 0, width, height);
+                }
                 ClearBuffer(Color.gray160);
                 bufferChanged = false;
             }
@@ -145,7 +149,6 @@ namespace GraphicsSystem.Core
         public static void UpdateCursor()
         {
             Point position = Mouse.position;
-
             if (position != Mouse.positionOld)
             {
                 for (int x = 0; x < 12; x++)
@@ -170,13 +173,13 @@ namespace GraphicsSystem.Core
             {
                 //ChangedInChunk(x, y);
 
-                bufferChanged = true;
 
                 if (x + y * width > width * height)
                 {
                     throw new System.Exception("Tried setting a pixel outside of the screen width and height");
                 }else
                 {
+                    bufferChanged = true;
                     buffer[x + y * width] = color;
                 }
             }
