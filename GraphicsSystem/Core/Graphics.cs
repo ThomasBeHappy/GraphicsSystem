@@ -32,10 +32,10 @@ namespace GraphicsSystem.Core
 
         public static Chunk[] chunks = new Chunk[6];
 
-        private static int frames;
-        public static int fps { get; private set; }
-        public static float delta { get; private set; }
-        private static int tick;
+        private static int frames = 0;
+        public static int fps { get; private set; } = 0;
+        public static float delta { get; private set; } = 0;
+        private static int tick = 0;
 
         public static void Initialize(Debugger debugger)
         {
@@ -44,7 +44,7 @@ namespace GraphicsSystem.Core
             driver.SetMode(width, height);
             buffer = new uint[width * height];
             oldBuffer = new uint[width * height];
-            _debugger.Send(buffer.Length.ToString());
+            //_debugger.Send(buffer.Length.ToString());
             Sys.MouseManager.ScreenWidth = width;
             Sys.MouseManager.ScreenHeight = height;
 
@@ -69,58 +69,59 @@ namespace GraphicsSystem.Core
             //    }
             //}
 
-            chunks = GetChunkGrid(9, 16, width, height);
+            //chunks = GetChunkGrid(9, 16, width, height);
 
         }
 
         // TODO use a chunk system, split screen into 6 chunks
         public static void Update()
         {
-            //if (bufferChanged)
-            //{
-            //    for (int i = 0; i < width * height; i++)
-            //    {
-            //        if (buffer[i] != oldBuffer[i])
-            //        {
-
-            //            int x = i % width;
-            //            int y = i / width;
-            //            driver.SetPixel((uint)x, (uint)y, buffer[i]);
-
-            //        }
-            //        oldBuffer[i] = buffer[i];
-            //    }
-            //    driver.Update(0, 0, width, height);
-            //    ClearBuffer(Color.gray160);
-            //    bufferChanged = false;
-            //}
-
+            //_debugger.Send("Update");
             if (bufferChanged)
             {
-                for (int i = 0; i < chunks.Length; i++)
+                for (int i = 0; i < width * height; i++)
                 {
-                    if (chunks[i].bufferChanged)
+                    if (buffer[i] != oldBuffer[i])
                     {
-                        int _width = chunks[i].width;
-                        int _height = chunks[i].height;
-                        for (uint x = chunks[i].startX; x <= chunks[i].endX; x++)
-                        {
-                            for (uint y = chunks[i].startY; y <= chunks[i].endY; y++)
-                            {
-                                int index = (int)(y * width + x);
-                                if (buffer[index] != oldBuffer[index])
-                                {
-                                    driver.SetPixel(x, y, buffer[index]);
-                                }
-                            }
-                        }
-                        driver.Update(chunks[i].startX, chunks[i].startY, (uint)_width, (uint)_height);
-                        chunks[i].bufferChanged = false;
+
+                        int x = i % width;
+                        int y = i / width;
+                        driver.SetPixel((uint)x, (uint)y, buffer[i]);
+
                     }
+                    oldBuffer[i] = buffer[i];
                 }
+                driver.Update(0, 0, width, height);
                 ClearBuffer(Color.gray160);
                 bufferChanged = false;
             }
+
+            //if (bufferChanged)
+            //{
+            //    for (int i = 0; i < chunks.Length; i++)
+            //    {
+            //        if (chunks[i].bufferChanged)
+            //        {
+            //            int _width = chunks[i].width;
+            //            int _height = chunks[i].height;
+            //            for (uint x = chunks[i].startX; x <= chunks[i].endX; x++)
+            //            {
+            //                for (uint y = chunks[i].startY; y <= chunks[i].endY; y++)
+            //                {
+            //                    int index = (int)(y * width + x);
+            //                    if (buffer[index] != oldBuffer[index])
+            //                    {
+            //                        driver.SetPixel(x, y, buffer[index]);
+            //                    }
+            //                }
+            //            }
+            //            driver.Update(chunks[i].startX, chunks[i].startY, (uint)_width, (uint)_height);
+            //            chunks[i].bufferChanged = false;
+            //        }
+            //    }
+            //    ClearBuffer(Color.gray160);
+            //    bufferChanged = false;
+            //}
 
             if (frames > 0) { delta = (float)1000 / (float)frames; }
             int sec = RTC.Second;
@@ -145,15 +146,19 @@ namespace GraphicsSystem.Core
         {
             Point position = Mouse.position;
 
-            for (int x = 0; x < 12; x++)
+            if (position != Mouse.positionOld)
             {
-                for (int y = 0; y < 20; y++)
+                for (int x = 0; x < 12; x++)
                 {
-                    if (Cursor.arrow[x + y * 12] != Color.gray160)
+                    for (int y = 0; y < 20; y++)
                     {
-                        SetPixel((uint)(position.x + x), (uint)(position.y + y), Cursor.arrow[x + y * 12]);
+                        if (Cursor.arrow[x + y * 12] != Color.gray160)
+                        {
+                            SetPixel((uint)(position.x + x), (uint)(position.y + y), Cursor.arrow[x + y * 12]);
+                        }
                     }
                 }
+                Mouse.positionOld = position;
             }
         }
 
@@ -163,11 +168,17 @@ namespace GraphicsSystem.Core
         {
             if (x >= 0 && x < width && y >= 0 && y < height)
             {
-                ChangedInChunk(x, y);
+                //ChangedInChunk(x, y);
 
                 bufferChanged = true;
 
-                buffer[x + y * width] = color;
+                if (x + y * width > width * height)
+                {
+                    throw new System.Exception("Tried setting a pixel outside of the screen width and height");
+                }else
+                {
+                    buffer[x + y * width] = color;
+                }
             }
         }
 
@@ -449,7 +460,7 @@ namespace GraphicsSystem.Core
         }
 
 
-        public static void DrawBitmap(int x, int y, int width, int height, uint color ,uint[] data)
+        public static void DrawBitmap(int x, int y, int width, int height, uint color, uint[] data)
         {
             for (int i = 0; i < width * height; i++)
             {
@@ -459,6 +470,20 @@ namespace GraphicsSystem.Core
                 if (data[i] != 0)
                 {
                     SetPixel((uint)xx, (uint)yy, color);
+                }
+            }
+        }
+
+        public static void DrawBitmapFromData(int x, int y, int width, int height, Bitmap data)
+        {
+            for (int i = 0; i < width * height; i++)
+            {
+                int xx = x + (i % width);
+                int yy = y + (i / width);
+
+                if (data.rawData[i] != 0)
+                {
+                    SetPixel((uint)xx, (uint)yy, (uint)data.rawData[i]);
                 }
             }
         }
