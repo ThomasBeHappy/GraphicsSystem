@@ -21,7 +21,7 @@ namespace GraphicsSystem.Core
         public int width, height;
     }
 
-    internal struct BufferChunk
+    internal struct BufferChunk : IDisposable
     {
         public uint startX, startY, endX, endY;
         public uint width, height;
@@ -45,6 +45,11 @@ namespace GraphicsSystem.Core
             width = (endX - startX);
             height = (endY - startY);
             this.buffer = buffer;
+        }
+
+        public void Dispose()
+        {
+            buffer = null;
         }
     }
 
@@ -199,7 +204,7 @@ namespace GraphicsSystem.Core
                     if (buffer[x + y * width] != color)
                     {
                         buffer[x + y * width] = color;
-                        bufferChunkQueue.Enqueue(new BufferChunk(x, y, color));
+                        //bufferChunkQueue.Enqueue(new BufferChunk(x, y, color));
                     }
                 }
             }
