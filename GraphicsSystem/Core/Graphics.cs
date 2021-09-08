@@ -5,7 +5,6 @@ using Cosmos.HAL.Drivers.PCI.Video_plug;
 using Cosmos.System.Graphics;
 using GraphicsSystem.Hardware;
 using GraphicsSystem.Types;
-using System;
 using System.Collections.Generic;
 using Point = GraphicsSystem.Types.Point;
 using Sys = Cosmos.System;
@@ -21,39 +20,6 @@ namespace GraphicsSystem.Core
         public int width, height;
     }
 
-    internal struct BufferChunk : IDisposable
-    {
-        public uint startX, startY, endX, endY;
-        public uint width, height;
-
-        public uint[] buffer;
-
-        public BufferChunk(uint x, uint y, uint color) : this()
-        {
-            startX = endX = x;
-            startY = endY = y;
-            width = height = 1;
-            buffer = new uint[1] { color };
-        }
-
-        public BufferChunk(uint startX, uint startY, uint endX, uint endY, uint[] buffer)
-        {
-            this.startX = startX;
-            this.startY = startY;
-            this.endX = endX;
-            this.endY = endY;
-            width = (endX - startX);
-            height = (endY - startY);
-            this.buffer = buffer;
-        }
-
-        public void Dispose()
-        {
-            buffer = null;
-        }
-    }
-
-
     public static class Graphics
     {
         public static VMWareSVGAII driver;
@@ -62,9 +28,7 @@ namespace GraphicsSystem.Core
         public static int FONT_SPACING = 1;
         public static uint[] buffer;
         private static uint[] oldBuffer;
-
-        private static Queue<BufferChunk> bufferChunkQueue;
-
+        private static bool bufferChanged = false;
         private static Debugger _debugger;
 
         public static Chunk[] chunks = new Chunk[6];
@@ -85,7 +49,7 @@ namespace GraphicsSystem.Core
             Sys.MouseManager.ScreenWidth = width;
             Sys.MouseManager.ScreenHeight = height;
             ClearBuffer(Color.gray160);
-            bufferChunkQueue = new Queue<BufferChunk>();
+            bufferChanged = true;
             //int chunksX = 8 / 2;
             //int chunksY = 8 / 4;
 
@@ -112,23 +76,8 @@ namespace GraphicsSystem.Core
         }
 
         // TODO use a chunk system, split screen into 6 chunks
-        public unsafe static void Update()
+        public static void Update()
         {
-            while (bufferChunkQueue.TryDequeue(out BufferChunk chunk))
-            {
-                fixed (uint* bufferPtr = &buffer[0])
-                {
-                    fixed (uint* imgPtr = &chunk.buffer[0])
-                    {
-                        for (uint y = 0; y < chunk.height; y++)
-                        {
-                            MemoryOperations.Copy(bufferPtr + chunk.startX + (chunk.startY + y) * width, imgPtr + y * chunk.width, (int)chunk.width);
-                        }
-                    }
-                }
-                
-            }
- 
             driver.Video_Memory.Copy(buffer);
             driver.Update(0, 0, width, height);
 
@@ -203,54 +152,55 @@ namespace GraphicsSystem.Core
                 {
                     if (buffer[x + y * width] != color)
                     {
+                        bufferChanged = true;
                         buffer[x + y * width] = color;
-                        //bufferChunkQueue.Enqueue(new BufferChunk(x, y, color));
                     }
                 }
             }
         }
 
-        public static void Rectangle(uint startX, uint startY, uint endX, uint endY, uint color, bool border = false, uint borderColor = 0, uint borderThickness = 0)
+        public static void Rectangle(uint x, uint y, uint endX, uint endY, uint color, bool border = false, uint borderColor = 0, uint borderThickness = 0)
         {
-            if (startX <= 0 && startX > width && startY <= 0 && startY > height) return;
+            if (x <= 0 && x > width && y <= 0 && y > height) return;
 
-            int _width = (int)(endX - startX);
-            int _height = (int)(endY - startY);
-
-            uint[] tempBuffer = new uint[_width * _height];
-
-
-            for (int x = 0; x < _width; x++)
-            {
-                for (int y = 0; y < _height; y++)
-                {
-                    tempBuffer[x + (y * width)] = color;
-                }
-            }
-
+            bufferChanged = true;
             if (border)
             {
-                for (int x = 0; x < borderThickness; x++)
+                uint _width = endX - x;
+                uint _height = endY - y;
+
+                for (int i = 0; i < _width; i++)
                 {
-                    int invX = _width - x;
-                    for (int y = 0; y < _height; y++)
+                    for (int h = 0; h < _height; h++)
                     {
-                        tempBuffer[x + (y * width)] = borderColor;
-                        tempBuffer[invX + (y * width)] = borderColor;
-                    }
-                }
-                for (int y = 0; y < borderThickness; y++)
-                {
-                    int invY = _height - y;
-                    for (int x = 0; x < _width; x++)
-                    {
-                        tempBuffer[x + (y * width)] = borderColor;
-                        tempBuffer[x + (invY * width)] = borderColor;
+                        if (h < borderThickness || _height - h <= borderThickness)
+                        {
+                            buffer[(x + i) + (y + h) * width] = borderColor;
+                        }
+                        else if (_width - i <= borderThickness || i < borderThickness)
+                        {
+                            buffer[(x + i) + (y + h) * width] = borderColor;
+                        }
+                        else
+                        {
+                            buffer[(x + i) + (y + h) * width] = color;
+                        }
+
                     }
                 }
             }
-            BufferChunk bufferChunk = new BufferChunk(startX, startY, endX, endY, tempBuffer);
-            bufferChunkQueue.Enqueue(bufferChunk);
+            else
+            {
+                uint _width = endX - x;
+                uint _height = endY - y;
+                for (int i = 0; i < _width; i++)
+                {
+                    for (int h = 0; h < _height; h++)
+                    {
+                        buffer[(x + i) + (y + h) * width] = color;
+                    }
+                }
+            }
         }
 
         public static uint GetPixel(uint x, uint y)
@@ -263,34 +213,26 @@ namespace GraphicsSystem.Core
 
         }
 
-        public static void DrawImage(Image image, uint x, uint y)
+        public static void DrawImage(Image image, int x, int y)
         {
             if (image.Width > width || image.Height > height) return;
             if (x <= 0 && x > width && y <= 0 && y > height) return;
 
 
-            uint _width = image.Width;
-            uint _height = image.Height;
-
-            uint[] tempBuffer = new uint[_width * _height];
-
-            for (uint w = 0; w < _width; w++)
+            bufferChanged = true;
+            for (int w = 0; w < image.Width; w++)
             {
-                for (uint h = 0; h < _height; h++)
+                for (int h = 0; h < image.Height; h++)
                 {
-                    uint index = w + (h * _width); 
-                    tempBuffer[index] = (uint)image.rawData[index];
+                    buffer[(x + w) * (y + h) * width] = (uint)image.rawData[w + h * image.Width];
                 }
             }
-            BufferChunk bufferChunk = new BufferChunk(x, y, x+_width, y+_height, tempBuffer);
-            bufferChunkQueue.Enqueue(bufferChunk);
         }
 
         public static void DrawCircle(uint x, uint y, uint radius, uint color, bool border = false, uint borderColor = 0, uint borderThickness = 0)
         {
             if (x <= 0 && x > width && y <= 0 && y > height) return;
-
-            throw new NotImplementedException();
+            bufferChanged = true;
 
             if (border)
             {
