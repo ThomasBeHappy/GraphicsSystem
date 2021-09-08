@@ -13,16 +13,20 @@ namespace GraphicsSystem
         protected override void BeforeRun()
         {
             Graphics.Initialize(mDebugger);
-
+            Graphic.Taskbar.Initialize();
             //mDebugger.Send("Draw Rectangles");
             //Graphics.Rectangle(10, 10, 40, 40, Color.blue);
             //mDebugger.Send("First Rectangle drawn into memory");
             //Graphics.Rectangle(60, 60, 90, 90, Color.blue, true, Color.white, 2);
             //mDebugger.Send("Done Drawing");
-            //Graphics.DrawCircle(60, 20, 6, Color.blue, true, Color.white, 2);
+            //Graphics.DrawCircle(60, 20, 6, Color.blue, true, Color.white, 2); 
             //Graphics.DrawCircle(90, 20, 6, Color.blue);
         }
 
+        public char[] fps = new char[] { 'F', 'P', 'S', ':' , ' ', '\0' };
+        public char[] final = new char[32];
+        public char[] number = new char[32];
+        Font font = new FontMono9x11();
         protected override void Run()
         {
             try
@@ -45,7 +49,7 @@ namespace GraphicsSystem
 
                     //mDebugger.Send("Cursor Update");
 
-                    Graphics.UpdateCursor();
+                    Graphics.UpdateCursor(); 
 
                     //mDebugger.Send("After Cursor Update");
 
@@ -53,9 +57,9 @@ namespace GraphicsSystem
                     //Graphics.Rectangle(60, 60, 90, 90, Color.blue, true, Color.white, 2);
                     //Graphics.DrawCircle(60, 20, 6, Color.blue, true, Color.white, 2);
                     //Graphics.DrawCircle(90, 20, 6, Color.blue);
-
-
-                    Graphics.DrawString(0, 0, new FontMono9x11(), "FPS: " + Graphics.fps);
+                    InternalString.IntToString(Graphics.fps, ref number);
+                    InternalString.combineString(ref fps, ref number, ref final);
+                    Graphics.DrawString(0, 0, font, final, Color.white);
                     //Graphics.DrawString(0, 13, new FontMono9x11(), "Time Between Frames: " + Time.TimeBetweenFrames(Graphics.fps));
                     Graphics.Update();
                     //mDebugger.Send("After Update");
@@ -72,7 +76,7 @@ namespace GraphicsSystem
         {
             mDebugger.Send(e.Message);
             Graphics.ClearBuffer(Color.lightBlue);
-            Graphics.DrawString(10, 10, new FontMono9x11(), "FATAL ERROR: " + e.Message);
+            //Graphics.DrawString(10, 10, new FontMono9x11(), "FATAL ERROR: " + e.Message);
         }
     }
 

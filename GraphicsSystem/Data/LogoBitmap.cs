@@ -8,10 +8,11 @@ namespace GraphicsSystem.Data
     public static class LogoBitmap
     {
 
+        public static Bitmap bitmap;
 
         public static Bitmap GetImage()
         {
-            Bitmap bitmap = new Bitmap(Convert.FromBase64String(base64Logo));
+            bitmap = new Bitmap(Convert.FromBase64String(base64Logo));
 
             return bitmap;
         }

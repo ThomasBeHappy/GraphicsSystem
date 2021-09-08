@@ -1,6 +1,7 @@
-﻿using Cosmos.Debug.Kernel;
+﻿using Cosmos.Core;
+using Cosmos.Debug.Kernel;
 using Cosmos.HAL;
-using Cosmos.HAL.Drivers.PCI.Video;
+using Cosmos.HAL.Drivers.PCI.Video_plug;
 using Cosmos.System.Graphics;
 using GraphicsSystem.Hardware;
 using GraphicsSystem.Types;
@@ -47,7 +48,8 @@ namespace GraphicsSystem.Core
             //_debugger.Send(buffer.Length.ToString());
             Sys.MouseManager.ScreenWidth = width;
             Sys.MouseManager.ScreenHeight = height;
-
+            ClearBuffer(Color.gray160);
+            bufferChanged = true;
             //int chunksX = 8 / 2;
             //int chunksY = 8 / 4;
 
@@ -76,56 +78,29 @@ namespace GraphicsSystem.Core
         // TODO use a chunk system, split screen into 6 chunks
         public static void Update()
         {
-            //_debugger.Send("Update");
-            if (bufferChanged)
-            {
-                bool actualChange = false;
-                for (int i = 0; i < width * height; i++)
-                {
-                    if (buffer[i] != oldBuffer[i])
-                    {
+            driver.Video_Memory.Copy(buffer);
+            driver.Update(0, 0, width, height);
 
-                        int x = i % width;
-                        int y = i / width;
-                        driver.SetPixel((uint)x, (uint)y, buffer[i]);
-                        actualChange = true;
-                    }
-                    oldBuffer[i] = buffer[i];
-                }
-                if (actualChange)
-                {
-                    driver.Update(0, 0, width, height);
-                }
-                ClearBuffer(Color.gray160);
-                bufferChanged = false;
-            }
+            // if (bufferChanged)
+            // {
+            //     bool actualChange = false;
+            //     for (int i = 0; i < width * height; i++)
+            //     {
+            //         if (buffer[i] != oldBuffer[i])
+            //         {
 
-            //if (bufferChanged)
-            //{
-            //    for (int i = 0; i < chunks.Length; i++)
-            //    {
-            //        if (chunks[i].bufferChanged)
-            //        {
-            //            int _width = chunks[i].width;
-            //            int _height = chunks[i].height;
-            //            for (uint x = chunks[i].startX; x <= chunks[i].endX; x++)
-            //            {
-            //                for (uint y = chunks[i].startY; y <= chunks[i].endY; y++)
-            //                {
-            //                    int index = (int)(y * width + x);
-            //                    if (buffer[index] != oldBuffer[index])
-            //                    {
-            //                        driver.SetPixel(x, y, buffer[index]);
-            //                    }
-            //                }
-            //            }
-            //            driver.Update(chunks[i].startX, chunks[i].startY, (uint)_width, (uint)_height);
-            //            chunks[i].bufferChanged = false;
-            //        }
-            //    }
-            //    ClearBuffer(Color.gray160);
-            //    bufferChanged = false;
-            //}
+            //             int x = i % width;
+            //             int y = i / width;
+            //             driver.SetPixel((uint)x, (uint)y, buffer[i]);
+            //             actualChange = true;
+            //         }
+            //         oldBuffer[i] = buffer[i];
+            //     }
+            //     if (actualChange)
+            //     {
+            //     }
+
+            ClearBuffer(Color.gray160);
 
             if (frames > 0) { delta = (float)1000 / (float)frames; }
             int sec = RTC.Second;
@@ -138,11 +113,10 @@ namespace GraphicsSystem.Core
             frames++;
         }
 
-        public static void ClearBuffer(uint color = 0)
+        public unsafe static void ClearBuffer(uint color = 0)
         {
-            for (int i = 0; i < width * height; i++)
-            {
-                if (buffer[i] != color) { buffer[i] = color; }
+            fixed(uint* bufferPtr = &buffer[0]){
+                MemoryOperations.Fill(bufferPtr, color, width * height);
             }
         }
 
@@ -171,16 +145,16 @@ namespace GraphicsSystem.Core
         {
             if (x >= 0 && x < width && y >= 0 && y < height)
             {
-                //ChangedInChunk(x, y);
-
-
                 if (x + y * width > width * height)
                 {
                     throw new System.Exception("Tried setting a pixel outside of the screen width and height");
                 }else
                 {
-                    bufferChanged = true;
-                    buffer[x + y * width] = color;
+                    if (buffer[x + y * width] != color)
+                    {
+                        bufferChanged = true;
+                        buffer[x + y * width] = color;
+                    }
                 }
             }
         }
@@ -477,21 +451,20 @@ namespace GraphicsSystem.Core
             }
         }
 
-        public static void DrawBitmapFromData(int x, int y, int width, int height, Bitmap data)
+        public static unsafe void DrawBitmapFromData(int aX, int aY, int aWidth, int aHeight, Bitmap data)
         {
-            for (int i = 0; i < width * height; i++)
-            {
-                int xx = x + (i % width);
-                int yy = y + (i / width);
-
-                if (data.rawData[i] != 0)
-                {
-                    SetPixel((uint)xx, (uint)yy, (uint)data.rawData[i]);
+            fixed(uint* bufferPtr = &buffer[0]){
+                fixed(int* falseImgPtr = &data.rawData[0]){
+                    uint* imgPtr = (uint*)falseImgPtr;
+                    for (int y = 0; y < aHeight; y++)
+                    {
+                        MemoryOperations.Copy(bufferPtr + aX + (aY + y) * width, imgPtr + y * aWidth, aWidth);
+                    }
                 }
             }
         }
 
-        public static void DrawString(uint x, uint y, Font font, string text, uint color = 0)
+        public static void DrawString(uint x, uint y, Font font, char[] text, uint color = 0)
         {
             if (text.Length > 0 && font != null)
             {
@@ -500,6 +473,10 @@ namespace GraphicsSystem.Core
 
                 foreach (char item in text)
                 {
+                    if (item == '\0')
+                    {
+                        break;
+                    }
                     DrawChar(xx, yy, item, color, font);
 
                     if (item == '\n') { yy += font.characterHeight + 1; xx = (int)x; }
