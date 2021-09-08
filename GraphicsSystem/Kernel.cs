@@ -5,6 +5,8 @@ using Sys = Cosmos.System;
 using GraphicsSystem.Core;
 using GraphicsSystem.Types;
 using GraphicsSystem.Math;
+using GraphicsSystem.Graphic;
+using GraphicsSystem.Data;
 
 namespace GraphicsSystem
 {
@@ -13,14 +15,8 @@ namespace GraphicsSystem
         protected override void BeforeRun()
         {
             Graphics.Initialize(mDebugger);
-            Graphic.Taskbar.Initialize();
-            //mDebugger.Send("Draw Rectangles");
-            //Graphics.Rectangle(10, 10, 40, 40, Color.blue);
-            //mDebugger.Send("First Rectangle drawn into memory");
-            //Graphics.Rectangle(60, 60, 90, 90, Color.blue, true, Color.white, 2);
-            //mDebugger.Send("Done Drawing");
-            //Graphics.DrawCircle(60, 20, 6, Color.blue, true, Color.white, 2); 
-            //Graphics.DrawCircle(90, 20, 6, Color.blue);
+            Taskbar.Initialize();
+
         }
 
         public char[] fps = new char[] { 'F', 'P', 'S', ':' , ' ', '\0' };
@@ -35,34 +31,23 @@ namespace GraphicsSystem
                 {
 
                     // Base System Draws
-                    Graphic.Taskbar.Draw();
 
-
-
-                    //for (int i = 0; i < Graphics.chunks.Length; i++)
-                    //{
-                    //    Graphics.Rectangle(Graphics.chunks[i].startX, Graphics.chunks[i].startY, Graphics.chunks[i].endX, Graphics.chunks[i].endY, Color.gray160, true, Color.red, 1);
-                    //}
-
+                    Graphics.DrawBitmapFromData(0, 0, 1920, 1080, BackgroundBitmap.bitmap);
 
                     //ProcessManager.UpdateProcesses();
 
-                    //mDebugger.Send("Cursor Update");
+                    // Draw Task Bar
+                    Taskbar.Draw();
 
+                    // Update and Draw Mouse
                     Graphics.UpdateCursor(); 
 
-                    //mDebugger.Send("After Cursor Update");
-
-                    //Graphics.Rectangle(10, 10, 40, 40, Color.blue);
-                    //Graphics.Rectangle(60, 60, 90, 90, Color.blue, true, Color.white, 2);
-                    //Graphics.DrawCircle(60, 20, 6, Color.blue, true, Color.white, 2);
-                    //Graphics.DrawCircle(90, 20, 6, Color.blue);
+                    // Draw FPS counter
                     InternalString.IntToString(Graphics.fps, ref number);
                     InternalString.combineString(ref fps, ref number, ref final);
                     Graphics.DrawString(0, 0, font, final, Color.white);
-                    //Graphics.DrawString(0, 13, new FontMono9x11(), "Time Between Frames: " + Time.TimeBetweenFrames(Graphics.fps));
+
                     Graphics.Update();
-                    //mDebugger.Send("After Update");
                 }
             }
             catch (Exception e)

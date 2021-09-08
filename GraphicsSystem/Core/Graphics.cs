@@ -8,6 +8,7 @@ using GraphicsSystem.Types;
 using System.Collections.Generic;
 using Point = GraphicsSystem.Types.Point;
 using Sys = Cosmos.System;
+using System;
 
 namespace GraphicsSystem.Core
 {
@@ -141,6 +142,91 @@ namespace GraphicsSystem.Core
 
         #region EditBufferMethods
 
+        public static void DrawLine(int aX, int aY, int endX, int endY, uint color)
+        {
+            int x0 = aX;
+            int x1 = endX;
+            int y0 = aY;
+            int y1 = endY;
+            bool steep = System.Math.Abs(y1 - y0) > System.Math.Abs(x1 - x0);
+            if (steep)
+            {
+                int x3 = y0;
+                y0 = x0;
+                x0 = x3;
+                int x4 = y1;
+                y1 = x1;
+                x1 = x4;
+            }
+            if (x0 > x1)
+            {
+                int x5 = x0;
+                x0 = x1;
+                x1 = x5;
+                int x6 = y0;
+                y0 = y1;
+                y1 = x6;
+            }
+            int deltax = x1 - x0;
+            int deltay = System.Math.Abs(y1 - y0);
+            int error = deltax / 2;
+            int ystep;
+            int y = y0;
+            if (y0 < y1)
+            {
+                ystep = 1;
+            }
+            else
+            {
+                ystep = -1;
+            }
+            for (int x = x0; x <= x1; x++)
+            {
+                if (steep)
+                {
+                    SetPixel((uint)y, (uint)x, color);
+                }
+                else
+                {
+                    SetPixel((uint)x, (uint)y, color);
+                }
+                error = error - deltay;
+                if (error < 0)
+                {
+                    y = y + ystep;
+                    error = error + deltax;
+                }
+            }
+
+        }
+
+        static int[] sine = new int[16] { 0, 27, 54, 79, 104, 128, 150, 171, 190, 201, 221, 233, 243, 250, 254, 255 };
+        static int xEnd, yEnd, quadrant, x_flip, y_flip;
+
+        public static void DrawAngle(int X, int Y, int angle, int radius, uint color)
+        {
+            //quadrant = angle / 15;
+            //switch (quadrant)
+            //{
+            //    case 0: x_flip = 1; y_flip = -1; break;
+            //    case 1: angle = System.Math.Abs(angle - 30); x_flip = y_flip = 1; break;
+            //    case 2: angle -= 30; x_flip = -1; y_flip = 1; break;
+            //    case 3: angle = System.Math.Abs(angle - 60); x_flip = y_flip = -1; break;
+            //    default: x_flip = y_flip = 1; break;
+            //}
+            //xEnd = X;
+            //yEnd = Y;
+            //if (angle > sine.Length) return;
+            //xEnd += (x_flip * ((sine[angle] * radius) >> 8));
+            //yEnd += (y_flip * ((sine[15 - angle] * radius) >> 8));
+
+
+            var x = radius * System.Math.Sin(System.Math.PI * 2 * angle / 360);
+            var y = radius * System.Math.Cos(System.Math.PI * 2 * angle / 360);
+
+            DrawLine(X, Y, X + (int)(System.Math.Round(x*100)/100), Y + (int)(System.Math.Round(y * 100) / 100), color);
+        }
+
         public static void SetPixel(uint x, uint y, uint color)
         {
             if (x >= 0 && x < width && y >= 0 && y < height)
@@ -159,7 +245,7 @@ namespace GraphicsSystem.Core
             }
         }
 
-        public static void Rectangle(uint x, uint y, uint endX, uint endY, uint color, bool border = false, uint borderColor = 0, uint borderThickness = 0)
+        public unsafe static void Rectangle(uint x, uint y, uint endX, uint endY, uint color, bool border = false, uint borderColor = 0, uint borderThickness = 0)
         {
             if (x <= 0 && x > width && y <= 0 && y > height) return;
 
@@ -185,19 +271,19 @@ namespace GraphicsSystem.Core
                         {
                             buffer[(x + i) + (y + h) * width] = color;
                         }
-
                     }
                 }
             }
             else
             {
-                uint _width = endX - x;
-                uint _height = endY - y;
-                for (int i = 0; i < _width; i++)
+                int _width = (int)(endX - x);
+                int _height = (int)(endY - y);
+
+                fixed (uint* bufferPtr = &buffer[0])
                 {
-                    for (int h = 0; h < _height; h++)
+                    for (int i = 0; i < _height; i++)
                     {
-                        buffer[(x + i) + (y + h) * width] = color;
+                        MemoryOperations.Fill(bufferPtr + x + (y + i) * width, color, _width);
                     }
                 }
             }
@@ -459,6 +545,20 @@ namespace GraphicsSystem.Core
                     for (int y = 0; y < aHeight; y++)
                     {
                         MemoryOperations.Copy(bufferPtr + aX + (aY + y) * width, imgPtr + y * aWidth, aWidth);
+                    }
+                }
+            }
+        }
+
+        public static void DrawBitmapFromData(int aX, int aY, int aWidth, int aHeight, Bitmap data, uint transColor)
+        {
+            for (int xx = 0; xx < aWidth; xx++)
+            {
+                for (int yy = 0; yy < aHeight; yy++)
+                {
+                    if (data.rawData[xx + yy * aWidth] != transColor)
+                    {
+                        buffer[(aX + xx) + (aY + yy) * width] = (uint)data.rawData[xx + yy * aWidth];
                     }
                 }
             }
