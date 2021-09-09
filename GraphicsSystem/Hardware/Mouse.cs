@@ -13,5 +13,7 @@ namespace GraphicsSystem.Hardware
         public static Point position { get { return new Point((ushort)Sys.MouseManager.X, (ushort)Sys.MouseManager.Y); } }
         public static Point positionOld;
         public static bool moving { get; private set; }
+
+        public static bool pressed;
     }
 }

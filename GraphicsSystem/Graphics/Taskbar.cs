@@ -15,6 +15,8 @@ namespace GraphicsSystem.Graphic
 
         static int maxAngle24 = 8640;
         static int maxAngle60 = 21600;
+
+        static uint devider = 10;
         public static void Draw()
         {
             // Taskbar
@@ -22,13 +24,15 @@ namespace GraphicsSystem.Graphic
             Graphics.DrawBitmapFromData(0, Graphics.height - 55, 50, 50, logo, 0);
             Clock.Draw();
 
-            // Draw Temp Clock
-            //Graphics.Rectangle(400, 400, 600, 600, Color.black);
-            //Graphics.DrawLine(100, 100, 200, 130, Color.red);
+            for (int i = 0; i < ProcessManager.windows.Count; i++)
+            {
+                ProcessManager.windows[i].dockX = (uint)(60 + (devider * i));
+                ProcessManager.windows[i].dockY = (uint)(Graphics.height - 55);
+                ProcessManager.windows[i].dockHeight = 50;
+                ProcessManager.windows[i].dockWidth = 60;
+                Graphics.Rectangle(ProcessManager.windows[i].dockX, ProcessManager.windows[i].dockY, ProcessManager.windows[i].dockX + 60, ProcessManager.windows[i].dockY + 50, Color.yellow);
+            }
 
-            //Graphics.DrawAngle(500, 500, 30, 40, Color.white);
-            //Graphics.DrawAngle(500, 500, 60, 60, Color.white);
-            //Graphics.DrawAngle(500, 500, 90, 80, Color.red);
         }
 
         public static void Initialize()

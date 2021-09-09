@@ -1,4 +1,5 @@
-﻿using Cosmos.Core;
+﻿#define COSMOSDEBUG
+using Cosmos.Core;
 using Cosmos.Debug.Kernel;
 using Cosmos.HAL;
 using Cosmos.HAL.Drivers.PCI.Video_plug;
@@ -29,7 +30,6 @@ namespace GraphicsSystem.Core
         public static int FONT_SPACING = 1;
         public static uint[] buffer;
         private static uint[] oldBuffer;
-        private static bool bufferChanged = false;
         private static Debugger _debugger;
 
         public static Chunk[] chunks = new Chunk[6];
@@ -50,7 +50,6 @@ namespace GraphicsSystem.Core
             Sys.MouseManager.ScreenWidth = width;
             Sys.MouseManager.ScreenHeight = height;
             ClearBuffer(Color.gray160);
-            bufferChanged = true;
             //int chunksX = 8 / 2;
             //int chunksY = 8 / 4;
 
@@ -142,36 +141,37 @@ namespace GraphicsSystem.Core
 
         #region EditBufferMethods
 
+        static int x0, x1, x2, x3, x4, x5, x6, y0, y1, deltax, deltay, error, ystep, y;
+        static bool steep;
         public static void DrawLine(int aX, int aY, int endX, int endY, uint color)
         {
-            int x0 = aX;
-            int x1 = endX;
-            int y0 = aY;
-            int y1 = endY;
-            bool steep = System.Math.Abs(y1 - y0) > System.Math.Abs(x1 - x0);
+            x0 = aX;
+            x1 = endX;
+            y0 = aY;
+            y1 = endY;
+            steep = System.Math.Abs(y1 - y0) > System.Math.Abs(x1 - x0);
             if (steep)
             {
-                int x3 = y0;
+                x3 = y0;
                 y0 = x0;
                 x0 = x3;
-                int x4 = y1;
+                x4 = y1;
                 y1 = x1;
                 x1 = x4;
             }
             if (x0 > x1)
             {
-                int x5 = x0;
+                x5 = x0;
                 x0 = x1;
                 x1 = x5;
-                int x6 = y0;
+                x6 = y0;
                 y0 = y1;
                 y1 = x6;
             }
-            int deltax = x1 - x0;
-            int deltay = System.Math.Abs(y1 - y0);
-            int error = deltax / 2;
-            int ystep;
-            int y = y0;
+            deltax = x1 - x0;
+            deltay = System.Math.Abs(y1 - y0);
+            error = deltax / 2;
+            y = y0;
             if (y0 < y1)
             {
                 ystep = 1;
@@ -200,8 +200,10 @@ namespace GraphicsSystem.Core
 
         }
 
-        static int[] sine = new int[16] { 0, 27, 54, 79, 104, 128, 150, 171, 190, 201, 221, 233, 243, 250, 254, 255 };
-        static int xEnd, yEnd, quadrant, x_flip, y_flip;
+        //static int[] sine = new int[16] { 0, 27, 54, 79, 104, 128, 150, 171, 190, 201, 221, 233, 243, 250, 254, 255 };
+        //static int xEnd, yEnd, quadrant, x_flip, y_flip;
+
+        static double angleX, angleY;
 
         public static void DrawAngle(int X, int Y, int angle, int radius, uint color)
         {
@@ -220,11 +222,84 @@ namespace GraphicsSystem.Core
             //xEnd += (x_flip * ((sine[angle] * radius) >> 8));
             //yEnd += (y_flip * ((sine[15 - angle] * radius) >> 8));
 
+            angleY = radius * cos(System.Math.PI * 2 * angle / 360);
+            angleX = radius * sin(System.Math.PI * 2 * angle / 360);
 
-            var x = radius * System.Math.Sin(System.Math.PI * 2 * angle / 360);
-            var y = radius * System.Math.Cos(System.Math.PI * 2 * angle / 360);
+            //if (double.IsNaN(System.Math.Round(angleX * 100)))
+            //{
+            //    if (double.IsNaN(System.Math.Round(angleY * 100)))
+            //    {
+            //        throw new Exception("DrawAngle() => angle provided NaN on both x and y");
+            //    }
+            //    DrawLine(X, Y, X, Y - (int)(System.Math.Round(angleY * 100) / 100), color);
+            //    return;
+            //}
 
-            DrawLine(X, Y, X + (int)(System.Math.Round(x*100)/100), Y + (int)(System.Math.Round(y * 100) / 100), color);
+            //if (double.IsNaN(System.Math.Round(angleY * 100)))
+            //{
+            //    DrawLine(X, Y, X + (int)(System.Math.Round(angleX * 100) / 100), Y, color);
+            //    return;
+            //}
+            _debugger.SendInternal(System.Math.Round(angleY * 100));
+            DrawLine(X, Y, X + (int)(System.Math.Round(angleX * 100)/100), Y - (int)(System.Math.Round(angleY * 100) / 100), color);
+        }
+
+        static double _cos;
+        public static double cos(double x)
+        {
+            x += 1.57079632;
+            if (x > 3.14159265)
+                x -= 6.28318531;
+
+            if (x < 0)
+            {
+                _cos = 1.27323954 * x + 0.405284735 * x * x;
+
+                if (_cos < 0)
+                {
+                    return .225 * (_cos * -_cos - _cos) + _cos;
+                }
+                else
+                {
+                    return .225 * (_cos * _cos - _cos) + _cos;
+                }
+            }
+            else
+            {
+                 _cos = 1.27323954 * x - 0.405284735 * x * x;
+
+                if (_cos < 0)
+                {
+                    return .225 * (_cos * -_cos - _cos) + _cos;
+                }
+                else
+                {
+                    return .225 * (_cos * _cos - _cos) + _cos;
+                }
+            }
+        }
+
+        static double _sin;
+        public static double sin(double x)
+        {
+            if (x < 0)
+            {
+                _sin = 1.27323954 * x + .405284735 * x * x;
+
+                if (_sin < 0)
+                    return .225 * (_sin * -_sin - _sin) + _sin;
+                else
+                    return .225 * (_sin * _sin - _sin) + _sin;
+            }
+            else
+            {
+                _sin = 1.27323954 * x - 0.405284735 * x * x;
+
+                if (_sin < 0)
+                    return .225 * (_sin * -_sin - _sin) + _sin;
+                else
+                    return .225 * (_sin * _sin - _sin) + _sin;
+            }
         }
 
         public static void SetPixel(uint x, uint y, uint color)
@@ -233,12 +308,11 @@ namespace GraphicsSystem.Core
             {
                 if (x + y * width > width * height)
                 {
-                    throw new System.Exception("Tried setting a pixel outside of the screen width and height");
+                    throw new Exception("Tried setting a pixel outside of the screen width and height");
                 }else
                 {
                     if (buffer[x + y * width] != color)
                     {
-                        bufferChanged = true;
                         buffer[x + y * width] = color;
                     }
                 }
@@ -249,7 +323,6 @@ namespace GraphicsSystem.Core
         {
             if (x <= 0 && x > width && y <= 0 && y > height) return;
 
-            bufferChanged = true;
             if (border)
             {
                 uint _width = endX - x;
@@ -278,7 +351,14 @@ namespace GraphicsSystem.Core
             {
                 int _width = (int)(endX - x);
                 int _height = (int)(endY - y);
-
+                if (_width + x > width)
+                {
+                    _width -= (int)((_width + x) - width);
+                }
+                if (_height + y > height)
+                {
+                    _height -= (int)(height - (_height + y));
+                }
                 fixed (uint* bufferPtr = &buffer[0])
                 {
                     for (int i = 0; i < _height; i++)
@@ -305,7 +385,6 @@ namespace GraphicsSystem.Core
             if (x <= 0 && x > width && y <= 0 && y > height) return;
 
 
-            bufferChanged = true;
             for (int w = 0; w < image.Width; w++)
             {
                 for (int h = 0; h < image.Height; h++)
@@ -318,12 +397,9 @@ namespace GraphicsSystem.Core
         public static void DrawCircle(uint x, uint y, uint radius, uint color, bool border = false, uint borderColor = 0, uint borderThickness = 0)
         {
             if (x <= 0 && x > width && y <= 0 && y > height) return;
-            bufferChanged = true;
 
             if (border)
             {
-
-
                 int _x = (int)radius;
                 int _y = 0;
                 int xChange = (int)(1 - (radius << 1));
@@ -539,7 +615,16 @@ namespace GraphicsSystem.Core
 
         public static unsafe void DrawBitmapFromData(int aX, int aY, int aWidth, int aHeight, Bitmap data)
         {
-            fixed(uint* bufferPtr = &buffer[0]){
+            if (aWidth + aX > width)
+            {
+                aWidth -= (width - (aWidth + aX));
+            }
+            if (aHeight + aY > height)
+            {
+                aHeight -= (height - (aHeight + aY));
+            }
+
+            fixed (uint* bufferPtr = &buffer[0]){
                 fixed(int* falseImgPtr = &data.rawData[0]){
                     uint* imgPtr = (uint*)falseImgPtr;
                     for (int y = 0; y < aHeight; y++)
@@ -552,6 +637,15 @@ namespace GraphicsSystem.Core
 
         public static void DrawBitmapFromData(int aX, int aY, int aWidth, int aHeight, Bitmap data, uint transColor)
         {
+            if (aWidth + aX > width)
+            {
+                aWidth -= (width - (aWidth + aX));
+            }
+            if (aHeight + aY > height)
+            {
+                aHeight -= (height - (aHeight + aY));
+            }
+
             for (int xx = 0; xx < aWidth; xx++)
             {
                 for (int yy = 0; yy < aHeight; yy++)
