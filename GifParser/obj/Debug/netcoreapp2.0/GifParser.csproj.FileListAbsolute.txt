@@ -1,0 +1,10 @@
+G:\Documents\GitHub\GraphicsSystem\GifParser\bin\Debug\netcoreapp2.0\GifParser.deps.json
+G:\Documents\GitHub\GraphicsSystem\GifParser\bin\Debug\netcoreapp2.0\GifParser.dll
+G:\Documents\GitHub\GraphicsSystem\GifParser\bin\Debug\netcoreapp2.0\GifParser.pdb
+G:\Documents\GitHub\GraphicsSystem\GifParser\obj\Debug\netcoreapp2.0\GifParser.csproj.AssemblyReference.cache
+G:\Documents\GitHub\GraphicsSystem\GifParser\obj\Debug\netcoreapp2.0\GifParser.GeneratedMSBuildEditorConfig.editorconfig
+G:\Documents\GitHub\GraphicsSystem\GifParser\obj\Debug\netcoreapp2.0\GifParser.AssemblyInfoInputs.cache
+G:\Documents\GitHub\GraphicsSystem\GifParser\obj\Debug\netcoreapp2.0\GifParser.AssemblyInfo.cs
+G:\Documents\GitHub\GraphicsSystem\GifParser\obj\Debug\netcoreapp2.0\GifParser.csproj.CoreCompileInputs.cache
+G:\Documents\GitHub\GraphicsSystem\GifParser\obj\Debug\netcoreapp2.0\GifParser.dll
+G:\Documents\GitHub\GraphicsSystem\GifParser\obj\Debug\netcoreapp2.0\GifParser.pdb

@@ -8,7 +8,7 @@ namespace GraphicsSystem.Data
 {
     public static class BackgroundBitmap
     {
-        [ManifestResourceStream(ResourceName = "GraphicsSystem.Data.Gaming Frame.bmp")] 
+        [ManifestResourceStream(ResourceName = "GraphicsSystem.Data.Bitmaps.Gaming Frame.bmp")] 
         static byte[] file;
         public static Bitmap bitmap = new Bitmap(file);
     }

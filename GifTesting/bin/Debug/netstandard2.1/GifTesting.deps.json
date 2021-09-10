@@ -1,0 +1,37 @@
+{
+  "runtimeTarget": {
+    "name": ".NETStandard,Version=v2.1/",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETStandard,Version=v2.1": {},
+    ".NETStandard,Version=v2.1/": {
+      "GifTesting/1.0.0": {
+        "dependencies": {
+          "GifParser": "1.0.0"
+        },
+        "runtime": {
+          "GifTesting.dll": {}
+        }
+      },
+      "GifParser/1.0.0": {
+        "runtime": {
+          "GifParser.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "GifTesting/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "GifParser/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}

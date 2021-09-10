@@ -1,0 +1,9 @@
+G:\Documents\GitHub\GraphicsSystem\GifParser\bin\Debug\netstandard2.1\GifParser.deps.json
+G:\Documents\GitHub\GraphicsSystem\GifParser\bin\Debug\netstandard2.1\GifParser.dll
+G:\Documents\GitHub\GraphicsSystem\GifParser\bin\Debug\netstandard2.1\GifParser.pdb
+G:\Documents\GitHub\GraphicsSystem\GifParser\obj\Debug\netstandard2.1\GifParser.GeneratedMSBuildEditorConfig.editorconfig
+G:\Documents\GitHub\GraphicsSystem\GifParser\obj\Debug\netstandard2.1\GifParser.AssemblyInfoInputs.cache
+G:\Documents\GitHub\GraphicsSystem\GifParser\obj\Debug\netstandard2.1\GifParser.AssemblyInfo.cs
+G:\Documents\GitHub\GraphicsSystem\GifParser\obj\Debug\netstandard2.1\GifParser.csproj.CoreCompileInputs.cache
+G:\Documents\GitHub\GraphicsSystem\GifParser\obj\Debug\netstandard2.1\GifParser.dll
+G:\Documents\GitHub\GraphicsSystem\GifParser\obj\Debug\netstandard2.1\GifParser.pdb

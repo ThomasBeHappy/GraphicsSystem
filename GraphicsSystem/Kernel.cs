@@ -17,10 +17,11 @@ namespace GraphicsSystem
     {
         protected override void BeforeRun()
         {
+            FileSystem.Initialize();
             Graphics.Initialize(mDebugger);
             Taskbar.Initialize();
-            ProcessManager.AddProcess(new Example(10, 10, 300, 300));
-
+            ProcessManager.AddProcess(new Apps.Clock(10, 10, 300, 300));
+            ProcessManager.AddProcess(new Apps.FileExplorer(500, 500, 500, 400));
         }
 
         public char[] fps = new char[] { 'F', 'P', 'S', ':' , ' ', '\0' };

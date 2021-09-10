@@ -9,6 +9,7 @@ namespace GraphicsSystem.Core
     {
         public static List<Window> windows = new List<Window>();
         public static int tick = 0;
+        public static int maxID = 0;
 
         public static void UpdateProcesses()
         {
@@ -23,18 +24,18 @@ namespace GraphicsSystem.Core
 
         }
 
-        public static void AddProcess(Window proc) { windows.Add(proc); }
+        public static void AddProcess(Window proc) { proc.processID = maxID++; windows.Add(proc); }
 
-        //public static void RemoveProcess(int processID)
-        //{
-        //    for (int i = 0; i < processes.Count; i++)
-        //    {
-        //        if (processes[i].id == processID)
-        //        {
-        //            processes.RemoveAt(i);
-        //        }
-        //    }
-        //}
+        public static void RemoveProcess(int processID)
+        {
+            for (int i = 0; i < windows.Count; i++)
+            {
+                if (windows[i].processID == processID)
+                {
+                    windows.RemoveAt(i);
+                }
+            }
+        }
 
     }
 }

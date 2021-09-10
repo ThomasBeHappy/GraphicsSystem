@@ -222,10 +222,10 @@ namespace GraphicsSystem.Core
             //xEnd += (x_flip * ((sine[angle] * radius) >> 8));
             //yEnd += (y_flip * ((sine[15 - angle] * radius) >> 8));
 
-            angleY = radius * cos(System.Math.PI * 2 * angle / 360);
-            angleX = radius * sin(System.Math.PI * 2 * angle / 360);
+            angleY = radius * System.Math.Cos(System.Math.PI * 2 * angle / 360);
+            angleX = radius * System.Math.Sin(System.Math.PI * 2 * angle / 360);
 
-            //if (double.IsNaN(System.Math.Round(angleX * 100)))
+            //if (double.IsNaN(System.Math.Round(angleX * 100)))sto
             //{
             //    if (double.IsNaN(System.Math.Round(angleY * 100)))
             //    {
@@ -240,66 +240,8 @@ namespace GraphicsSystem.Core
             //    DrawLine(X, Y, X + (int)(System.Math.Round(angleX * 100) / 100), Y, color);
             //    return;
             //}
-            _debugger.SendInternal(System.Math.Round(angleY * 100));
+            //_debugger.SendInternal(System.Math.Round(angleX * 100));
             DrawLine(X, Y, X + (int)(System.Math.Round(angleX * 100)/100), Y - (int)(System.Math.Round(angleY * 100) / 100), color);
-        }
-
-        static double _cos;
-        public static double cos(double x)
-        {
-            x += 1.57079632;
-            if (x > 3.14159265)
-                x -= 6.28318531;
-
-            if (x < 0)
-            {
-                _cos = 1.27323954 * x + 0.405284735 * x * x;
-
-                if (_cos < 0)
-                {
-                    return .225 * (_cos * -_cos - _cos) + _cos;
-                }
-                else
-                {
-                    return .225 * (_cos * _cos - _cos) + _cos;
-                }
-            }
-            else
-            {
-                 _cos = 1.27323954 * x - 0.405284735 * x * x;
-
-                if (_cos < 0)
-                {
-                    return .225 * (_cos * -_cos - _cos) + _cos;
-                }
-                else
-                {
-                    return .225 * (_cos * _cos - _cos) + _cos;
-                }
-            }
-        }
-
-        static double _sin;
-        public static double sin(double x)
-        {
-            if (x < 0)
-            {
-                _sin = 1.27323954 * x + .405284735 * x * x;
-
-                if (_sin < 0)
-                    return .225 * (_sin * -_sin - _sin) + _sin;
-                else
-                    return .225 * (_sin * _sin - _sin) + _sin;
-            }
-            else
-            {
-                _sin = 1.27323954 * x - 0.405284735 * x * x;
-
-                if (_sin < 0)
-                    return .225 * (_sin * -_sin - _sin) + _sin;
-                else
-                    return .225 * (_sin * _sin - _sin) + _sin;
-            }
         }
 
         public static void SetPixel(uint x, uint y, uint color)
@@ -351,14 +293,14 @@ namespace GraphicsSystem.Core
             {
                 int _width = (int)(endX - x);
                 int _height = (int)(endY - y);
-                if (_width + x > width)
-                {
-                    _width -= (int)((_width + x) - width);
-                }
-                if (_height + y > height)
-                {
-                    _height -= (int)(height - (_height + y));
-                }
+                //if (_width + x > width)
+                //{
+                //    _width -= (int)((_width + x) - width);
+                //}
+                //if (_height + y > height)
+                //{
+                //    _height -= (int)(height - (_height + y));
+                //}
                 fixed (uint* bufferPtr = &buffer[0])
                 {
                     for (int i = 0; i < _height; i++)

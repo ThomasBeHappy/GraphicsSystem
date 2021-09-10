@@ -6,7 +6,7 @@ namespace GraphicsSystem.Types
 {
     public class Color
     {
-        public int r, g, b;
+        public int r, g, b, a;
 
         // default constructor
         public Color() { this.r = 0; this.g = 0; this.b = 0; }
@@ -21,6 +21,8 @@ namespace GraphicsSystem.Types
 
         public static uint ColorToUint(Color c) { return c.ToUint(); }
         public static uint FromARGB(int rr, int gg, int bb) { return (uint)(256 * 256 * rr + 256 * gg + bb); }
+        public static uint FromARGB(int rr, int gg, int bb, int aa) { return (uint)(256 * 256 * 256* aa + 256 * 256 * rr + 256 * gg + bb); }
+
         public static Color ToARGB(uint c)
         {
             byte[] values = BitConverter.GetBytes(c);

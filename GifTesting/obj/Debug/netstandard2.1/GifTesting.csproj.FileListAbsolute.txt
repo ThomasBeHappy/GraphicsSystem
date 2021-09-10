@@ -1,0 +1,14 @@
+G:\Documents\GitHub\GraphicsSystem\GifTesting\bin\Debug\netstandard2.1\neko-anime-girl.gif
+G:\Documents\GitHub\GraphicsSystem\GifTesting\bin\Debug\netstandard2.1\GifTesting.deps.json
+G:\Documents\GitHub\GraphicsSystem\GifTesting\bin\Debug\netstandard2.1\GifTesting.dll
+G:\Documents\GitHub\GraphicsSystem\GifTesting\bin\Debug\netstandard2.1\GifTesting.pdb
+G:\Documents\GitHub\GraphicsSystem\GifTesting\bin\Debug\netstandard2.1\GifParser.dll
+G:\Documents\GitHub\GraphicsSystem\GifTesting\bin\Debug\netstandard2.1\GifParser.pdb
+G:\Documents\GitHub\GraphicsSystem\GifTesting\obj\Debug\netstandard2.1\GifTesting.csproj.AssemblyReference.cache
+G:\Documents\GitHub\GraphicsSystem\GifTesting\obj\Debug\netstandard2.1\GifTesting.GeneratedMSBuildEditorConfig.editorconfig
+G:\Documents\GitHub\GraphicsSystem\GifTesting\obj\Debug\netstandard2.1\GifTesting.AssemblyInfoInputs.cache
+G:\Documents\GitHub\GraphicsSystem\GifTesting\obj\Debug\netstandard2.1\GifTesting.AssemblyInfo.cs
+G:\Documents\GitHub\GraphicsSystem\GifTesting\obj\Debug\netstandard2.1\GifTesting.csproj.CoreCompileInputs.cache
+G:\Documents\GitHub\GraphicsSystem\GifTesting\obj\Debug\netstandard2.1\GifTesting.csproj.CopyComplete
+G:\Documents\GitHub\GraphicsSystem\GifTesting\obj\Debug\netstandard2.1\GifTesting.dll
+G:\Documents\GitHub\GraphicsSystem\GifTesting\obj\Debug\netstandard2.1\GifTesting.pdb
