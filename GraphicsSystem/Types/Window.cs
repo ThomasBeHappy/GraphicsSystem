@@ -3,6 +3,7 @@ using Cosmos.Debug.Kernel;
 using Cosmos.System;
 using Cosmos.System.Graphics;
 using GraphicsSystem.Core;
+using GraphicsSystem.Graphic.Controls;
 using GraphicsSystem.Hardware;
 using System;
 using System.Collections.Generic;
@@ -19,10 +20,11 @@ namespace GraphicsSystem.Types
 
         public char[] name;
 
-        protected int appX, appY, appWidth, appHeight, appOffset = 0;
+        internal int appX, appY, appWidth, appHeight, appOffset = 0;
 
         private bool pressed;
 
+        protected List<Control> controls = new List<Control>();
 
         public bool visible = false;
 
@@ -167,9 +169,13 @@ namespace GraphicsSystem.Types
             Graphics.Rectangle((uint)appX, (uint)appY, (uint)(appX + appWidth), (uint)(appY + appHeight), Color.black);
             Graphics.Rectangle(x, y, (x + width), (y + height), Color.gray32);
             Graphics.Rectangle((uint)(appX), (uint)appY, (uint)(appX + width), (uint)(appY + 22), Color.black);
-            Graphics.Rectangle((uint)(appX + width - 22), (uint)appY + 5, (uint)(appX + width - 5), (uint)(appY + 22), quitColor);
+            Graphics.Rectangle((uint)(appX + width - 22 - 5), (uint)appY + 5, (uint)(appX + width - 5), (uint)(appY + 22 - 5), quitColor);
             Graphics.DrawString((uint)appX, (uint)(appY + (font.characterHeight / 2)), font, name, Color.white);
-
+            for (int i = 0; i < controls.Count; i++)
+            {
+                controls[i].Draw();
+                controls[i].Update();
+            }
             Update();
             end:;
         }

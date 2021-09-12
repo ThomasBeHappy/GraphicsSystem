@@ -65,7 +65,7 @@ namespace GifParser
             int aspectRatio = 1;
             #endregion
 
-            int pos = 12;
+            int pos = 13;
 
             #region Global Color Table
             ColorTableEntry[] colorTable = new ColorTableEntry[sizeGlobalColorTable];
@@ -82,7 +82,7 @@ namespace GifParser
             List<Bitmap> images = new List<Bitmap>();
             while (data[pos] != 0x3b)
             {
-                Console.WriteLine(BitConverter.ToString(data));
+                Console.WriteLine(data[pos]);
                 if (data[pos] != 0x2c)
                 {
                     throw new Exception("Invalid Image Data");
@@ -97,11 +97,13 @@ namespace GifParser
                 pos += 2;
                 image.height = BitConverter.ToUInt16(data, pos);
                 pos += 2;
-
+                image.imageData = new uint[image.width * image.height];
                 bool localColorTableFlag = (data[pos] & 0b1) == 0b1;
                 image.interlaced = (data[pos] & 0b10) == 0b10;
                 bool sort = (data[pos] & 0b100) == 0b100;
                 int localColorTableSize = 1 << ((data[pos] & 0b11100000 >> 5) + 1);
+
+                pos++;
 
                 ColorTableEntry[] localColorTable = new ColorTableEntry[localColorTableSize];
                 if (localColorTableFlag)
@@ -117,12 +119,13 @@ namespace GifParser
                 while (data[pos] != 0)
                 {
                     byte length = data[pos++];
+                    subBlock = new byte[length];
                     for (int i = 0; i < length; i++)
                     {
                         subBlock[i] = data[pos++];
                     }
 
-                    byte[] decompressed = Compression.LzwDecompress(subBlock, length);
+                    byte[] decompressed = LZWDecoder.Decode(subBlock);
 
                     if (localColorTableFlag)
                     {
@@ -130,6 +133,13 @@ namespace GifParser
                         {
                             image.imageData[compressPos] = localColorTable[decompressed[i]].color;
                             compressPos++;
+                        }
+                    }else
+                    {
+                        for (int i = 0; i < decompressed.Length; i++)
+                        {
+                            image.imageData[compressPos] = colorTable[decompressed[i]].color;
+
                         }
                     }
                 }

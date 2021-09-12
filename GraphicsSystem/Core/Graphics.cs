@@ -30,7 +30,6 @@ namespace GraphicsSystem.Core
         public static int FONT_SPACING = 1;
         public static uint[] buffer;
         private static uint[] oldBuffer;
-        private static Debugger _debugger;
 
         public static Chunk[] chunks = new Chunk[6];
 
@@ -39,9 +38,8 @@ namespace GraphicsSystem.Core
         public static float delta { get; private set; } = 0;
         private static int tick = 0;
 
-        public static void Initialize(Debugger debugger)
+        public static void Initialize()
         {
-            _debugger = debugger;
             driver = new VMWareSVGAII();
             driver.SetMode(width, height);
             buffer = new uint[width * height];
@@ -577,24 +575,37 @@ namespace GraphicsSystem.Core
             }
         }
 
-        public static void DrawBitmapFromData(int aX, int aY, int aWidth, int aHeight, Bitmap data, uint transColor)
+        public unsafe static void DrawBitmapFromData(int aX, int aY, int aWidth, int aHeight, Bitmap data, uint transColor)
         {
-            if (aWidth + aX > width)
-            {
-                aWidth -= (width - (aWidth + aX));
-            }
-            if (aHeight + aY > height)
-            {
-                aHeight -= (height - (aHeight + aY));
-            }
+            //if (aWidth + aX > width)
+            //{
+            //    aWidth -= (width - (aWidth + aX));
+            //}
+            //if (aHeight + aY > height)
+            //{
+            //    aHeight -= (height - (aHeight + aY));
+            //}
 
-            for (int xx = 0; xx < aWidth; xx++)
+            //for (int xx = 0; xx < aWidth; xx++)
+            //{
+            //    for (int yy = 0; yy < aHeight; yy++)
+            //    {
+            //        if (data.rawData[xx + yy * aWidth] != transColor)
+            //        {
+            //            buffer[(aX + xx) + (aY + yy) * width] = (uint)data.rawData[xx + yy * aWidth];
+            //        }
+            //    }
+            //}
+
+            fixed (uint* bufferPtr = &buffer[0])
             {
-                for (int yy = 0; yy < aHeight; yy++)
+                fixed (int* falseImgPtr = &data.rawData[0])
                 {
-                    if (data.rawData[xx + yy * aWidth] != transColor)
+                    uint* imgPtr = (uint*)falseImgPtr;
+                    for (int y = 0; y < aHeight; y++)
                     {
-                        buffer[(aX + xx) + (aY + yy) * width] = (uint)data.rawData[xx + yy * aWidth];
+                        FastReplacer.Replace(imgPtr + y * aWidth, transColor, bufferPtr + aX + (aY + y) * width, data.rawData.Length);
+                        MemoryOperations.Copy(bufferPtr + aX + (aY + y) * width, imgPtr + y * aWidth, aWidth);
                     }
                 }
             }

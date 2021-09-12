@@ -17,11 +17,7 @@ namespace GraphicsSystem
     {
         protected override void BeforeRun()
         {
-            FileSystem.Initialize();
-            Graphics.Initialize(mDebugger);
-            Taskbar.Initialize();
-            ProcessManager.AddProcess(new Apps.Clock(10, 10, 300, 300));
-            ProcessManager.AddProcess(new Apps.FileExplorer(500, 500, 500, 400));
+            Bootup.Run();
         }
 
         public char[] fps = new char[] { 'F', 'P', 'S', ':' , ' ', '\0' };
@@ -47,7 +43,7 @@ namespace GraphicsSystem
 
                     // Base System Draws
                     // First thing to draw is the background image, as everything is allowed to overlap this.
-                    Graphics.DrawBitmapFromData(0, 0, 1920, 1080, BackgroundBitmap.bitmap);
+                    Graphics.DrawBitmapFromData(0, 0, 1920, 1080, BootBitmap.bitmap);
 
                     // Then draw all the windows that are loaded and update these windows.
                     ProcessManager.UpdateProcesses();
