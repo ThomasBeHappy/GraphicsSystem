@@ -1,4 +1,6 @@
-﻿using Cosmos.System;
+﻿#define COSMOSDEBUG
+using Cosmos.Debug.Kernel;
+using Cosmos.System;
 using GraphicsSystem.Core;
 using GraphicsSystem.Hardware;
 using GraphicsSystem.Types;
@@ -28,7 +30,9 @@ namespace GraphicsSystem.Graphic.Controls
 
         private Font font;
 
-        public Button(Window app, int width, int height, uint x, uint y, uint textColor, uint color, uint hoverColor, Font font, char[] text)
+        public object value;
+
+        public Button(Window app, int width, int height, uint x, uint y, uint textColor, uint color, uint hoverColor, Font font, char[] text, object value)
         {
             this.window = app;
             this.width = width;
@@ -40,6 +44,7 @@ namespace GraphicsSystem.Graphic.Controls
             this.font = font;
             this.text = text;
             this.hoverColor = hoverColor;
+            this.value = value;
 
             drawColor = this.color;
         }
@@ -58,24 +63,41 @@ namespace GraphicsSystem.Graphic.Controls
 
         public override void Draw()
         {
-            Graphics.Rectangle((uint)(window.appX + x), (uint)(window.appY + y), (uint)(window.appX + x + width), (uint)(window.appY + y + height), drawColor);
-            Graphics.DrawString((uint)(window.appX + x), (uint)(window.appY + y + (font.characterHeight / 2)), font, text, textColor);
+            Graphics.Rectangle(window.x + x, window.y + y, (uint)(window.x + x + width), (uint)(window.y + y + height), drawColor);
+            Graphics.DrawString(window.x + x, (uint)(window.y + y + (font.characterHeight / 2)), font, text, textColor);
         }
 
+
+        private bool pressed;
         public override void Update()
         {
-            if (Mouse.position.x > window.appX + x && Mouse.position.x < window.appX + x + width && Mouse.position.y > window.appY + y && Mouse.position.y < window.appY + y + height)
+            if (Mouse.position.x > window.x + x && Mouse.position.x < window.x + x + width && Mouse.position.y > window.y + y && Mouse.position.y < window.y + y + height)
             {
                 drawColor = hoverColor;
-                if (MouseManager.MouseState == MouseState.Left)
+                if (MouseManager.MouseState == MouseState.Left && pressed == false)
                 {
+                    Debugger debugger = new Debugger("", "");
+                    debugger.SendInternal(pressed + "");
+                    pressed = true;
                     if (OnClickEventHandler != null)
-                        OnClickEventHandler.Invoke(this, new EventArgs());
+                    {
+                        ButtonEventArgs args = new ButtonEventArgs();
+                        args.value = value;
+                        OnClickEventHandler.Invoke(this, args);
+                    }
+                }else if (MouseManager.MouseState == MouseState.None && pressed == true)
+                {
+                    pressed = false;
                 }
             }else
             {
                 drawColor = color;
             }
         }
+    }
+
+    public class ButtonEventArgs : EventArgs
+    {
+        public object value;
     }
 }

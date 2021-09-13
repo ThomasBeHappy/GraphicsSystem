@@ -692,23 +692,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\thoma\\.nuget\\packages\\": {},
+    "C:\\Users\\movec\\.nuget\\packages\\": {},
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "G:\\Documents\\GitHub\\GraphicsSystem\\GifTesting\\GifTesting.csproj",
+      "projectUniqueName": "C:\\Users\\movec\\source\\repos\\GraphicsSystem\\GifTesting\\GifTesting.csproj",
       "projectName": "GifTesting",
-      "projectPath": "G:\\Documents\\GitHub\\GraphicsSystem\\GifTesting\\GifTesting.csproj",
-      "packagesPath": "C:\\Users\\thoma\\.nuget\\packages\\",
-      "outputPath": "G:\\Documents\\GitHub\\GraphicsSystem\\GifTesting\\obj\\",
+      "projectPath": "C:\\Users\\movec\\source\\repos\\GraphicsSystem\\GifTesting\\GifTesting.csproj",
+      "packagesPath": "C:\\Users\\movec\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\movec\\source\\repos\\GraphicsSystem\\GifTesting\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
       ],
       "configFilePaths": [
-        "C:\\Users\\thoma\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\movec\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -716,15 +716,15 @@
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-        "C:\\Users\\thoma\\AppData\\Roaming\\Cosmos User Kit\\packages\\": {},
+        "C:\\Users\\movec\\AppData\\Roaming\\Cosmos User Kit\\packages\\": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
         "netcoreapp2.0": {
           "targetAlias": "netcoreapp2.0",
           "projectReferences": {
-            "G:\\Documents\\GitHub\\GraphicsSystem\\GifParser\\GifParser.csproj": {
-              "projectPath": "G:\\Documents\\GitHub\\GraphicsSystem\\GifParser\\GifParser.csproj"
+            "C:\\Users\\movec\\source\\repos\\GraphicsSystem\\GifParser\\GifParser.csproj": {
+              "projectPath": "C:\\Users\\movec\\source\\repos\\GraphicsSystem\\GifParser\\GifParser.csproj"
             }
           }
         }

@@ -24,7 +24,7 @@ namespace GraphicsSystem.Graphic
 
             for (int i = 0; i < ProcessManager.windows.Count; i++)
             {
-                ProcessManager.windows[i].dockX = (uint)(65 + (50 * (i + devider)));
+                ProcessManager.windows[i].dockX = (uint)(65 + ((60 * i)));
                 ProcessManager.windows[i].dockY = Graphics.height - 55;
                 ProcessManager.windows[i].dockHeight = 50;
                 ProcessManager.windows[i].dockWidth = 50;

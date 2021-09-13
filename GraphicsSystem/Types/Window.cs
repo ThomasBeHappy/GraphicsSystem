@@ -13,7 +13,7 @@ namespace GraphicsSystem.Types
 {
     public abstract class Window
     {
-        protected uint x, y,  width, height;
+        internal uint x, y,  width, height;
 
         public uint dockX, dockY;
         public uint dockWidth = 40, dockHeight = 30;
@@ -171,11 +171,6 @@ namespace GraphicsSystem.Types
             Graphics.Rectangle((uint)(appX), (uint)appY, (uint)(appX + width), (uint)(appY + 22), Color.black);
             Graphics.Rectangle((uint)(appX + width - 22 - 5), (uint)appY + 5, (uint)(appX + width - 5), (uint)(appY + 22 - 5), quitColor);
             Graphics.DrawString((uint)appX, (uint)(appY + (font.characterHeight / 2)), font, name, Color.white);
-            for (int i = 0; i < controls.Count; i++)
-            {
-                controls[i].Draw();
-                controls[i].Update();
-            }
             Update();
             end:;
         }
