@@ -9,6 +9,9 @@ namespace GifParser
         public Bitmap[] bitmaps;
         public int gifVersion;
         public int minScreenWidth, minScreenHeight;
+        public char[] comment;
+        public ushort loopTimes;
+        public List<Bitmap> images = new List<Bitmap>();
     }
 
     public struct Bitmap
@@ -47,7 +50,8 @@ namespace GifParser
             if (data[3] == '8' && data[4] == '7' && data[5] == 'a')
             {
                 gif.gifVersion = 1;
-            }else
+            }
+            else
             {
                 gif.gifVersion = 2;
             }
@@ -57,7 +61,8 @@ namespace GifParser
             gif.minScreenHeight = BitConverter.ToUInt16(data, 8);
 
             #region Logical Screen Descriptor
-            int sizeGlobalColorTable = 1 << ((data[10] & 0b111) + 1);
+            int globalColorBits = ((data[10] & 0b111) + 1);
+            int sizeGlobalColorTable = 1 << globalColorBits;
             bool colorTableSortFlag = (data[10] & 0b1000) == 0b1000;
             int colorResolution = data[10] & 0b1110000 >> 4;
             bool globalColorTableFlag = (data[10] & 0b10000000) == 0b10000000;
@@ -65,80 +70,185 @@ namespace GifParser
             int aspectRatio = 1;
             #endregion
 
-            int pos = 12;
+            int pos = 13;
 
             #region Global Color Table
-            ColorTableEntry[] colorTable = new ColorTableEntry[sizeGlobalColorTable];
+            uint[] colorTable = new uint[sizeGlobalColorTable];
             if (globalColorTableFlag)
             {
                 for (int i = 0; i < colorTable.Length; i++)
                 {
-                    colorTable[i] = new ColorTableEntry(data[pos++], data[pos++], data[pos++]);
+                    colorTable[i] = (uint)(((uint)data[pos++] << 0x8000) + ((uint)data[pos++] << 0x80) + data[pos++]);
                 }
             }
             #endregion
-
-            #region Images
-            List<Bitmap> images = new List<Bitmap>();
             while (data[pos] != 0x3b)
             {
-                Console.WriteLine(BitConverter.ToString(data));
-                if (data[pos] != 0x2c)
+                while (data[pos] == 0x21)
                 {
-                    throw new Exception("Invalid Image Data");
-                }
-                pos++;
-                Bitmap image = new Bitmap();
-                image.x = BitConverter.ToUInt16(data, pos);
-                pos+=2;
-                image.y = BitConverter.ToUInt16(data, pos);
-                pos += 2;
-                image.width = BitConverter.ToUInt16(data, pos);
-                pos += 2;
-                image.height = BitConverter.ToUInt16(data, pos);
-                pos += 2;
-
-                bool localColorTableFlag = (data[pos] & 0b1) == 0b1;
-                image.interlaced = (data[pos] & 0b10) == 0b10;
-                bool sort = (data[pos] & 0b100) == 0b100;
-                int localColorTableSize = 1 << ((data[pos] & 0b11100000 >> 5) + 1);
-
-                ColorTableEntry[] localColorTable = new ColorTableEntry[localColorTableSize];
-                if (localColorTableFlag)
-                {
-                    for (int i = 0; i < localColorTableSize; i++)
+                    #region Comment Block
+                    //TODO: Support them everywhere
+                    if (data[pos + 1] == 0xFE)
                     {
-                        localColorTable[i] = new ColorTableEntry(data[pos++], data[pos++], data[pos++]);
+                        pos += 2;
+                        byte length = data[pos++];
+                        char[] comment = new char[length];
+                        for (int i = 0; i < length; i++)
+                        {
+                            comment[i] = (char)data[pos++];
+                        }
+                        if (data[pos++] != 0)
+                        {
+                            throw new Exception("Comment block should be over");
+                        }
+                        if (gif.comment != null)
+                        {
+                            throw new NotSupportedException("GIFs with more than one comment section are not supported");
+                        }
                     }
+                    #endregion
+
+                    #region Graphics Control Extension
+                    if (data[pos + 1] == 0xF9)
+                    {
+                        pos += 2;
+                        if (data[pos++] != 4)
+                        {
+                            throw new Exception("Invalid byte size");
+                        }
+                        pos += 4; //skip the parsing of the rest for now
+                        if (data[pos++] != 0)
+                        {
+                            throw new Exception("Should be at end of GCE");
+                        }
+                    }
+                    #endregion
+
+                    #region Plain Text Extension
+                    if (data[pos + 1] == 0x01)
+                    {
+                        pos += 2;
+                        var length = data[pos++];
+                        pos += length;
+                        if (data[pos++] != 0)
+                        {
+                            throw new Exception("Should be at end of PTE");
+                        }
+                    }
+                    #endregion
+
+                    #region Application Extension
+                    if (data[pos + 1] == 0xFF)
+                    {
+                        pos += 2;
+                        var length = data[pos++];
+                        if (length != 0x0B)
+                        {
+                            throw new Exception("Invalid Length: Can only handle NETSCAPE Application Extensions");
+                        }
+                        pos += 11; //Skip NETSCAPE2.0
+                        if (data[pos++] != 3)
+                        {
+                            throw new Exception("Unexpected value");
+                        }
+                        if (data[pos++] != 1)
+                        {
+                            throw new Exception("Unexpected value");
+                        }
+                        gif.loopTimes = BitConverter.ToUInt16(data, pos);
+                        pos += 2;
+                        if (data[pos++] != 0)
+                        {
+                            throw new Exception("Unexpected value");
+                        }
+                    }
+                    #endregion
                 }
 
-                byte[] subBlock = new byte[255];
-                int compressPos = 0;
-                while (data[pos] != 0)
+
+                #region Images
+                if (data[pos] == 0x2c)
                 {
-                    byte length = data[pos++];
-                    for (int i = 0; i < length; i++)
-                    {
-                        subBlock[i] = data[pos++];
-                    }
+                    pos++;
+                    Bitmap image = new Bitmap();
+                    image.x = BitConverter.ToUInt16(data, pos);
+                    pos += 2;
+                    image.y = BitConverter.ToUInt16(data, pos);
+                    pos += 2;
+                    image.width = BitConverter.ToUInt16(data, pos);
+                    pos += 2;
+                    image.height = BitConverter.ToUInt16(data, pos);
+                    pos += 2;
+                    image.imageData = new uint[image.width * image.height];
 
-                    byte[] decompressed = Compression.LzwDecompress(subBlock, length);
+                    bool localColorTableFlag = (data[pos] & 0b1000_0000) == 0b1000_0000;
+                    image.interlaced = (data[pos] & 0b0100_0000) == 0b0100_0000;
+                    bool sort = (data[pos] & 0b0010_0000) == 0b0010_0000;
+                    int localColorBits = ((data[pos] & 0b111) + 1);
+                    int localColorTableSize = 1 << localColorBits;
+                    pos++;
 
+                    uint[] localColorTable = new uint[localColorTableSize];
                     if (localColorTableFlag)
                     {
+                        for (int i = 0; i < localColorTableSize; i++)
+                        {
+                            localColorTable[i] = (uint)(((uint)data[pos++] << 0x8000) + ((uint)data[pos++] << 0x80) + data[pos++]);
+                        }
+                    }
+
+                    int compressPos = 0;
+                    int minimumCodeSize;
+                    if (data[pos] != 0)
+                    {
+                        minimumCodeSize = data[pos++] + 1;
+                    }
+                    else
+                    {
+                        throw new Exception("Invalid code size");
+                    }
+                    int c = pos;
+                    int compressedLength = 0;
+                    while (data[c] != 0)
+                    {
+                        compressedLength += data[c];
+                        c += data[c] + 1;
+                    }
+                    byte[] compressedData = new byte[compressedLength];
+                    c = 0;
+                    while (data[pos] != 0)
+                    {
+                        byte length = data[pos++];
+                        for (int i = 0; i < length; i++)
+                        {
+                            compressedData[c++] = data[pos++];
+                        }
+
+                    }
+                    if (localColorTableFlag)
+                    {
+                        byte[] decompressed = LZWDecoder.Decode(compressedData, dictionarySize: localColorTableSize, minIndexSize: minimumCodeSize, isGIF: true);
                         for (int i = 0; i < decompressed.Length; i++)
                         {
-                            image.imageData[compressPos] = localColorTable[decompressed[i]].color;
+                            image.imageData[compressPos++] = localColorTable[decompressed[i]];
+                        }
+                    }
+                    else
+                    {
+                        byte[] decompressed = LZWDecoder.Decode(compressedData, dictionarySize: sizeGlobalColorTable, minIndexSize: minimumCodeSize, isGIF: true);
+                        for (int i = 0; i < decompressed.Length; i++)
+                        {
+                            image.imageData[compressPos] = colorTable[decompressed[i]];
                             compressPos++;
                         }
                     }
+                    gif.images.Add(image);
+                    pos++;
                 }
-                images.Add(image);
-
+                #endregion
             }
-            #endregion
 
-            return null;
+            return gif;
         }
     }
 }
