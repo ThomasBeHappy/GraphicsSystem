@@ -241,6 +241,13 @@ namespace GifParser
                             image.imageData[compressPos] = colorTable[decompressed[i]];
                             compressPos++;
                         }
+                    }else
+                    {
+                        for (int i = 0; i < decompressed.Length; i++)
+                        {
+                            image.imageData[compressPos] = colorTable[decompressed[i]].color;
+
+                        }
                     }
                     gif.images.Add(image);
                     pos++;

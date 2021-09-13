@@ -1,7 +1,9 @@
-﻿using Cosmos.System.FileSystem.Listing;
+﻿using Cosmos.Debug.Kernel;
+using Cosmos.System.FileSystem.Listing;
 using Cosmos.System.Graphics;
 using GraphicsSystem.Core;
 using GraphicsSystem.Data;
+using GraphicsSystem.Graphic.Controls;
 using GraphicsSystem.Types;
 using System;
 using System.Collections.Generic;
@@ -23,6 +25,8 @@ namespace GraphicsSystem.Apps
 
         static Bitmap icon = FileSystemBitmaps.bitmap;
 
+        List<Control> controls = new List<Control>();
+
         public FileExplorer(uint x, uint y, uint width, uint height) : base(name, x, y, width, height, icon)
         {
         }
@@ -41,6 +45,30 @@ namespace GraphicsSystem.Apps
                         folderNames.Add(item.mName.ToCharArray());
                     }
                     refresh = false;
+
+                    
+                }else
+                {
+                    folderNames.Clear();
+                    directoryEntries = FileSystem.fs.GetDirectoryListing(path);
+
+                    foreach (var item in directoryEntries)
+                    {
+                        folderNames.Add(item.mName.ToCharArray());
+                    }
+                    refresh = false;
+                }
+
+                controls.Clear();
+
+                // TODO fix this
+                for (int i = 0; i < directoryEntries.Count; i++)
+                {
+                    //Graphics.DrawString(x + 120, (uint)(y + 35 + ((i * 50) + 10)), font, folderNames[i], Color.white);
+
+                    controls.Add(new Button(this, 100, 50, 120, (uint)(35 + ((i * 50) + 10)), Color.white, Color.black, Color.gray160, font, folderNames[i]));
+                    Debugger debugger = new Debugger("", "");
+                    debugger.SendInternal("added button");
                 }
             }
 
@@ -51,7 +79,7 @@ namespace GraphicsSystem.Apps
             for (int i = 0; i < directoryEntries.Count; i++)
             {
                 Graphics.DrawBitmapFromData((int)(x + 65), (int)(y + 35 + ((i * 50) + 10)), 50, 50, FileSystemBitmaps.bitmap, Color.black);
-                Graphics.DrawString(x + 120, (uint)(y + 35 + ((i * 50) + 10)), font, folderNames[i], Color.white);
+                //Graphics.DrawString(x + 120, (uint)(y + 35 + ((i * 50) + 10)), font, folderNames[i], Color.white);
             }
 
         }

@@ -1,8 +1,13 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Text;
 
 namespace GifParser
 {
+    /// <summary>
+    /// This class allows reading from a byte array single bits
+    /// </summary>
     public class BinaryStream : Stream
     {
         private byte[] data;
@@ -69,16 +74,16 @@ namespace GifParser
             var bitsToRead = Math.Min(Math.Min(bytesToRead * 8, Length - bytePos * 8 - bitPos), count);
             if (!LSB)
             {
-                buffer[offset] = 0;
-                for (int i = 0; i < bitsToRead % 8; i++)
-                {
-                    buffer[offset] <<= 1;
-                    buffer[offset] |= ReadBit();
-                }
-                if (bitsToRead % 8 != 0)
-                {
-                    offset++;
-                }
+            buffer[offset] = 0;
+            for (int i = 0; i < bitsToRead % 8; i++)
+            {
+                buffer[offset] <<= 1;
+                buffer[offset] |= ReadBit();
+            }
+            if (bitsToRead % 8 != 0)
+            {
+                offset++;
+            }
             }
             for (int i = 0; i < bitsToRead / 8; i++)
             {
@@ -95,6 +100,7 @@ namespace GifParser
                     buffer[offset] |= (byte)(ReadBit() << i);
                 }
             }
+
 
             return bytesToRead;
         }
@@ -114,11 +120,11 @@ namespace GifParser
                 byte val = 0;
                 if (!LSB)
                 {
-                    for (int i = 0; i < 8; i++)
-                    {
-                        val <<= 1;
-                        val |= ReadBit();
-                    }
+                for (int i = 0; i < 8; i++)
+                {
+                    val <<= 1;
+                    val |= ReadBit();
+                }
                 }
                 else
                 {
