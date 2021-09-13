@@ -1,15 +1,15 @@
 {
   "version": 2,
-  "dgSpecHash": "CVQH/+diZjMdhwo9H1yxlN6jlgTVK8Z3MAAGJtBLnQKa03NvhEz+KOL+rc1I9k7wEmcFDOIAsx3uOTNqPrNIMQ==",
+  "dgSpecHash": "vOwEEDFPAvdmVDPrHPr0a5F/qhGNyrAzUVOi3jUQEsNP8mvvVlbyMouTaGh0fN+ceA7Qew4mMW2phgaCmA+13A==",
   "success": true,
-  "projectFilePath": "C:\\Users\\movec\\source\\repos\\GraphicsSystem\\GifParser\\GifParser.csproj",
+  "projectFilePath": "G:\\Documents\\GitHub\\GraphicsSystem\\GifParser\\GifParser.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\movec\\.nuget\\packages\\microsoft.netcore.app\\2.0.0\\microsoft.netcore.app.2.0.0.nupkg.sha512",
-    "C:\\Users\\movec\\.nuget\\packages\\microsoft.netcore.dotnetapphost\\2.0.0\\microsoft.netcore.dotnetapphost.2.0.0.nupkg.sha512",
-    "C:\\Users\\movec\\.nuget\\packages\\microsoft.netcore.dotnethostpolicy\\2.0.0\\microsoft.netcore.dotnethostpolicy.2.0.0.nupkg.sha512",
-    "C:\\Users\\movec\\.nuget\\packages\\microsoft.netcore.dotnethostresolver\\2.0.0\\microsoft.netcore.dotnethostresolver.2.0.0.nupkg.sha512",
-    "C:\\Users\\movec\\.nuget\\packages\\microsoft.netcore.platforms\\2.0.0\\microsoft.netcore.platforms.2.0.0.nupkg.sha512",
-    "C:\\Users\\movec\\.nuget\\packages\\netstandard.library\\2.0.0\\netstandard.library.2.0.0.nupkg.sha512"
+    "C:\\Users\\thoma\\.nuget\\packages\\microsoft.netcore.app\\2.0.0\\microsoft.netcore.app.2.0.0.nupkg.sha512",
+    "C:\\Users\\thoma\\.nuget\\packages\\microsoft.netcore.dotnetapphost\\2.0.0\\microsoft.netcore.dotnetapphost.2.0.0.nupkg.sha512",
+    "C:\\Users\\thoma\\.nuget\\packages\\microsoft.netcore.dotnethostpolicy\\2.0.0\\microsoft.netcore.dotnethostpolicy.2.0.0.nupkg.sha512",
+    "C:\\Users\\thoma\\.nuget\\packages\\microsoft.netcore.dotnethostresolver\\2.0.0\\microsoft.netcore.dotnethostresolver.2.0.0.nupkg.sha512",
+    "C:\\Users\\thoma\\.nuget\\packages\\microsoft.netcore.platforms\\2.0.0\\microsoft.netcore.platforms.2.0.0.nupkg.sha512",
+    "C:\\Users\\thoma\\.nuget\\packages\\netstandard.library\\2.0.0\\netstandard.library.2.0.0.nupkg.sha512"
   ],
   "logs": []
 }

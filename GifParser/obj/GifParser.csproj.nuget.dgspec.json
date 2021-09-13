@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\movec\\source\\repos\\GraphicsSystem\\GifParser\\GifParser.csproj": {}
+    "G:\\Documents\\GitHub\\GraphicsSystem\\GifParser\\GifParser.csproj": {}
   },
   "projects": {
-    "C:\\Users\\movec\\source\\repos\\GraphicsSystem\\GifParser\\GifParser.csproj": {
+    "G:\\Documents\\GitHub\\GraphicsSystem\\GifParser\\GifParser.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\movec\\source\\repos\\GraphicsSystem\\GifParser\\GifParser.csproj",
+        "projectUniqueName": "G:\\Documents\\GitHub\\GraphicsSystem\\GifParser\\GifParser.csproj",
         "projectName": "GifParser",
-        "projectPath": "C:\\Users\\movec\\source\\repos\\GraphicsSystem\\GifParser\\GifParser.csproj",
-        "packagesPath": "C:\\Users\\movec\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\movec\\source\\repos\\GraphicsSystem\\GifParser\\obj\\",
+        "projectPath": "G:\\Documents\\GitHub\\GraphicsSystem\\GifParser\\GifParser.csproj",
+        "packagesPath": "C:\\Users\\thoma\\.nuget\\packages\\",
+        "outputPath": "G:\\Documents\\GitHub\\GraphicsSystem\\GifParser\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
         ],
         "configFilePaths": [
-          "C:\\Users\\movec\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\thoma\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -25,7 +25,7 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Users\\movec\\AppData\\Roaming\\Cosmos User Kit\\packages\\": {},
+          "C:\\Users\\thoma\\AppData\\Roaming\\Cosmos User Kit\\packages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {

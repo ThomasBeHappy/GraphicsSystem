@@ -11,6 +11,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.IO;
 using Cosmos.HAL;
+using Cosmos.HAL.Drivers.PCI.Audio;
 
 namespace GraphicsSystem.Apps
 {
@@ -72,18 +73,21 @@ namespace GraphicsSystem.Apps
                     }
                     refresh = false;
                 }
-
+                
                 controls.Clear();
-
 
                 // TODO fix this
                 for (int i = 0; i < folderNames.Count; i++)
                 {
                     //Graphics.DrawString(x + 120, (uint)(y + 35 + ((i * 50) + 10)), font, folderNames[i], Color.white);
-                    Button button = new Button(this, 200, 50, 120, (uint)(35 + ((i * 50) + 10)), Color.white, Color.black, Color.gray160, font, folderNames[i], directoryEntries[i].mFullPath);
-                    button.OnClick += ChangeDirectory;
-                    controls.Add(button);
+                    if (directoryEntries[i].mEntryType == DirectoryEntryTypeEnum.Directory)
+                    {
+                        Button button = new Button(this, 200, 50, 120, (uint)(35 + ((i * 60))), Color.white, Color.black, Color.gray160, font, folderNames[i], directoryEntries[i].mFullPath);
+                        button.OnClick += ChangeDirectory;
+                        controls.Add(button);
+                    }
                 }
+                
                 Button returnB = new Button(this, 20, 20, 0, 0, Color.white, Color.black, Color.gray160, font, returnButton, null);
                 returnB.OnClick += FolderBack;
                 controls.Add(returnB);
@@ -99,7 +103,20 @@ namespace GraphicsSystem.Apps
             //Draw all folders/volumes
             for (int i = 0; i < folderNames.Count; i++)
             {
-                Graphics.DrawBitmapFromData((int)(x + 65), (int)(y + 35 + ((i * 50) + 10)), 50, 50, FileSystemBitmaps.bitmap, Color.black);
+                if (directoryEntries[i].mEntryType == DirectoryEntryTypeEnum.Directory)
+                {
+                    Graphics.DrawBitmapFromData((int)(x + 65), (int)(y + 35 + (i * 60)), 50, 50, FileSystemBitmaps.bitmap, Color.black);
+                }
+                else if (directoryEntries[i].mEntryType == DirectoryEntryTypeEnum.File)
+                {
+                    Graphics.DrawBitmapFromData((int)(x + 65), (int)(y + 35 + (i * 60)), 50, 50, FileSystemBitmaps.fileBitmap, Color.black);
+                    Graphics.DrawString(x + 120, (uint)(y + 35 + ((i * 60))), font, folderNames[i], Color.white);
+                }
+                else if (directoryEntries[i].mEntryType == DirectoryEntryTypeEnum.Unknown)
+                {
+                    Graphics.DrawString(x + 120, (uint)(y + 35 + ((i * 60))), font, folderNames[i], Color.white);
+                }
+
                 //Graphics.DrawString(x + 120, (uint)(y + 35 + ((i * 50) + 10)), font, folderNames[i], Color.white);
             }
 

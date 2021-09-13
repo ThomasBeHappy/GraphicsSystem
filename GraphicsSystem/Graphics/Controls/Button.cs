@@ -64,7 +64,7 @@ namespace GraphicsSystem.Graphic.Controls
         public override void Draw()
         {
             Graphics.Rectangle(window.x + x, window.y + y, (uint)(window.x + x + width), (uint)(window.y + y + height), drawColor);
-            Graphics.DrawString(window.x + x, (uint)(window.y + y + (font.characterHeight / 2)), font, text, textColor);
+            Graphics.DrawString(window.x + x, (uint)((uint)(window.y + y + (height/2)) - (font.characterHeight / 2)), font, text, textColor);
         }
 
 

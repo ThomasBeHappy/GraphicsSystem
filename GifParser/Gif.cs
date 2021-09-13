@@ -187,7 +187,7 @@ namespace GifParser
                     int localColorBits = ((data[pos] & 0b111) + 1);
                     int localColorTableSize = 1 << localColorBits;
                     pos++;
-
+                    
                     uint[] localColorTable = new uint[localColorTableSize];
                     if (localColorTableFlag)
                     {
@@ -240,13 +240,6 @@ namespace GifParser
                         {
                             image.imageData[compressPos] = colorTable[decompressed[i]];
                             compressPos++;
-                        }
-                    }else
-                    {
-                        for (int i = 0; i < decompressed.Length; i++)
-                        {
-                            image.imageData[compressPos] = colorTable[decompressed[i]].color;
-
                         }
                     }
                     gif.images.Add(image);
