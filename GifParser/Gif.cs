@@ -201,7 +201,7 @@ namespace GifParser
                     int localColorBits = ((data[pos] & 0b111) + 1);
                     int localColorTableSize = 1 << localColorBits;
                     pos++;
-
+                    
                     uint[] localColorTable = new uint[localColorTableSize];
                     if (localColorTableFlag)
                     {

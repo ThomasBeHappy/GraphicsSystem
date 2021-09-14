@@ -122,6 +122,7 @@
     <ItemGroup>
       <None Remove="Data\Bitmaps\Boot.bmp" />
       <None Remove="Data\Bitmaps\Clock.bmp" />
+      <None Remove="Data\Bitmaps\File.bmp" />
       <None Remove="Data\Bitmaps\Folder.bmp" />
       <None Remove="Data\Bitmaps\Gaming Frame.bmp" />
       <None Remove="Data\Gaming Frame.bmp" />
@@ -130,6 +131,7 @@
     <ItemGroup>
       <EmbeddedResource Include="Data\Bitmaps\Boot.bmp" />
       <EmbeddedResource Include="Data\Bitmaps\Clock.bmp" />
+      <EmbeddedResource Include="Data\Bitmaps\File.bmp" />
       <EmbeddedResource Include="Data\Bitmaps\Folder.bmp" />
       <EmbeddedResource Include="Data\Bitmaps\Gaming Frame.bmp" />
     </ItemGroup>

@@ -15,5 +15,17 @@ namespace GraphicsSystem.Hardware
         public static bool moving { get; private set; }
 
         public static bool pressed;
+
+        public static int movingProcess = -1;
+
+        public static void SetMovingWindow(int processID)
+        {
+            movingProcess = processID;
+        }
+
+        public static void ClearWindow()
+        {
+            movingProcess = -1;
+        }
     }
 }

@@ -26,6 +26,10 @@ namespace GifParser
                 throw new ArgumentOutOfRangeException();
             }
             List<byte> output = new List<byte>();
+<<<<<<< HEAD
+=======
+            //BinaryStream input = new BinaryStream(data);
+>>>>>>> 183ee7ed3e34ebf2fd4711777f62b97255bcecfa
             Dictionary<ushort, byte[]> dictionary = new Dictionary<ushort, byte[]>();
             InitialiseDictionary(dictionarySize, dictionaryBaseOffset, dictionary);
 
@@ -79,7 +83,7 @@ namespace GifParser
                     if (dictionary.Count < 4096 && oldValue.Length != 0)
                     {
                         var B = dictionary[indexVal][0];
-                            dictionary[(ushort)dictionary.Count] = Combine(oldValue, B);
+                        dictionary[(ushort)dictionary.Count] = Combine(oldValue, B);
                     }
                     oldValue = dictionary[indexVal];
                 }
@@ -87,11 +91,11 @@ namespace GifParser
                 {
                     if (dictionary.Count < 4096 && oldValue.Length != 0)
                     {
-                    var B = oldValue[0];
+                        var B = oldValue[0];
                         dictionary[indexVal] = Combine(oldValue, B);
-                }
+                    }
                     output.AddRange(dictionary[indexVal]);
-                oldValue = dictionary[indexVal];
+                    oldValue = dictionary[indexVal];
                 }
                 if (dictionary.Count > (1 << indexSize) - 1)
                 {
@@ -128,16 +132,16 @@ namespace GifParser
                 }
             }
             else
-        {
-            if (aArray.Length == 1 || indexSize <= 8)
             {
-                return aArray[0];
+                if (aArray.Length == 1 || indexSize <= 8)
+                {
+                    return aArray[0];
+                }
+                else
+                {
+                    return (ushort)((aArray[0] << 8) + aArray[1]);
+                }
             }
-            else
-            {
-                return (ushort)((aArray[0] << 8) + aArray[1]);
-            }
-        }
         }
 
         private static byte[] Combine(byte[] a, byte b)
