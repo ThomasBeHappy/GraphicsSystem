@@ -95,11 +95,16 @@ namespace GraphicsSystem.Apps
 
             Graphics.Rectangle(x, y, x + 60,y + height, Color.black);
             Graphics.Rectangle(x, y, x + width, y + 20, Color.black);
+
             for (int i = 0; i < controls.Count; i++)
             {
                 controls[i].Draw();
-                controls[i].Update();
+                if (Z_Index == 0)
+                {
+                    controls[i].Update();
+                }
             }
+
             //Draw all folders/volumes
             for (int i = 0; i < folderNames.Count; i++)
             {
@@ -127,8 +132,6 @@ namespace GraphicsSystem.Apps
             if (!recentlyChanged)
             {
                 path = (string)((Button)sender).value;
-                Debugger debugger = new Debugger("", "");
-                debugger.SendInternal(path);
                 recentlyChanged = true;
                 refresh = true;
             }

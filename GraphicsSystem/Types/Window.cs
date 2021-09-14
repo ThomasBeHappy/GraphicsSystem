@@ -41,6 +41,7 @@ namespace GraphicsSystem.Types
         public Bitmap icon;
 
         public int processID = 0;
+        public int Z_Index = 0;
 
         public Window(char[] name, uint x, uint y, uint width, uint height, Bitmap icon)
         {
@@ -81,8 +82,12 @@ namespace GraphicsSystem.Types
                 }
             }
 
+
+            if (!visible)
+                goto end;
+
             // Handle the quit button on the app
-            if (MouseManager.X > appX + width - 22 && MouseManager.X < appX + width && MouseManager.Y > appY && MouseManager.Y < appY + 22)
+            if (MouseManager.X > appX + width - 22 && MouseManager.X < appX + width && MouseManager.Y > appY && MouseManager.Y < appY + 22 && Mouse.movingProcess == -1)
             {
                 quitColor = Color.gray160;
                 if (MouseManager.MouseState == MouseState.Left && this.pressed == false)
@@ -98,10 +103,12 @@ namespace GraphicsSystem.Types
             // Move the app
             if (Mouse.pressed)
             {
-                if (MouseManager.X > appX - appOffset && MouseManager.X < appX + width - 22 - appOffset && MouseManager.Y > appY && MouseManager.Y < appY + 22)
+                if (MouseManager.X > appX - appOffset && MouseManager.X < appX + width - 22 - appOffset && MouseManager.Y > appY && MouseManager.Y < appY + 22 && Mouse.movingProcess == -1)
                 {
                     if (this.pressed == false)
                     {
+                        Mouse.SetMovingWindow(processID);
+                        UpdateZ();
                         mouseMoveOffsetX = (uint)(MouseManager.X - appX);
                         mouseMoveOffsetY = (uint)(MouseManager.Y - appY);
                     }
@@ -111,13 +118,14 @@ namespace GraphicsSystem.Types
             }
             else
             {
+                if (Mouse.movingProcess == processID)
+                {
+                    Mouse.ClearWindow();
+                }
                 mouseMoveOffsetX = 0;
                 mouseMoveOffsetY = 0;
                 this.pressed = false;
             }
-
-            if (!visible)
-                goto end;
 
             if (this.pressed)
             {
@@ -183,6 +191,11 @@ namespace GraphicsSystem.Types
         public virtual void Quit()
         {
 
+        }
+
+        private void UpdateZ()
+        {
+            ProcessManager.PrioritizeZ(processID);
         }
     }
 }

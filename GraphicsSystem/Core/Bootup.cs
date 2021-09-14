@@ -22,7 +22,9 @@ namespace GraphicsSystem.Core
             //ProcessManager.AddProcess(new Apps.Clock(10, 10, 300, 300));
             //ProcessManager.AddProcess(new Apps.Clock(10, 10, 300, 300));
             ProcessManager.AddProcess(new Apps.FileExplorer(500, 500, 500, 400));
-
+            ProcessManager.AddProcess(new Apps.FileExplorer(500, 500, 500, 400));
+            ProcessManager.AddProcess(new Apps.FileExplorer(500, 500, 500, 400));
+            ProcessManager.PrioritizeZ(1);
         }
     }
 }

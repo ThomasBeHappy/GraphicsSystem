@@ -76,8 +76,6 @@ namespace GraphicsSystem.Graphic.Controls
                 drawColor = hoverColor;
                 if (MouseManager.MouseState == MouseState.Left && pressed == false)
                 {
-                    Debugger debugger = new Debugger("", "");
-                    debugger.SendInternal(pressed + "");
                     pressed = true;
                     if (OnClickEventHandler != null)
                     {
