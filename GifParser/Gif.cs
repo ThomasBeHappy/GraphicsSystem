@@ -6,12 +6,17 @@ namespace GifParser
     public class Gif
     {
         public int speed;
-        public Bitmap[] bitmaps;
         public int gifVersion;
         public int minScreenWidth, minScreenHeight;
         public char[] comment;
         public ushort loopTimes;
         public List<Bitmap> images = new List<Bitmap>();
+        public DisposalMethod DisposalMethod;
+        public ushort BackgroundColor;
+        public ushort TransparentColor;
+        public bool Transparency;
+        public bool UserInput;
+        public ushort DelayTime;
     }
 
     public struct Bitmap
@@ -25,6 +30,9 @@ namespace GifParser
         public int x;
         public int y;
     }
+
+    //http://giflib.sourceforge.net/whatsinagif/animation_and_transparency.html
+    public enum DisposalMethod : byte { DrawOver = 1, Restore = 2, Previous = 3, NoDisposalMethod = 0}
 
     public struct ColorTableEntry
     {
@@ -66,7 +74,7 @@ namespace GifParser
             bool colorTableSortFlag = (data[10] & 0b1000) == 0b1000;
             int colorResolution = data[10] & 0b1110000 >> 4;
             bool globalColorTableFlag = (data[10] & 0b10000000) == 0b10000000;
-            uint backgroundColor = data[11];
+            gif.BackgroundColor = data[11];
             int aspectRatio = 1;
             #endregion
 
@@ -116,7 +124,13 @@ namespace GifParser
                         {
                             throw new Exception("Invalid byte size");
                         }
-                        pos += 4; //skip the parsing of the rest for now
+                        byte packed = data[pos++];
+                        gif.Transparency = (packed & 1) == 1;
+                        gif.UserInput = (packed & 2) == 2;
+                        gif.DisposalMethod = (DisposalMethod)(packed >> 2);
+                        gif.DelayTime = BitConverter.ToUInt16(data, pos);
+                        pos += 2;
+                        gif.TransparentColor = data[pos++];
                         if (data[pos++] != 0)
                         {
                             throw new Exception("Should be at end of GCE");
@@ -208,6 +222,7 @@ namespace GifParser
                         throw new Exception("Invalid code size");
                     }
                     int c = pos;
+                    //determine length of all blocks
                     int compressedLength = 0;
                     while (data[c] != 0)
                     {
@@ -216,6 +231,7 @@ namespace GifParser
                     }
                     byte[] compressedData = new byte[compressedLength];
                     c = 0;
+                    //read data from all blocks
                     while (data[pos] != 0)
                     {
                         byte length = data[pos++];
@@ -225,6 +241,7 @@ namespace GifParser
                         }
 
                     }
+                    //decompress it
                     if (localColorTableFlag)
                     {
                         byte[] decompressed = LZWDecoder.Decode(compressedData, dictionarySize: localColorTableSize, minIndexSize: minimumCodeSize, isGIF: true);
@@ -240,13 +257,6 @@ namespace GifParser
                         {
                             image.imageData[compressPos] = colorTable[decompressed[i]];
                             compressPos++;
-                        }
-                    }else
-                    {
-                        for (int i = 0; i < decompressed.Length; i++)
-                        {
-                            image.imageData[compressPos] = colorTable[decompressed[i]].color;
-
                         }
                     }
                     gif.images.Add(image);

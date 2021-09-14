@@ -26,7 +26,6 @@ namespace GifParser
                 throw new ArgumentOutOfRangeException();
             }
             List<byte> output = new List<byte>();
-            BinaryStream input = new BinaryStream(data);
             Dictionary<ushort, byte[]> dictionary = new Dictionary<ushort, byte[]>();
             InitialiseDictionary(dictionarySize, dictionaryBaseOffset, dictionary);
 
