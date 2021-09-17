@@ -16,7 +16,7 @@ namespace GraphicsSystem.Core
             Graphics.Initialize();
             Graphics.DrawBitmapFromData(0, 0, 1920, 1080, BootBitmap.bitmap);
             Graphics.Update();
-            RTTTLParser.Play(RTTTL);
+            //RTTTLParser.Play(RTTTL);
             FileSystem.Initialize();
             Taskbar.Initialize();
             ProcessManager.AddProcess(new Apps.Clock(10, 10, 300, 300));
@@ -28,6 +28,7 @@ namespace GraphicsSystem.Core
             ProcessManager.AddProcess(new Apps.FileExplorer(500, 500, 500, 400));
             ProcessManager.AddProcess(new Apps.FileExplorer(500, 500, 500, 400));
             ProcessManager.AddProcess(new Apps.FileExplorer(500, 500, 500, 400));
+            ProcessManager.AddProcess(new Apps.Notepad(500, 500, 800, 700));
             ProcessManager.PrioritizeZ(1);
         }
     }
