@@ -18,6 +18,9 @@ namespace GraphicsSystem.Core
             Graphics.Update();
             //RTTTLParser.Play(RTTTL);
             FileSystem.Initialize();
+            UserManager.Initialize();
+
+
             Taskbar.Initialize();
             ProcessManager.AddProcess(new Apps.Clock(10, 10, 300, 300));
             //ProcessManager.AddProcess(new Apps.Clock(10, 10, 300, 300));

@@ -10,6 +10,7 @@ using GraphicsSystem.Data;
 using GraphicsSystem.Apps;
 using Cosmos.System;
 using GraphicsSystem.Hardware;
+using Cosmos.System.Graphics;
 
 namespace GraphicsSystem
 {
@@ -51,9 +52,19 @@ namespace GraphicsSystem
                     // Now draw the Taskbar which should always be over the windows.
                     Taskbar.Draw();
 
+                    if (GifData.gif.currentIndex < GifData.gif.images.Count - 1)
+                    {
+                        Graphics.DrawBitmapFromData(10, 10, (int)GifData.gif.images[GifData.gif.currentIndex].width, (int)GifData.gif.images[GifData.gif.currentIndex].height, GifData.gif.images[GifData.gif.currentIndex].imageData);
+                        GifData.gif.currentIndex++;
+                    }
+                    else
+                    {
+                        GifData.gif.currentIndex = 0;
+                    }
+
                     // Update and Draw Mouse
                     // Next is the Mouse which should overlap almost everything.
-                    Graphics.UpdateCursor(); 
+                    Graphics.UpdateCursor();
 
                     // Draw FPS counter
                     // Draw a FPS counter to keep track of FPS, draw this above the mouse to avoid confusion with applications.
@@ -71,25 +82,12 @@ namespace GraphicsSystem
             }
         }
 
-        private void Panic(Exception e)
+        public void Panic(Exception e)
         {
             mDebugger.Send(e.Message);
             Graphics.ClearBuffer(Color.lightBlue);
             Graphics.DrawString(10, 10, new FontMono9x11(), ("FATAL ERROR: " + e).ToCharArray());
             Graphics.Update();
-        }
-    }
-
-    public static class Console
-    {
-        public static void BeforeRun()
-        {
-
-        }
-
-        public static void Run()
-        {
-
         }
     }
 }

@@ -575,6 +575,29 @@ namespace GraphicsSystem.Core
             }
         }
 
+        public static unsafe void DrawBitmapFromData(int aX, int aY, int aWidth, int aHeight, uint[] data)
+        {
+            if (aWidth + aX > width)
+            {
+                aWidth -= (width - (aWidth + aX));
+            }
+            if (aHeight + aY > height)
+            {
+                aHeight -= (height - (aHeight + aY));
+            }
+
+            fixed (uint* bufferPtr = &buffer[0])
+            {
+                fixed (uint* imgPtr = &data[0])
+                {
+                    for (int y = 0; y < aHeight; y++)
+                    {
+                        MemoryOperations.Copy(bufferPtr + aX + (aY + y) * width, imgPtr + y * aWidth, aWidth);
+                    }
+                }
+            }
+        }
+
         public unsafe static void DrawBitmapFromData(int aX, int aY, int aWidth, int aHeight, Bitmap data, uint transColor)
         {
             //if (aWidth + aX > width)

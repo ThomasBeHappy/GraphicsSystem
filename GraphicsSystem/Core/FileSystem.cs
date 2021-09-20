@@ -18,17 +18,24 @@ namespace GraphicsSystem.Core
 
             VFSManager.RegisterVFS(fs);
 
-            List<DirectoryEntry> volumes = fs.GetVolumes();
-
-            foreach (var item in volumes)
+            try
             {
-                System.Console.WriteLine(item.mFullPath);
+                //fs.GetDirectoryListing(@"0:\");
+                if (!Directory.Exists(@"0:\System"))
+                {
+                    Directory.CreateDirectory(@"0:\System");
+                    Directory.CreateDirectory(@"0:\System\SystemApps");
+                    Directory.CreateDirectory(@"0:\System\Audio");
+                    Directory.CreateDirectory(@"0:\System\Images");
+                    Directory.CreateDirectory(@"0:\System\Images\Bitmaps");
+                    Directory.CreateDirectory(@"0:\System\Images\Gifs");
+                    Directory.CreateDirectory(@"0:\System\Logs");
+                }
             }
-
-            //if (fs.GetFileSystemType(@"0:\") != "FAT32")
-            //{
-            //    fs.Format("0", "FAT32", true);
-            //}
+            catch (Exception)
+            {
+                Console.WriteLine("WARNING: Could not access drive 0!");
+            }
         }
 
         public static byte[] ReadSmallFile(string path)
@@ -42,5 +49,10 @@ namespace GraphicsSystem.Core
 
         //    stream.
         //}
+
+        public static void Format(string drive)
+        {
+            fs.Format(drive, "FAT32", true);
+        }
     }
 }

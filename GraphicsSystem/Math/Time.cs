@@ -7,6 +7,6 @@ namespace GraphicsSystem.Math
 {
     public static class Time
     {
-        public static float TimeBetweenFrames(int fps) { return 1f / fps; }
+        public static float TimeDelta(int fps) { return 1f / fps; }
     }
 }

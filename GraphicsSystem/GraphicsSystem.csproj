@@ -120,20 +120,24 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <None Remove="Data\Bitmaps\background.bmp" />
       <None Remove="Data\Bitmaps\Boot.bmp" />
       <None Remove="Data\Bitmaps\Clock.bmp" />
       <None Remove="Data\Bitmaps\File.bmp" />
       <None Remove="Data\Bitmaps\Folder.bmp" />
       <None Remove="Data\Bitmaps\Gaming Frame.bmp" />
       <None Remove="Data\Gaming Frame.bmp" />
+      <None Remove="Data\Gifs\test.gif" />
     </ItemGroup>
 
     <ItemGroup>
+      <EmbeddedResource Include="Data\Bitmaps\Background.bmp" />
       <EmbeddedResource Include="Data\Bitmaps\Boot.bmp" />
       <EmbeddedResource Include="Data\Bitmaps\Clock.bmp" />
       <EmbeddedResource Include="Data\Bitmaps\File.bmp" />
       <EmbeddedResource Include="Data\Bitmaps\Folder.bmp" />
       <EmbeddedResource Include="Data\Bitmaps\Gaming Frame.bmp" />
+      <EmbeddedResource Include="Data\Gifs\test.gif" />
     </ItemGroup>
 
     <ItemGroup>
