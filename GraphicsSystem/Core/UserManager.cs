@@ -9,6 +9,9 @@ namespace GraphicsSystem.Core
     {
         public static bool firstSetup = false;
 
+        public static User loggedInUser;
+        public static bool loggedIn = false;
+
         public static void Initialize()
         {
             if (!Directory.Exists(@"0:\Users"))
@@ -35,7 +38,10 @@ namespace GraphicsSystem.Core
 
                 if (Hashing.Hashing.verifyHash(password, hashedPassword.ToString()))
                 {
-                    return new User(username.ToCharArray(), perm);
+                    User user = new User(username.ToCharArray(), perm);
+                    loggedIn = true;
+                    loggedInUser = user;
+                    return user;
                 }
             }
 

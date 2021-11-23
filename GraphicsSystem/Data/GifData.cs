@@ -11,6 +11,11 @@ namespace GraphicsSystem.Data
 
         [ManifestResourceStream(ResourceName = "GraphicsSystem.Data.Gifs.test.gif")]
         static byte[] file;
-        public static Gif gif = GifParser.GifParser.Parse(file);
+        public static Gif gif;
+
+        public static void InitGif()
+        {
+            gif = GifParser.GifParser.Parse(file);
+        }
     }
 }

@@ -1,14 +1,13 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <TargetFramework>netcoreapp2.0</TargetFramework>
-        <RuntimeIdentifier>cosmos</RuntimeIdentifier>
+        <TargetFramework>net5.0</TargetFramework>
         <SelfContained>True</SelfContained>
         <BinFormat>Elf</BinFormat>
         <StackCorruptionDetectionEnabled>True</StackCorruptionDetectionEnabled>
         <StackCorruptionDetectionLevel>MethodFooters</StackCorruptionDetectionLevel>
         <Deployment>ISO</Deployment>
-        <DebugEnabled>True</DebugEnabled>
+        <DebugEnabled>False</DebugEnabled>
         <DebugMode>Source</DebugMode>
         <IgnoreDebugStubAttribute>False</IgnoreDebugStubAttribute>
         <ISOFile>bin\Debug\netcoreapp2.0\cosmos\GraphicsSystem.iso</ISOFile>
@@ -96,6 +95,8 @@
         <USB_EnableGDB>False</USB_EnableGDB>
         <USB_StartCosmosGDB>False</USB_StartCosmosGDB>
         <USB_ISOFile>bin\Debug\netcoreapp2.0\cosmos\GraphicsSystem.iso</USB_ISOFile>
+        <CompileVBEMultiboot>False</CompileVBEMultiboot>
+        <VBEResolution>a</VBEResolution>
     </PropertyGroup>
 
     <PropertyGroup>
@@ -117,6 +118,7 @@
       <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
       <Optimize>false</Optimize>
       <DefineConstants>TRACE</DefineConstants>
+      <DebugEnabled>False</DebugEnabled>
     </PropertyGroup>
 
     <ItemGroup>
@@ -141,9 +143,12 @@
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="Cosmos.Build" Version="0-*" NoWarn="NU1604" />
-        <PackageReference Include="Cosmos.Debug.Kernel" Version="0-*" NoWarn="NU1604" />
-        <PackageReference Include="Cosmos.System2" Version="0-*" NoWarn="NU1604" />
+        <PackageReference Include="Cosmos.Build" Version="0.1.0-localbuild20210921045757" NoWarn="NU1604">
+          <PrivateAssets>all</PrivateAssets>
+          <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
+        <PackageReference Include="Cosmos.Debug.Kernel" Version="0.1.0-localbuild20210921045757" NoWarn="NU1604" />
+        <PackageReference Include="Cosmos.System2" Version="0.1.0-localbuild20210921045757" NoWarn="NU1604" />
     </ItemGroup>
 
     <ItemGroup>

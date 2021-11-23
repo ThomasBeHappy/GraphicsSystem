@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Cosmos.Debug.Kernel;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -20,6 +21,8 @@ namespace GifParser
         /// <returns></returns>
         public static byte[] Decode(byte[] data, int maxKeySize = 16, int dictionarySize = 256, int dictionaryBaseOffset = 0, int minIndexSize = 8, bool isGIF = false, bool LSB = false)
         {
+            Debugger debugger = new Debugger("", "");
+            //debugger.Send("Hello?");
             int indexSize = minIndexSize;
             if (maxKeySize > 16)
             {
@@ -27,7 +30,9 @@ namespace GifParser
             }
             List<byte> output = new List<byte>();
             Dictionary<ushort, byte[]> dictionary = new Dictionary<ushort, byte[]>();
+            //debugger.Send("Initialising Dictionary");
             InitialiseDictionary(dictionarySize, dictionaryBaseOffset, dictionary);
+            //debugger.Send("Fully initialized Dictionary");
 
             if (isGIF)
             {
@@ -36,7 +41,9 @@ namespace GifParser
                 LSB = true;
             }
 
+            debugger.Send("Creating BinaryStream");
             BinaryStream input = new BinaryStream(data, data.Length) { LSB = LSB };
+            debugger.Send("Created BinaryStream");
             if (isGIF)
             {
                 input.Position += indexSize;
@@ -55,17 +62,20 @@ namespace GifParser
             byte[] oldValue = new byte[0];
             while (input.CanRead && input.Length - input.Position >= indexSize)
             {
+                //debugger.Send("Reading next part");
                 input.Read(indexArr, 0, indexSize);
                 indexVal = ToValue(indexArr, indexSize, LSB);
                 if (isGIF && indexVal == dictionarySize)
                 {
                     //clear dictionary
                     InitialiseDictionary(dictionarySize, dictionaryBaseOffset, dictionary);
+                    //debugger.Send("Read next part (part 2.1)");
                     if (isGIF)
                     {
                         dictionary[(ushort)dictionary.Count] = null;
                         dictionary[(ushort)dictionary.Count] = null; // there are two special values CC and EOF
                     }
+                    //debugger.Send("Read next part (part 2.2)");
                     indexSize = minIndexSize;
                 }
                 else if (isGIF && indexVal == dictionarySize + 1)
@@ -75,24 +85,41 @@ namespace GifParser
                 }
                 else if (dictionary.ContainsKey(indexVal))
                 {
-                    output.AddRange(dictionary[indexVal]);
+                    //debugger.Send("Read next part (part 2.1 B)");
+                    //debugger.Send(dictionary[indexVal][0] + "AA");
+                    foreach (var item in dictionary[indexVal])
+                    {
+                        output.Add(item);
+                    }
+                    //output.AddRange(dictionary[indexVal]);
+                    //debugger.Send("Read next part (part 2.2 B)");
                     if (dictionary.Count < 4096 && oldValue.Length != 0)
                     {
                         var B = dictionary[indexVal][0];
+                        //debugger.Send("Read next part (part 2.2.1 B)");
                         dictionary[(ushort)dictionary.Count] = Combine(oldValue, B);
                     }
+                    //debugger.Send("Read next part (part 2.3 B)");
                     oldValue = dictionary[indexVal];
                 }
                 else
                 {
+                    //debugger.Send("Read next part (part 2.1 C)");
                     if (dictionary.Count < 4096 && oldValue.Length != 0)
                     {
                         var B = oldValue[0];
+                        //debugger.Send("Read next part (part 2.1.1 C)");
                         dictionary[indexVal] = Combine(oldValue, B);
                     }
-                    output.AddRange(dictionary[indexVal]);
+                    //debugger.Send("Read next part (part 2.2 C)");
+                    foreach (var item in dictionary[indexVal])
+                    {
+                        output.Add(item);
+                    }
+                    //debugger.Send("Read next part (part 2.3 C)");
                     oldValue = dictionary[indexVal];
                 }
+                //debugger.Send("Read next part (part 3)");
                 if (dictionary.Count > (1 << indexSize) - 1)
                 {
                     indexSize++;
@@ -101,7 +128,9 @@ namespace GifParser
                         throw new InvalidOperationException();
                     }
                 }
+                //debugger.Send("Read next part (wtf is going wrong)");
             }
+            debugger.Send("Finished decoding, sending result back");
             return output.ToArray();
         }
 

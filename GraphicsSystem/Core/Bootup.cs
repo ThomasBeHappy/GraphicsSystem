@@ -17,9 +17,9 @@ namespace GraphicsSystem.Core
             Graphics.DrawBitmapFromData(0, 0, 1920, 1080, BootBitmap.bitmap);
             Graphics.Update();
             //RTTTLParser.Play(RTTTL);
-            FileSystem.Initialize();
-            UserManager.Initialize();
-
+            //FileSystem.Initialize();
+            GifData.InitGif();
+            //UserManager.Initialize();
 
             Taskbar.Initialize();
             ProcessManager.AddProcess(new Apps.Clock(10, 10, 300, 300));
