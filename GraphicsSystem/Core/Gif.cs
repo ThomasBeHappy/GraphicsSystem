@@ -91,7 +91,7 @@ namespace GifParser
             {
                 for (int i = 0; i < colorTable.Length; i++)
                 {
-                    colorTable[i] = (uint)(((uint)data[pos++] << 0x8000) + ((uint)data[pos++] << 0x80) + data[pos++]);
+                    colorTable[i] = (uint)(((uint)data[pos++] << 16) + ((uint)data[pos++] << 8) + data[pos++]); ;
                 }
             }
             #endregion
@@ -213,7 +213,7 @@ namespace GifParser
                     {
                         for (int i = 0; i < localColorTableSize; i++)
                         {
-                            localColorTable[i] = (uint)(((uint)data[pos++] << 0x8000) + ((uint)data[pos++] << 0x80) + data[pos++]);
+                            localColorTable[i] = (uint)(((uint)data[pos++] << 16) + ((uint)data[pos++] << 8) + data[pos++]); ;
                         }
                     }
 
