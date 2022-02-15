@@ -1,4 +1,5 @@
-﻿using Cosmos.HAL;
+﻿using Cosmos.Debug.Kernel;
+using Cosmos.HAL;
 using GraphicsSystem.Types;
 using System;
 using System.Collections.Generic;
@@ -32,12 +33,16 @@ namespace GraphicsSystem.Core
 
         public static char[] GetClockString()
         {
+            Debugger debugger = new Debugger("", "");
+            debugger.Send("Getting times");
             InternalString.IntToString(GetYear(), ref year);
             InternalString.IntToString(GetMonth(), ref month);
             InternalString.IntToString(GetDayOfTheMonth(), ref day);
             InternalString.IntToString(GetHour(), ref hour);
             InternalString.IntToString(GetMinute(), ref minute);
             InternalString.IntToString(GetSecond(), ref second);
+
+            debugger.Send("Combining to clockstring");
 
             InternalString.combineString(ref day, ref seperator2, ref tempString);
 
@@ -52,6 +57,7 @@ namespace GraphicsSystem.Core
 
             InternalString.combineString(ref tempString, ref minute, ref temp2String);
 
+            debugger.Send("Returning");
             return temp2String;
         }
 

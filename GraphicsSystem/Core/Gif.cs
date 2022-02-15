@@ -252,6 +252,7 @@ namespace GifParser
                     if (localColorTableFlag)
                     {
                         byte[] decompressed = LZWDecoder.Decode(compressedData, dictionarySize: localColorTableSize, minIndexSize: minimumCodeSize, isGIF: true);
+                        debugger.Send(decompressed.Length + "");
                         for (int i = 0; i < decompressed.Length; i++)
                         {
                             image.imageData[compressPos++] = localColorTable[decompressed[i]];
@@ -260,6 +261,7 @@ namespace GifParser
                     else
                     {
                         byte[] decompressed = LZWDecoder.Decode(compressedData, dictionarySize: sizeGlobalColorTable, minIndexSize: minimumCodeSize, isGIF: true);
+                        debugger.Send(decompressed.Length + "");
                         for (int i = 0; i < decompressed.Length; i++)
                         {
                             image.imageData[compressPos] = colorTable[decompressed[i]];

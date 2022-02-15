@@ -1,4 +1,5 @@
-﻿using GraphicsSystem.Types;
+﻿using Cosmos.Debug.Kernel;
+using GraphicsSystem.Types;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -26,7 +27,14 @@ namespace GraphicsSystem.Core
 
         }
 
-        public static void AddProcess(Window proc) { proc.processID = maxID++; windows.Add(proc); }
+        public static void AddProcess(Window proc) {
+            Debugger debugger = new Debugger("", "");
+
+            debugger.Send(proc.name.ToString()); // For some weird ass reason if I take out this debug the entire system crashes LOL - TF2 refrence
+
+            proc.processID = maxID++; 
+            windows.Add(proc); 
+        }
 
         public static void RemoveProcess(int processID)
         {
@@ -41,6 +49,7 @@ namespace GraphicsSystem.Core
 
         public static void PrioritizeZ(int processID)
         {
+            Debugger debugger = new Debugger("", "");
             for (int i = 0; i < windows.Count; i++)
             {
                 if (windows[i].processID == processID)

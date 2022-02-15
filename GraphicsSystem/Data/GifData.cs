@@ -9,7 +9,7 @@ namespace GraphicsSystem.Data
     public static class GifData
     {
 
-        [ManifestResourceStream(ResourceName = "GraphicsSystem.Data.Gifs.test.gif")]
+        [ManifestResourceStream(ResourceName = "GraphicsSystem.Data.Gifs.test3.gif")]
         static byte[] file;
         public static Gif gif;
 

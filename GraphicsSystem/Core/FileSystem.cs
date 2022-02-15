@@ -52,7 +52,7 @@ namespace GraphicsSystem.Core
 
         public static void Format(string drive)
         {
-            fs.Format(drive, "FAT32", true);
+            /*fs.Format(drive, "FAT32", true);*/
         }
     }
 }

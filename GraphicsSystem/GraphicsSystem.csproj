@@ -118,7 +118,7 @@
       <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
       <Optimize>false</Optimize>
       <DefineConstants>TRACE</DefineConstants>
-      <DebugEnabled>False</DebugEnabled>
+      <DebugEnabled>True</DebugEnabled>
     </PropertyGroup>
 
     <ItemGroup>
@@ -129,7 +129,7 @@
       <None Remove="Data\Bitmaps\Folder.bmp" />
       <None Remove="Data\Bitmaps\Gaming Frame.bmp" />
       <None Remove="Data\Gaming Frame.bmp" />
-      <None Remove="Data\Gifs\test.gif" />
+      <None Remove="Data\Gifs\test3.gif" />
     </ItemGroup>
 
     <ItemGroup>
@@ -139,7 +139,7 @@
       <EmbeddedResource Include="Data\Bitmaps\File.bmp" />
       <EmbeddedResource Include="Data\Bitmaps\Folder.bmp" />
       <EmbeddedResource Include="Data\Bitmaps\Gaming Frame.bmp" />
-      <EmbeddedResource Include="Data\Gifs\test.gif" />
+      <EmbeddedResource Include="Data\Gifs\test3.gif" />
     </ItemGroup>
 
     <ItemGroup>

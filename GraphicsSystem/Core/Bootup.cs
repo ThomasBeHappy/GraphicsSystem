@@ -1,4 +1,5 @@
-﻿using GraphicsSystem.Data;
+﻿using Cosmos.Debug.Kernel;
+using GraphicsSystem.Data;
 using GraphicsSystem.Graphic;
 using System;
 using System.Collections.Generic;
@@ -13,26 +14,24 @@ namespace GraphicsSystem.Core
 
         public static void Run()
         {
+            Debugger debugger = new Debugger("", "");
             Graphics.Initialize();
             Graphics.DrawBitmapFromData(0, 0, 1920, 1080, BootBitmap.bitmap);
             Graphics.Update();
             //RTTTLParser.Play(RTTTL);
             //FileSystem.Initialize();
-            GifData.InitGif();
+            //GifData.InitGif();
             //UserManager.Initialize();
 
+            debugger.Send("yeet");
             Taskbar.Initialize();
+            debugger.Send("yeet 2");
             ProcessManager.AddProcess(new Apps.Clock(10, 10, 300, 300));
-            //ProcessManager.AddProcess(new Apps.Clock(10, 10, 300, 300));
-            //ProcessManager.AddProcess(new Apps.Clock(10, 10, 300, 300));
-            //ProcessManager.AddProcess(new Apps.Clock(10, 10, 300, 300));
-            //ProcessManager.AddProcess(new Apps.Clock(10, 10, 300, 300));
-            //ProcessManager.AddProcess(new Apps.Clock(10, 10, 300, 300));
-            ProcessManager.AddProcess(new Apps.FileExplorer(500, 500, 500, 400));
-            ProcessManager.AddProcess(new Apps.FileExplorer(500, 500, 500, 400));
             ProcessManager.AddProcess(new Apps.FileExplorer(500, 500, 500, 400));
             ProcessManager.AddProcess(new Apps.Notepad(500, 500, 800, 700));
+            debugger.Send("yeet 3");
             ProcessManager.PrioritizeZ(1);
+            debugger.Send("yeet 4");
         }
     }
 }

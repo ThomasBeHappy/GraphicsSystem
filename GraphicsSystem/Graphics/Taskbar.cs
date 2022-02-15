@@ -6,6 +6,7 @@ using GraphicsSystem.Core;
 using Cosmos.System.Graphics;
 using GraphicsSystem.Data;
 using Cosmos.HAL;
+using Cosmos.Debug.Kernel;
 
 namespace GraphicsSystem.Graphic
 {
@@ -16,10 +17,13 @@ namespace GraphicsSystem.Graphic
         static uint devider = 30;
         public static void Draw()
         {
+
             // Taskbar
             Graphics.Rectangle(0, Graphics.height - 60, Graphics.width, Graphics.height, Color.darkBlue);
             Graphics.DrawBitmapFromData(0, Graphics.height - 55, 50, 50, logo, 0);
-            Clock.Draw();
+
+            //Clock.Draw(); FIX THIS
+
             Graphics.Rectangle(55, Graphics.height - 60, 60, Graphics.height, Color.black);
 
             for (int i = 0; i < ProcessManager.windows.Count; i++)

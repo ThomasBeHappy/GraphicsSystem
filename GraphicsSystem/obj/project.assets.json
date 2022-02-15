@@ -2,17 +2,17 @@
   "version": 3,
   "targets": {
     "net5.0": {
-      "Cosmos.Build/0.1.0-localbuild20211122124831": {
+      "Cosmos.Build/0.1.0-localbuild20220215034017": {
         "type": "package",
         "build": {
           "build/Cosmos.Build.props": {},
           "build/Cosmos.Build.targets": {}
         }
       },
-      "Cosmos.Common/0.1.0-localbuild20211122124840": {
+      "Cosmos.Common/0.1.0-localbuild20220215034026": {
         "type": "package",
         "dependencies": {
-          "Cosmos.Debug.Kernel": "0.1.0-localbuild20211122124840"
+          "Cosmos.Debug.Kernel": "0.1.0-localbuild20220215034026"
         },
         "compile": {
           "lib/net5.0/Cosmos.Common.dll": {}
@@ -21,11 +21,11 @@
           "lib/net5.0/Cosmos.Common.dll": {}
         }
       },
-      "Cosmos.Core/0.1.0-localbuild20211122124840": {
+      "Cosmos.Core/0.1.0-localbuild20220215034026": {
         "type": "package",
         "dependencies": {
-          "Cosmos.Debug.Kernel": "0.1.0-localbuild20211122124840",
-          "IL2CPU.API": "0.1.0-localbuild20211122124840"
+          "Cosmos.Debug.Kernel": "0.1.0-localbuild20220215034026",
+          "IL2CPU.API": "0.1.0-localbuild20220215034026"
         },
         "compile": {
           "lib/net5.0/Cosmos.Core.dll": {}
@@ -34,7 +34,7 @@
           "lib/net5.0/Cosmos.Core.dll": {}
         }
       },
-      "Cosmos.Debug.Kernel/0.1.0-localbuild20211122124840": {
+      "Cosmos.Debug.Kernel/0.1.0-localbuild20220215034026": {
         "type": "package",
         "compile": {
           "lib/netstandard2.0/Cosmos.Debug.Kernel.dll": {}
@@ -43,13 +43,13 @@
           "lib/netstandard2.0/Cosmos.Debug.Kernel.dll": {}
         }
       },
-      "Cosmos.HAL2/0.1.0-localbuild20211122124840": {
+      "Cosmos.HAL2/0.1.0-localbuild20220215034026": {
         "type": "package",
         "dependencies": {
-          "Cosmos.Common": "0.1.0-localbuild20211122124840",
-          "Cosmos.Core": "0.1.0-localbuild20211122124840",
-          "Cosmos.Debug.Kernel": "0.1.0-localbuild20211122124840",
-          "IL2CPU.API": "0.1.0-localbuild20211122124840"
+          "Cosmos.Common": "0.1.0-localbuild20220215034026",
+          "Cosmos.Core": "0.1.0-localbuild20220215034026",
+          "Cosmos.Debug.Kernel": "0.1.0-localbuild20220215034026",
+          "IL2CPU.API": "0.1.0-localbuild20220215034026"
         },
         "compile": {
           "lib/net5.0/Cosmos.HAL2.dll": {}
@@ -58,13 +58,13 @@
           "lib/net5.0/Cosmos.HAL2.dll": {}
         }
       },
-      "Cosmos.System2/0.1.0-localbuild20211122124840": {
+      "Cosmos.System2/0.1.0-localbuild20220215034026": {
         "type": "package",
         "dependencies": {
-          "Cosmos.Common": "0.1.0-localbuild20211122124840",
-          "Cosmos.Debug.Kernel": "0.1.0-localbuild20211122124840",
-          "Cosmos.HAL2": "0.1.0-localbuild20211122124840",
-          "IL2CPU.API": "0.1.0-localbuild20211122124840"
+          "Cosmos.Common": "0.1.0-localbuild20220215034026",
+          "Cosmos.Debug.Kernel": "0.1.0-localbuild20220215034026",
+          "Cosmos.HAL2": "0.1.0-localbuild20220215034026",
+          "IL2CPU.API": "0.1.0-localbuild20220215034026"
         },
         "compile": {
           "lib/net5.0/Cosmos.System2.dll": {}
@@ -73,7 +73,7 @@
           "lib/net5.0/Cosmos.System2.dll": {}
         }
       },
-      "IL2CPU.API/0.1.0-localbuild20211122124840": {
+      "IL2CPU.API/0.1.0-localbuild20220215034026": {
         "type": "package",
         "compile": {
           "lib/netstandard2.0/IL2CPU.API.dll": {}
@@ -85,17 +85,17 @@
     }
   },
   "libraries": {
-    "Cosmos.Build/0.1.0-localbuild20211122124831": {
-      "sha512": "O8Q2n+1YK3qw0/ZqO0W7VJraA93JXg7B+EvNQjJVgpfnHLt6c2R3jQJSBJ38giXI6UOZtymnQ542dUr/shiHvw==",
+    "Cosmos.Build/0.1.0-localbuild20220215034017": {
+      "sha512": "lgdNpF0h0i5c3pguT+S0nArop15jPGpnu3Hs1BHk/YwGUc/InWD8jg7RkE4azkpHxuZdab4yiYnC9+GHlJAFmw==",
       "type": "package",
-      "path": "cosmos.build/0.1.0-localbuild20211122124831",
+      "path": "cosmos.build/0.1.0-localbuild20220215034017",
       "hasTools": true,
       "files": [
         ".nupkg.metadata",
         "LICENSE.txt",
         "build/Cosmos.Build.props",
         "build/Cosmos.Build.targets",
-        "cosmos.build.0.1.0-localbuild20211122124831.nupkg.sha512",
+        "cosmos.build.0.1.0-localbuild20220215034017.nupkg.sha512",
         "cosmos.build.nuspec",
         "runtime.json",
         "tools/cygwin/win/GPL Readme.txt",
@@ -105,6 +105,276 @@
         "tools/cygwin/win/ld.exe",
         "tools/cygwin/win/objdump.bat",
         "tools/cygwin/win/objdump.exe",
+        "tools/grub2/boot/grub/i386-pc/915resolution.mod",
+        "tools/grub2/boot/grub/i386-pc/acpi.mod",
+        "tools/grub2/boot/grub/i386-pc/adler32.mod",
+        "tools/grub2/boot/grub/i386-pc/affs.mod",
+        "tools/grub2/boot/grub/i386-pc/afs.mod",
+        "tools/grub2/boot/grub/i386-pc/ahci.mod",
+        "tools/grub2/boot/grub/i386-pc/all_video.mod",
+        "tools/grub2/boot/grub/i386-pc/aout.mod",
+        "tools/grub2/boot/grub/i386-pc/archelp.mod",
+        "tools/grub2/boot/grub/i386-pc/at_keyboard.mod",
+        "tools/grub2/boot/grub/i386-pc/ata.mod",
+        "tools/grub2/boot/grub/i386-pc/backtrace.mod",
+        "tools/grub2/boot/grub/i386-pc/bfs.mod",
+        "tools/grub2/boot/grub/i386-pc/biosdisk.mod",
+        "tools/grub2/boot/grub/i386-pc/bitmap.mod",
+        "tools/grub2/boot/grub/i386-pc/bitmap_scale.mod",
+        "tools/grub2/boot/grub/i386-pc/blocklist.mod",
+        "tools/grub2/boot/grub/i386-pc/boot.mod",
+        "tools/grub2/boot/grub/i386-pc/bsd.mod",
+        "tools/grub2/boot/grub/i386-pc/btrfs.mod",
+        "tools/grub2/boot/grub/i386-pc/bufio.mod",
+        "tools/grub2/boot/grub/i386-pc/cat.mod",
+        "tools/grub2/boot/grub/i386-pc/cbfs.mod",
+        "tools/grub2/boot/grub/i386-pc/cbls.mod",
+        "tools/grub2/boot/grub/i386-pc/cbmemc.mod",
+        "tools/grub2/boot/grub/i386-pc/cbtable.mod",
+        "tools/grub2/boot/grub/i386-pc/cbtime.mod",
+        "tools/grub2/boot/grub/i386-pc/chain.mod",
+        "tools/grub2/boot/grub/i386-pc/cmdline_cat_test.mod",
+        "tools/grub2/boot/grub/i386-pc/cmosdump.mod",
+        "tools/grub2/boot/grub/i386-pc/cmostest.mod",
+        "tools/grub2/boot/grub/i386-pc/cmp.mod",
+        "tools/grub2/boot/grub/i386-pc/command.lst",
+        "tools/grub2/boot/grub/i386-pc/configfile.mod",
+        "tools/grub2/boot/grub/i386-pc/cpio.mod",
+        "tools/grub2/boot/grub/i386-pc/cpio_be.mod",
+        "tools/grub2/boot/grub/i386-pc/cpuid.mod",
+        "tools/grub2/boot/grub/i386-pc/crc64.mod",
+        "tools/grub2/boot/grub/i386-pc/crypto.lst",
+        "tools/grub2/boot/grub/i386-pc/crypto.mod",
+        "tools/grub2/boot/grub/i386-pc/cryptodisk.mod",
+        "tools/grub2/boot/grub/i386-pc/cs5536.mod",
+        "tools/grub2/boot/grub/i386-pc/date.mod",
+        "tools/grub2/boot/grub/i386-pc/datehook.mod",
+        "tools/grub2/boot/grub/i386-pc/datetime.mod",
+        "tools/grub2/boot/grub/i386-pc/disk.mod",
+        "tools/grub2/boot/grub/i386-pc/diskfilter.mod",
+        "tools/grub2/boot/grub/i386-pc/div_test.mod",
+        "tools/grub2/boot/grub/i386-pc/dm_nv.mod",
+        "tools/grub2/boot/grub/i386-pc/drivemap.mod",
+        "tools/grub2/boot/grub/i386-pc/echo.mod",
+        "tools/grub2/boot/grub/i386-pc/efiemu.mod",
+        "tools/grub2/boot/grub/i386-pc/efiemu32.o",
+        "tools/grub2/boot/grub/i386-pc/efiemu64.o",
+        "tools/grub2/boot/grub/i386-pc/ehci.mod",
+        "tools/grub2/boot/grub/i386-pc/elf.mod",
+        "tools/grub2/boot/grub/i386-pc/eltorito.img",
+        "tools/grub2/boot/grub/i386-pc/eval.mod",
+        "tools/grub2/boot/grub/i386-pc/exfat.mod",
+        "tools/grub2/boot/grub/i386-pc/exfctest.mod",
+        "tools/grub2/boot/grub/i386-pc/ext2.mod",
+        "tools/grub2/boot/grub/i386-pc/extcmd.mod",
+        "tools/grub2/boot/grub/i386-pc/fat.mod",
+        "tools/grub2/boot/grub/i386-pc/file.mod",
+        "tools/grub2/boot/grub/i386-pc/font.mod",
+        "tools/grub2/boot/grub/i386-pc/freedos.mod",
+        "tools/grub2/boot/grub/i386-pc/fs.lst",
+        "tools/grub2/boot/grub/i386-pc/fshelp.mod",
+        "tools/grub2/boot/grub/i386-pc/functional_test.mod",
+        "tools/grub2/boot/grub/i386-pc/gcry_arcfour.mod",
+        "tools/grub2/boot/grub/i386-pc/gcry_blowfish.mod",
+        "tools/grub2/boot/grub/i386-pc/gcry_camellia.mod",
+        "tools/grub2/boot/grub/i386-pc/gcry_cast5.mod",
+        "tools/grub2/boot/grub/i386-pc/gcry_crc.mod",
+        "tools/grub2/boot/grub/i386-pc/gcry_des.mod",
+        "tools/grub2/boot/grub/i386-pc/gcry_dsa.mod",
+        "tools/grub2/boot/grub/i386-pc/gcry_idea.mod",
+        "tools/grub2/boot/grub/i386-pc/gcry_md4.mod",
+        "tools/grub2/boot/grub/i386-pc/gcry_md5.mod",
+        "tools/grub2/boot/grub/i386-pc/gcry_rfc2268.mod",
+        "tools/grub2/boot/grub/i386-pc/gcry_rijndael.mod",
+        "tools/grub2/boot/grub/i386-pc/gcry_rmd160.mod",
+        "tools/grub2/boot/grub/i386-pc/gcry_rsa.mod",
+        "tools/grub2/boot/grub/i386-pc/gcry_seed.mod",
+        "tools/grub2/boot/grub/i386-pc/gcry_serpent.mod",
+        "tools/grub2/boot/grub/i386-pc/gcry_sha1.mod",
+        "tools/grub2/boot/grub/i386-pc/gcry_sha256.mod",
+        "tools/grub2/boot/grub/i386-pc/gcry_sha512.mod",
+        "tools/grub2/boot/grub/i386-pc/gcry_tiger.mod",
+        "tools/grub2/boot/grub/i386-pc/gcry_twofish.mod",
+        "tools/grub2/boot/grub/i386-pc/gcry_whirlpool.mod",
+        "tools/grub2/boot/grub/i386-pc/gdb.mod",
+        "tools/grub2/boot/grub/i386-pc/geli.mod",
+        "tools/grub2/boot/grub/i386-pc/gettext.mod",
+        "tools/grub2/boot/grub/i386-pc/gfxmenu.mod",
+        "tools/grub2/boot/grub/i386-pc/gfxterm.mod",
+        "tools/grub2/boot/grub/i386-pc/gfxterm_background.mod",
+        "tools/grub2/boot/grub/i386-pc/gfxterm_menu.mod",
+        "tools/grub2/boot/grub/i386-pc/gptsync.mod",
+        "tools/grub2/boot/grub/i386-pc/gzio.mod",
+        "tools/grub2/boot/grub/i386-pc/halt.mod",
+        "tools/grub2/boot/grub/i386-pc/hashsum.mod",
+        "tools/grub2/boot/grub/i386-pc/hdparm.mod",
+        "tools/grub2/boot/grub/i386-pc/hello.mod",
+        "tools/grub2/boot/grub/i386-pc/help.mod",
+        "tools/grub2/boot/grub/i386-pc/hexdump.mod",
+        "tools/grub2/boot/grub/i386-pc/hfs.mod",
+        "tools/grub2/boot/grub/i386-pc/hfsplus.mod",
+        "tools/grub2/boot/grub/i386-pc/hfspluscomp.mod",
+        "tools/grub2/boot/grub/i386-pc/http.mod",
+        "tools/grub2/boot/grub/i386-pc/hwmatch.mod",
+        "tools/grub2/boot/grub/i386-pc/iorw.mod",
+        "tools/grub2/boot/grub/i386-pc/iso9660.mod",
+        "tools/grub2/boot/grub/i386-pc/jfs.mod",
+        "tools/grub2/boot/grub/i386-pc/jpeg.mod",
+        "tools/grub2/boot/grub/i386-pc/keylayouts.mod",
+        "tools/grub2/boot/grub/i386-pc/keystatus.mod",
+        "tools/grub2/boot/grub/i386-pc/ldm.mod",
+        "tools/grub2/boot/grub/i386-pc/legacy_password_test.mod",
+        "tools/grub2/boot/grub/i386-pc/legacycfg.mod",
+        "tools/grub2/boot/grub/i386-pc/linux.mod",
+        "tools/grub2/boot/grub/i386-pc/linux16.mod",
+        "tools/grub2/boot/grub/i386-pc/loadenv.mod",
+        "tools/grub2/boot/grub/i386-pc/loopback.mod",
+        "tools/grub2/boot/grub/i386-pc/ls.mod",
+        "tools/grub2/boot/grub/i386-pc/lsacpi.mod",
+        "tools/grub2/boot/grub/i386-pc/lsapm.mod",
+        "tools/grub2/boot/grub/i386-pc/lsmmap.mod",
+        "tools/grub2/boot/grub/i386-pc/lspci.mod",
+        "tools/grub2/boot/grub/i386-pc/luks.mod",
+        "tools/grub2/boot/grub/i386-pc/lvm.mod",
+        "tools/grub2/boot/grub/i386-pc/lzopio.mod",
+        "tools/grub2/boot/grub/i386-pc/macbless.mod",
+        "tools/grub2/boot/grub/i386-pc/macho.mod",
+        "tools/grub2/boot/grub/i386-pc/mda_text.mod",
+        "tools/grub2/boot/grub/i386-pc/mdraid09.mod",
+        "tools/grub2/boot/grub/i386-pc/mdraid09_be.mod",
+        "tools/grub2/boot/grub/i386-pc/mdraid1x.mod",
+        "tools/grub2/boot/grub/i386-pc/memdisk.mod",
+        "tools/grub2/boot/grub/i386-pc/memrw.mod",
+        "tools/grub2/boot/grub/i386-pc/minicmd.mod",
+        "tools/grub2/boot/grub/i386-pc/minix.mod",
+        "tools/grub2/boot/grub/i386-pc/minix2.mod",
+        "tools/grub2/boot/grub/i386-pc/minix2_be.mod",
+        "tools/grub2/boot/grub/i386-pc/minix3.mod",
+        "tools/grub2/boot/grub/i386-pc/minix3_be.mod",
+        "tools/grub2/boot/grub/i386-pc/minix_be.mod",
+        "tools/grub2/boot/grub/i386-pc/mmap.mod",
+        "tools/grub2/boot/grub/i386-pc/moddep.lst",
+        "tools/grub2/boot/grub/i386-pc/modinfo.sh",
+        "tools/grub2/boot/grub/i386-pc/morse.mod",
+        "tools/grub2/boot/grub/i386-pc/mpi.mod",
+        "tools/grub2/boot/grub/i386-pc/msdospart.mod",
+        "tools/grub2/boot/grub/i386-pc/multiboot.mod",
+        "tools/grub2/boot/grub/i386-pc/multiboot2.mod",
+        "tools/grub2/boot/grub/i386-pc/nativedisk.mod",
+        "tools/grub2/boot/grub/i386-pc/net.mod",
+        "tools/grub2/boot/grub/i386-pc/newc.mod",
+        "tools/grub2/boot/grub/i386-pc/nilfs2.mod",
+        "tools/grub2/boot/grub/i386-pc/normal.mod",
+        "tools/grub2/boot/grub/i386-pc/ntfs.mod",
+        "tools/grub2/boot/grub/i386-pc/ntfscomp.mod",
+        "tools/grub2/boot/grub/i386-pc/ntldr.mod",
+        "tools/grub2/boot/grub/i386-pc/odc.mod",
+        "tools/grub2/boot/grub/i386-pc/offsetio.mod",
+        "tools/grub2/boot/grub/i386-pc/ohci.mod",
+        "tools/grub2/boot/grub/i386-pc/part_acorn.mod",
+        "tools/grub2/boot/grub/i386-pc/part_amiga.mod",
+        "tools/grub2/boot/grub/i386-pc/part_apple.mod",
+        "tools/grub2/boot/grub/i386-pc/part_bsd.mod",
+        "tools/grub2/boot/grub/i386-pc/part_dfly.mod",
+        "tools/grub2/boot/grub/i386-pc/part_dvh.mod",
+        "tools/grub2/boot/grub/i386-pc/part_gpt.mod",
+        "tools/grub2/boot/grub/i386-pc/part_msdos.mod",
+        "tools/grub2/boot/grub/i386-pc/part_plan.mod",
+        "tools/grub2/boot/grub/i386-pc/part_sun.mod",
+        "tools/grub2/boot/grub/i386-pc/part_sunpc.mod",
+        "tools/grub2/boot/grub/i386-pc/partmap.lst",
+        "tools/grub2/boot/grub/i386-pc/parttool.lst",
+        "tools/grub2/boot/grub/i386-pc/parttool.mod",
+        "tools/grub2/boot/grub/i386-pc/password.mod",
+        "tools/grub2/boot/grub/i386-pc/password_pbkdf2.mod",
+        "tools/grub2/boot/grub/i386-pc/pata.mod",
+        "tools/grub2/boot/grub/i386-pc/pbkdf2.mod",
+        "tools/grub2/boot/grub/i386-pc/pbkdf2_test.mod",
+        "tools/grub2/boot/grub/i386-pc/pci.mod",
+        "tools/grub2/boot/grub/i386-pc/pcidump.mod",
+        "tools/grub2/boot/grub/i386-pc/plan9.mod",
+        "tools/grub2/boot/grub/i386-pc/play.mod",
+        "tools/grub2/boot/grub/i386-pc/png.mod",
+        "tools/grub2/boot/grub/i386-pc/priority_queue.mod",
+        "tools/grub2/boot/grub/i386-pc/probe.mod",
+        "tools/grub2/boot/grub/i386-pc/procfs.mod",
+        "tools/grub2/boot/grub/i386-pc/progress.mod",
+        "tools/grub2/boot/grub/i386-pc/pxe.mod",
+        "tools/grub2/boot/grub/i386-pc/pxechain.mod",
+        "tools/grub2/boot/grub/i386-pc/raid5rec.mod",
+        "tools/grub2/boot/grub/i386-pc/raid6rec.mod",
+        "tools/grub2/boot/grub/i386-pc/read.mod",
+        "tools/grub2/boot/grub/i386-pc/reboot.mod",
+        "tools/grub2/boot/grub/i386-pc/regexp.mod",
+        "tools/grub2/boot/grub/i386-pc/reiserfs.mod",
+        "tools/grub2/boot/grub/i386-pc/relocator.mod",
+        "tools/grub2/boot/grub/i386-pc/romfs.mod",
+        "tools/grub2/boot/grub/i386-pc/scsi.mod",
+        "tools/grub2/boot/grub/i386-pc/search.mod",
+        "tools/grub2/boot/grub/i386-pc/search_fs_file.mod",
+        "tools/grub2/boot/grub/i386-pc/search_fs_uuid.mod",
+        "tools/grub2/boot/grub/i386-pc/search_label.mod",
+        "tools/grub2/boot/grub/i386-pc/sendkey.mod",
+        "tools/grub2/boot/grub/i386-pc/serial.mod",
+        "tools/grub2/boot/grub/i386-pc/setjmp.mod",
+        "tools/grub2/boot/grub/i386-pc/setjmp_test.mod",
+        "tools/grub2/boot/grub/i386-pc/setpci.mod",
+        "tools/grub2/boot/grub/i386-pc/sfs.mod",
+        "tools/grub2/boot/grub/i386-pc/signature_test.mod",
+        "tools/grub2/boot/grub/i386-pc/sleep.mod",
+        "tools/grub2/boot/grub/i386-pc/sleep_test.mod",
+        "tools/grub2/boot/grub/i386-pc/spkmodem.mod",
+        "tools/grub2/boot/grub/i386-pc/squash4.mod",
+        "tools/grub2/boot/grub/i386-pc/syslinuxcfg.mod",
+        "tools/grub2/boot/grub/i386-pc/tar.mod",
+        "tools/grub2/boot/grub/i386-pc/terminal.lst",
+        "tools/grub2/boot/grub/i386-pc/terminal.mod",
+        "tools/grub2/boot/grub/i386-pc/terminfo.mod",
+        "tools/grub2/boot/grub/i386-pc/test.mod",
+        "tools/grub2/boot/grub/i386-pc/test_blockarg.mod",
+        "tools/grub2/boot/grub/i386-pc/testload.mod",
+        "tools/grub2/boot/grub/i386-pc/testspeed.mod",
+        "tools/grub2/boot/grub/i386-pc/tftp.mod",
+        "tools/grub2/boot/grub/i386-pc/tga.mod",
+        "tools/grub2/boot/grub/i386-pc/time.mod",
+        "tools/grub2/boot/grub/i386-pc/tr.mod",
+        "tools/grub2/boot/grub/i386-pc/trig.mod",
+        "tools/grub2/boot/grub/i386-pc/true.mod",
+        "tools/grub2/boot/grub/i386-pc/truecrypt.mod",
+        "tools/grub2/boot/grub/i386-pc/udf.mod",
+        "tools/grub2/boot/grub/i386-pc/ufs1.mod",
+        "tools/grub2/boot/grub/i386-pc/ufs1_be.mod",
+        "tools/grub2/boot/grub/i386-pc/ufs2.mod",
+        "tools/grub2/boot/grub/i386-pc/uhci.mod",
+        "tools/grub2/boot/grub/i386-pc/usb.mod",
+        "tools/grub2/boot/grub/i386-pc/usb_keyboard.mod",
+        "tools/grub2/boot/grub/i386-pc/usbms.mod",
+        "tools/grub2/boot/grub/i386-pc/usbserial_common.mod",
+        "tools/grub2/boot/grub/i386-pc/usbserial_ftdi.mod",
+        "tools/grub2/boot/grub/i386-pc/usbserial_pl2303.mod",
+        "tools/grub2/boot/grub/i386-pc/usbserial_usbdebug.mod",
+        "tools/grub2/boot/grub/i386-pc/usbtest.mod",
+        "tools/grub2/boot/grub/i386-pc/vbe.mod",
+        "tools/grub2/boot/grub/i386-pc/verify.mod",
+        "tools/grub2/boot/grub/i386-pc/vga.mod",
+        "tools/grub2/boot/grub/i386-pc/vga_text.mod",
+        "tools/grub2/boot/grub/i386-pc/video.lst",
+        "tools/grub2/boot/grub/i386-pc/video.mod",
+        "tools/grub2/boot/grub/i386-pc/video_bochs.mod",
+        "tools/grub2/boot/grub/i386-pc/video_cirrus.mod",
+        "tools/grub2/boot/grub/i386-pc/video_colors.mod",
+        "tools/grub2/boot/grub/i386-pc/video_fb.mod",
+        "tools/grub2/boot/grub/i386-pc/videoinfo.mod",
+        "tools/grub2/boot/grub/i386-pc/videotest.mod",
+        "tools/grub2/boot/grub/i386-pc/videotest_checksum.mod",
+        "tools/grub2/boot/grub/i386-pc/xfs.mod",
+        "tools/grub2/boot/grub/i386-pc/xnu.mod",
+        "tools/grub2/boot/grub/i386-pc/xnu_uuid.mod",
+        "tools/grub2/boot/grub/i386-pc/xnu_uuid_test.mod",
+        "tools/grub2/boot/grub/i386-pc/xzio.mod",
+        "tools/grub2/boot/grub/i386-pc/zfs.mod",
+        "tools/grub2/boot/grub/i386-pc/zfscrypt.mod",
+        "tools/grub2/boot/grub/i386-pc/zfsinfo.mod",
         "tools/mkisofs/win/mkisofs.exe",
         "tools/net48/Cosmos.Build.Common.dll",
         "tools/net48/Cosmos.Build.Common.pdb",
@@ -125,8 +395,8 @@
         "tools/net48/HyperVServer/scripts/RemoveVM.ps1",
         "tools/net48/HyperVServer/scripts/StartVm.ps1",
         "tools/net48/HyperVServer/scripts/StopVm.ps1",
-        "tools/net48/IL2CPU.Debug.Symbols.dll",
-        "tools/net48/IL2CPU.Debug.Symbols.pdb",
+        "tools/net48/IL2CPU.Debug.Symbols.Net48.dll",
+        "tools/net48/IL2CPU.Debug.Symbols.Net48.pdb",
         "tools/net48/Microsoft.Data.Sqlite.dll",
         "tools/net48/Microsoft.DiaSymReader.dll",
         "tools/net48/Microsoft.Win32.Registry.dll",
@@ -160,77 +430,77 @@
         "tools/yasm/win/yasm.exe"
       ]
     },
-    "Cosmos.Common/0.1.0-localbuild20211122124840": {
-      "sha512": "GBfCG+MSgL/kJm0IXFQ8PcL+1Xd/qUYFjJxDX9gqQqYn/yMhgV2dbBtb0cvFJkvSKf7vC4nJkAMqZKdTCsFogw==",
+    "Cosmos.Common/0.1.0-localbuild20220215034026": {
+      "sha512": "wEVLwLDxcaHNLF6D3F2ECLsL35DECZXnBy4IkqGya9IFVAadG3zVPzKy76Vd5ORi7QaFwdHp7d8fwvAm1luRbQ==",
       "type": "package",
-      "path": "cosmos.common/0.1.0-localbuild20211122124840",
+      "path": "cosmos.common/0.1.0-localbuild20220215034026",
       "files": [
         ".nupkg.metadata",
         "LICENSE.txt",
-        "cosmos.common.0.1.0-localbuild20211122124840.nupkg.sha512",
+        "cosmos.common.0.1.0-localbuild20220215034026.nupkg.sha512",
         "cosmos.common.nuspec",
         "lib/net5.0/Cosmos.Common.dll"
       ]
     },
-    "Cosmos.Core/0.1.0-localbuild20211122124840": {
-      "sha512": "jx7LoiGiJg4IqfYf27ZkZCNodpadJJvGb1qFlP5fZkKWn1wqF9J18x4Fy8iUAn6tiIc8TNcBo1wUaaiG1wJwng==",
+    "Cosmos.Core/0.1.0-localbuild20220215034026": {
+      "sha512": "qRNVWlCEQA/cxJcVnw4PObzr0YbZp51OL7T1KCfWEMwE7Gd/yd07wXu6uFabgqeHg7PIqhjqu+MlwlUsejkIDg==",
       "type": "package",
-      "path": "cosmos.core/0.1.0-localbuild20211122124840",
+      "path": "cosmos.core/0.1.0-localbuild20220215034026",
       "files": [
         ".nupkg.metadata",
         "LICENSE.txt",
-        "cosmos.core.0.1.0-localbuild20211122124840.nupkg.sha512",
+        "cosmos.core.0.1.0-localbuild20220215034026.nupkg.sha512",
         "cosmos.core.nuspec",
         "lib/net5.0/Cosmos.Core.dll",
         "lib/net5.0/Cosmos.Core.xml"
       ]
     },
-    "Cosmos.Debug.Kernel/0.1.0-localbuild20211122124840": {
-      "sha512": "gLLplPYN0ojdwdTjRSTtNViJUkt7kNAfeIYhqBUCZJ8hGwt4M0UAsojAVL9vqSY6QZakTzbUmLev57HcTUxNtw==",
+    "Cosmos.Debug.Kernel/0.1.0-localbuild20220215034026": {
+      "sha512": "DIxDeb85lcwNYp/sPwdQVt7nvuGpHJRKX0MMQCXAOJuX1nCQP7vbDGHixVL6zVgRj55sdmNdraG6yMC61UJMmQ==",
       "type": "package",
-      "path": "cosmos.debug.kernel/0.1.0-localbuild20211122124840",
+      "path": "cosmos.debug.kernel/0.1.0-localbuild20220215034026",
       "files": [
         ".nupkg.metadata",
         "LICENSE.txt",
-        "cosmos.debug.kernel.0.1.0-localbuild20211122124840.nupkg.sha512",
+        "cosmos.debug.kernel.0.1.0-localbuild20220215034026.nupkg.sha512",
         "cosmos.debug.kernel.nuspec",
         "lib/netstandard2.0/Cosmos.Debug.Kernel.dll",
         "lib/netstandard2.0/Cosmos.Debug.Kernel.xml"
       ]
     },
-    "Cosmos.HAL2/0.1.0-localbuild20211122124840": {
-      "sha512": "v0DR5OyI4X9JOBZAaYuTixpdw2qMNDJwriAhbww68lHra/HXhE80RUDC5wEUMIFs9t8A1xdiQAdvn/85EGK06g==",
+    "Cosmos.HAL2/0.1.0-localbuild20220215034026": {
+      "sha512": "CfM4IZMBWtq4keGq+lFE7459MvL+pAZWpFX5Vytw5BRp9WsbKe/lIzR+A53PPbAGK2EXuCpW1QfdM6COJbzTnQ==",
       "type": "package",
-      "path": "cosmos.hal2/0.1.0-localbuild20211122124840",
+      "path": "cosmos.hal2/0.1.0-localbuild20220215034026",
       "files": [
         ".nupkg.metadata",
         "LICENSE.txt",
-        "cosmos.hal2.0.1.0-localbuild20211122124840.nupkg.sha512",
+        "cosmos.hal2.0.1.0-localbuild20220215034026.nupkg.sha512",
         "cosmos.hal2.nuspec",
         "lib/net5.0/Cosmos.HAL2.dll",
         "lib/net5.0/Cosmos.HAL2.xml"
       ]
     },
-    "Cosmos.System2/0.1.0-localbuild20211122124840": {
-      "sha512": "M28GXLG/0dDiySe7ETXMMbvD93zED2oH6BvfrPVOmEpqYuScNC4EXTvhc3kxwAUOOkRaGIx2ixMm4lMypQ1Q3Q==",
+    "Cosmos.System2/0.1.0-localbuild20220215034026": {
+      "sha512": "mKJOnBMKqKSxUpmQ/sUYR5+uPpTI8KKn2TsprL7aEItYDLLIsp5g7k7IHNVF012hfQHwGyvrnxJgoy2HG00/Cw==",
       "type": "package",
-      "path": "cosmos.system2/0.1.0-localbuild20211122124840",
+      "path": "cosmos.system2/0.1.0-localbuild20220215034026",
       "files": [
         ".nupkg.metadata",
         "LICENSE.txt",
-        "cosmos.system2.0.1.0-localbuild20211122124840.nupkg.sha512",
+        "cosmos.system2.0.1.0-localbuild20220215034026.nupkg.sha512",
         "cosmos.system2.nuspec",
         "lib/net5.0/Cosmos.System2.dll",
         "lib/net5.0/Cosmos.System2.xml"
       ]
     },
-    "IL2CPU.API/0.1.0-localbuild20211122124840": {
-      "sha512": "BKUD4SWUss/5g2jbIp1YL6FvTJpI3qDpKVCN2a1IBvzDpf3LnL3/JK+2t9vaWqo7dDm64E6GLAqeM6XISKa5yA==",
+    "IL2CPU.API/0.1.0-localbuild20220215034026": {
+      "sha512": "BoJTuaG8epttrHJNlTa31K6rOFLFQvPZMvcGqbh4d9mQeEVifuItSKJ/udi5cGCkXhxfTB6m6bncXc7SPwgWQw==",
       "type": "package",
-      "path": "il2cpu.api/0.1.0-localbuild20211122124840",
+      "path": "il2cpu.api/0.1.0-localbuild20220215034026",
       "files": [
         ".nupkg.metadata",
-        "il2cpu.api.0.1.0-localbuild20211122124840.nupkg.sha512",
+        "il2cpu.api.0.1.0-localbuild20220215034026.nupkg.sha512",
         "il2cpu.api.nuspec",
         "lib/netstandard2.0/IL2CPU.API.dll"
       ]
@@ -335,7 +605,7 @@
       "code": "NU1603",
       "level": "Warning",
       "warningLevel": 1,
-      "message": "GraphicsSystem depends on Cosmos.Build (>= 0.1.0-localbuild20210921045757) but Cosmos.Build 0.1.0-localbuild20210921045757 was not found. An approximate best match of Cosmos.Build 0.1.0-localbuild20211122124831 was resolved.",
+      "message": "GraphicsSystem depends on Cosmos.Build (>= 0.1.0-localbuild20210921045757) but Cosmos.Build 0.1.0-localbuild20210921045757 was not found. An approximate best match of Cosmos.Build 0.1.0-localbuild20220215034017 was resolved.",
       "libraryId": "Cosmos.Build",
       "targetGraphs": [
         "net5.0"
@@ -345,7 +615,7 @@
       "code": "NU1603",
       "level": "Warning",
       "warningLevel": 1,
-      "message": "GraphicsSystem depends on Cosmos.Debug.Kernel (>= 0.1.0-localbuild20210921045757) but Cosmos.Debug.Kernel 0.1.0-localbuild20210921045757 was not found. An approximate best match of Cosmos.Debug.Kernel 0.1.0-localbuild20211122124840 was resolved.",
+      "message": "GraphicsSystem depends on Cosmos.Debug.Kernel (>= 0.1.0-localbuild20210921045757) but Cosmos.Debug.Kernel 0.1.0-localbuild20210921045757 was not found. An approximate best match of Cosmos.Debug.Kernel 0.1.0-localbuild20220215034026 was resolved.",
       "libraryId": "Cosmos.Debug.Kernel",
       "targetGraphs": [
         "net5.0"
@@ -355,7 +625,7 @@
       "code": "NU1603",
       "level": "Warning",
       "warningLevel": 1,
-      "message": "GraphicsSystem depends on Cosmos.System2 (>= 0.1.0-localbuild20210921045757) but Cosmos.System2 0.1.0-localbuild20210921045757 was not found. An approximate best match of Cosmos.System2 0.1.0-localbuild20211122124840 was resolved.",
+      "message": "GraphicsSystem depends on Cosmos.System2 (>= 0.1.0-localbuild20210921045757) but Cosmos.System2 0.1.0-localbuild20210921045757 was not found. An approximate best match of Cosmos.System2 0.1.0-localbuild20220215034026 was resolved.",
       "libraryId": "Cosmos.System2",
       "targetGraphs": [
         "net5.0"
