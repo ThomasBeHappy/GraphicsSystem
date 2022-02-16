@@ -1,6 +1,7 @@
 ﻿using Cosmos.Debug.Kernel;
 using Cosmos.HAL;
 using GraphicsSystem.Types;
+using Cosmos.System.Graphics.Fonts;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -29,7 +30,6 @@ namespace GraphicsSystem.Core
 
         static char[] tempString = new char[32];
         static char[] temp2String = new char[32];
-        static Font font = new FontMono9x11();
 
         public static char[] GetClockString()
         {
@@ -64,7 +64,7 @@ namespace GraphicsSystem.Core
 
         public static void Draw()
         {
-            Graphics.DrawString(Graphics.width - 80, Graphics.height - 40, font, GetClockString(), Color.white);
+            Graphics.DrawString(Graphics.width - 80, Graphics.height - 40, Kernel.mainFont, GetClockString(), Color.white);
         }
     }
 }

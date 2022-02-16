@@ -6,6 +6,7 @@ using Cosmos.HAL.Drivers.PCI.Video_plug;
 using Cosmos.System.Graphics;
 using GraphicsSystem.Hardware;
 using GraphicsSystem.Types;
+using Cosmos.System.Graphics.Fonts;
 using System.Collections.Generic;
 using Point = GraphicsSystem.Types.Point;
 using Sys = Cosmos.System;
@@ -78,25 +79,6 @@ namespace GraphicsSystem.Core
         {
             driver.Video_Memory.Copy(buffer);
             driver.Update(0, 0, width, height);
-
-            // if (bufferChanged)
-            // {
-            //     bool actualChange = false;
-            //     for (int i = 0; i < width * height; i++)
-            //     {
-            //         if (buffer[i] != oldBuffer[i])
-            //         {
-
-            //             int x = i % width;
-            //             int y = i / width;
-            //             driver.SetPixel((uint)x, (uint)y, buffer[i]);
-            //             actualChange = true;
-            //         }
-            //         oldBuffer[i] = buffer[i];
-            //     }
-            //     if (actualChange)
-            //     {
-            //     }
 
             ClearBuffer(Color.gray160);
 
@@ -205,40 +187,9 @@ namespace GraphicsSystem.Core
 
         public static void DrawAngle(int X, int Y, int angle, int radius, uint color)
         {
-            //quadrant = angle / 15;
-            //switch (quadrant)
-            //{
-            //    case 0: x_flip = 1; y_flip = -1; break;
-            //    case 1: angle = System.Math.Abs(angle - 30); x_flip = y_flip = 1; break;
-            //    case 2: angle -= 30; x_flip = -1; y_flip = 1; break;
-            //    case 3: angle = System.Math.Abs(angle - 60); x_flip = y_flip = -1; break;
-            //    default: x_flip = y_flip = 1; break;
-            //}
-            //xEnd = X;
-            //yEnd = Y;
-            //if (angle > sine.Length) return;
-            //xEnd += (x_flip * ((sine[angle] * radius) >> 8));
-            //yEnd += (y_flip * ((sine[15 - angle] * radius) >> 8));
-
             angleY = radius * System.Math.Cos(System.Math.PI * 2 * angle / 360);
             angleX = radius * System.Math.Sin(System.Math.PI * 2 * angle / 360);
 
-            //if (double.IsNaN(System.Math.Round(angleX * 100)))sto
-            //{
-            //    if (double.IsNaN(System.Math.Round(angleY * 100)))
-            //    {
-            //        throw new Exception("DrawAngle() => angle provided NaN on both x and y");
-            //    }
-            //    DrawLine(X, Y, X, Y - (int)(System.Math.Round(angleY * 100) / 100), color);
-            //    return;
-            //}
-
-            //if (double.IsNaN(System.Math.Round(angleY * 100)))
-            //{
-            //    DrawLine(X, Y, X + (int)(System.Math.Round(angleX * 100) / 100), Y, color);
-            //    return;
-            //}
-            //_debugger.SendInternal(System.Math.Round(angleX * 100));
             DrawLine(X, Y, X + (int)(System.Math.Round(angleX * 100)/100), Y - (int)(System.Math.Round(angleY * 100) / 100), color);
         }
 
@@ -291,14 +242,7 @@ namespace GraphicsSystem.Core
             {
                 int _width = (int)(endX - x);
                 int _height = (int)(endY - y);
-                //if (_width + x > width)
-                //{
-                //    _width -= (int)((_width + x) - width);
-                //}
-                //if (_height + y > height)
-                //{
-                //    _height -= (int)(height - (_height + y));
-                //}
+
                 fixed (uint* bufferPtr = &buffer[0])
                 {
                     for (int i = 0; i < _height; i++)
@@ -436,106 +380,21 @@ namespace GraphicsSystem.Core
             }
         }
 
-
-        public static void DrawChar(int x, int y, char c, uint color, Font font)
+        public static void DrawCharNew(int x, int y, char c, uint color, Sys.Graphics.Fonts.Font font)
         {
-            int width = font.characterWidth;
-            int height = font.characterHeight;
+            int p = font.Height * (byte)c;
 
-            if(c == '!') { DrawBitmap(x, y, width, height, color, font.characters[FontCharIndex.exclamation]); }
-            else if(c == '"') { DrawBitmap(x, y, width, height, color, font.characters[FontCharIndex.quotation]); }
-            else if(c == '#') { DrawBitmap(x, y, width, height, color, font.characters[FontCharIndex.numberSign]); }
-            else if(c == '$') { DrawBitmap(x, y, width, height, color, font.characters[FontCharIndex.dollarSign]); }
-            else if(c == '%') { DrawBitmap(x, y, width, height, color, font.characters[FontCharIndex.percent]); }
-            else if(c == '&') { DrawBitmap(x, y, width, height, color, font.characters[FontCharIndex.ampersand]); }
-            else if(c == '\'') { DrawBitmap(x, y, width, height, color, font.characters[FontCharIndex.apostrophe]); }
-            else if(c == '(') { DrawBitmap(x, y, width, height, color, font.characters[FontCharIndex.bracketLeft]); }
-            else if(c == ')') { DrawBitmap(x, y, width, height, color, font.characters[FontCharIndex.bracketRight]); }
-            else if(c == '*') { DrawBitmap(x, y, width, height, color, font.characters[FontCharIndex.multiply]); }
-            else if(c == '+') { DrawBitmap(x, y, width, height, color, font.characters[FontCharIndex.add]); }
-            else if(c == ',') { DrawBitmap(x, y, width, height, color, font.characters[FontCharIndex.comma]); }
-            else if(c == '-') { DrawBitmap(x, y, width, height, color, font.characters[FontCharIndex.minus]); }
-            else if(c == '.') { DrawBitmap(x, y, width, height, color, font.characters[FontCharIndex.period]); }
-            else if(c == '/') { DrawBitmap(x, y, width, height, color, font.characters[FontCharIndex.slash]); }
-            else if(c == '1') { DrawBitmap(x, y, width, height, color, font.characters[FontCharIndex.n1]); }
-            else if(c == '2') { DrawBitmap(x, y, width, height, color, font.characters[FontCharIndex.n2]); }
-            else if(c == '3') { DrawBitmap(x, y, width, height, color, font.characters[FontCharIndex.n3]); }
-            else if(c == '4') { DrawBitmap(x, y, width, height, color, font.characters[FontCharIndex.n4]); }
-            else if(c == '5') { DrawBitmap(x, y, width, height, color, font.characters[FontCharIndex.n5]); }
-            else if(c == '6') { DrawBitmap(x, y, width, height, color, font.characters[FontCharIndex.n6]); }
-            else if(c == '7') { DrawBitmap(x, y, width, height, color, font.characters[FontCharIndex.n7]); }
-            else if(c == '8') { DrawBitmap(x, y, width, height, color, font.characters[FontCharIndex.n8]); }
-            else if(c == '9') { DrawBitmap(x, y, width, height, color, font.characters[FontCharIndex.n9]); }
-            else if(c == '0') { DrawBitmap(x, y, width, height, color, font.characters[FontCharIndex.n0]); }
-            else if(c == ':') { DrawBitmap(x, y, width, height, color, font.characters[FontCharIndex.colon]); }
-            else if(c == ';') { DrawBitmap(x, y, width, height, color, font.characters[FontCharIndex.semiColon]); }
-            else if(c == '<') { DrawBitmap(x, y, width, height, color, font.characters[FontCharIndex.arrowLeft]); }
-            else if(c == '=') { DrawBitmap(x, y, width, height, color, font.characters[FontCharIndex.equals]); }
-            else if(c == '>') { DrawBitmap(x, y, width, height, color, font.characters[FontCharIndex.arrowRight]); }
-            else if(c == '?') { DrawBitmap(x, y, width, height, color, font.characters[FontCharIndex.question]); }
-            else if(c == '@') { DrawBitmap(x, y, width, height, color, font.characters[FontCharIndex.at]); }
-            else if(c == 'A') { DrawBitmap(x, y, width, height, color, font.characters[FontCharIndex.capA]); }
-            else if(c == 'B') { DrawBitmap(x, y, width, height, color, font.characters[FontCharIndex.capB]); }
-            else if(c == 'C') { DrawBitmap(x, y, width, height, color, font.characters[FontCharIndex.capC]); }
-            else if(c == 'D') { DrawBitmap(x, y, width, height, color, font.characters[FontCharIndex.capD]); }
-            else if(c == 'E') { DrawBitmap(x, y, width, height, color, font.characters[FontCharIndex.capE]); }
-            else if(c == 'F') { DrawBitmap(x, y, width, height, color, font.characters[FontCharIndex.capF]); }
-            else if(c == 'G') { DrawBitmap(x, y, width, height, color, font.characters[FontCharIndex.capG]); }
-            else if(c == 'H') { DrawBitmap(x, y, width, height, color, font.characters[FontCharIndex.capH]); }
-            else if(c == 'I') { DrawBitmap(x, y, width, height, color, font.characters[FontCharIndex.capI]); }
-            else if(c == 'J') { DrawBitmap(x, y, width, height, color, font.characters[FontCharIndex.capJ]); }
-            else if(c == 'K') { DrawBitmap(x, y, width, height, color, font.characters[FontCharIndex.capK]); }
-            else if(c == 'L') { DrawBitmap(x, y, width, height, color, font.characters[FontCharIndex.capL]); }
-            else if(c == 'M') { DrawBitmap(x, y, width, height, color, font.characters[FontCharIndex.capM]); }
-            else if(c == 'N') { DrawBitmap(x, y, width, height, color, font.characters[FontCharIndex.capN]); }
-            else if(c == 'O') { DrawBitmap(x, y, width, height, color, font.characters[FontCharIndex.capO]); }
-            else if(c == 'P') { DrawBitmap(x, y, width, height, color, font.characters[FontCharIndex.capP]); }
-            else if(c == 'Q') { DrawBitmap(x, y, width, height, color, font.characters[FontCharIndex.capQ]); }
-            else if(c == 'R') { DrawBitmap(x, y, width, height, color, font.characters[FontCharIndex.capR]); }
-            else if(c == 'S') { DrawBitmap(x, y, width, height, color, font.characters[FontCharIndex.capS]); }
-            else if(c == 'T') { DrawBitmap(x, y, width, height, color, font.characters[FontCharIndex.capT]); }
-            else if(c == 'U') { DrawBitmap(x, y, width, height, color, font.characters[FontCharIndex.capU]); }
-            else if(c == 'V') { DrawBitmap(x, y, width, height, color, font.characters[FontCharIndex.capV]); }
-            else if(c == 'W') { DrawBitmap(x, y, width, height, color, font.characters[FontCharIndex.capW]); }
-            else if(c == 'X') { DrawBitmap(x, y, width, height, color, font.characters[FontCharIndex.capX]); }
-            else if(c == 'Y') { DrawBitmap(x, y, width, height, color, font.characters[FontCharIndex.capY]); }
-            else if(c == 'Z') { DrawBitmap(x, y, width, height, color, font.characters[FontCharIndex.capZ]); }
-            else if(c == '[') { DrawBitmap(x, y, width, height, color, font.characters[FontCharIndex.sqBracketL]); }
-            else if(c == '\\') { DrawBitmap(x, y, width, height, color, font.characters[FontCharIndex.backSlash]); }
-            else if(c == ']') { DrawBitmap(x, y, width, height, color, font.characters[FontCharIndex.sqBracketR]); }
-            else if(c == '^') { DrawBitmap(x, y, width, height, color, font.characters[FontCharIndex.upArrow]); }
-            else if(c == '_') { DrawBitmap(x, y, width, height, color, font.characters[FontCharIndex.underscore]); }
-            else if(c == '`') { DrawBitmap(x, y, width, height, color, font.characters[FontCharIndex.tilde]); }
-            else if(c == 'a') { DrawBitmap(x, y, width, height, color, font.characters[FontCharIndex.a]); }
-            else if(c == 'b') { DrawBitmap(x, y, width, height, color, font.characters[FontCharIndex.b]); }
-            else if(c == 'c') { DrawBitmap(x, y, width, height, color, font.characters[FontCharIndex.c]); }
-            else if(c == 'd') { DrawBitmap(x, y, width, height, color, font.characters[FontCharIndex.d]); }
-            else if(c == 'e') { DrawBitmap(x, y, width, height, color, font.characters[FontCharIndex.e]); }
-            else if(c == 'f') { DrawBitmap(x, y, width, height, color, font.characters[FontCharIndex.f]); }
-            else if(c == 'g') { DrawBitmap(x, y, width, height, color, font.characters[FontCharIndex.g]); }
-            else if(c == 'h') { DrawBitmap(x, y, width, height, color, font.characters[FontCharIndex.h]); }
-            else if(c == 'i') { DrawBitmap(x, y, width, height, color, font.characters[FontCharIndex.i]); }
-            else if(c == 'j') { DrawBitmap(x, y, width, height, color, font.characters[FontCharIndex.j]); }
-            else if(c == 'k') { DrawBitmap(x, y, width, height, color, font.characters[FontCharIndex.k]); }
-            else if(c == 'l') { DrawBitmap(x, y, width, height, color, font.characters[FontCharIndex.l]); }
-            else if(c == 'm') { DrawBitmap(x, y, width, height, color, font.characters[FontCharIndex.m]); }
-            else if(c == 'n') { DrawBitmap(x, y, width, height, color, font.characters[FontCharIndex.n]); }
-            else if(c == 'o') { DrawBitmap(x, y, width, height, color, font.characters[FontCharIndex.o]); }
-            else if(c == 'p') { DrawBitmap(x, y, width, height, color, font.characters[FontCharIndex.p]); }
-            else if(c == 'q') { DrawBitmap(x, y, width, height, color, font.characters[FontCharIndex.q]); }
-            else if(c == 'r') { DrawBitmap(x, y, width, height, color, font.characters[FontCharIndex.r]); }
-            else if(c == 's') { DrawBitmap(x, y, width, height, color, font.characters[FontCharIndex.s]); }
-            else if(c == 't') { DrawBitmap(x, y, width, height, color, font.characters[FontCharIndex.t]); }
-            else if(c == 'u') { DrawBitmap(x, y, width, height, color, font.characters[FontCharIndex.u]); }
-            else if(c == 'v') { DrawBitmap(x, y, width, height, color, font.characters[FontCharIndex.v]); }
-            else if(c == 'w') { DrawBitmap(x, y, width, height, color, font.characters[FontCharIndex.w]); }
-            else if(c == 'x') { DrawBitmap(x, y, width, height, color, font.characters[FontCharIndex.x]); }
-            else if(c == 'y') { DrawBitmap(x, y, width, height, color, font.characters[FontCharIndex.y]); }
-            else if(c == 'z') { DrawBitmap(x, y, width, height, color, font.characters[FontCharIndex.z]); }
-            else if(c == '{') { DrawBitmap(x, y, width, height, color, font.characters[FontCharIndex.crBracketL]); }
-            else if(c == '|') { DrawBitmap(x, y, width, height, color, font.characters[FontCharIndex.div]); }
-            else if(c == '}') { DrawBitmap(x, y, width, height, color, font.characters[FontCharIndex.crBracketR]); }
-            else if(c == '~') { DrawBitmap(x, y, width, height, color, font.characters[FontCharIndex.squiggle]); }
+            for (int cy = 0; cy < font.Height; cy++)
+            {
+                for (byte cx = 0; cx < font.Width; cx++)
+                {
+                    if (font.ConvertByteToBitAddres(font.Data[p + cy], cx + 1))
+                    {
+                        SetPixel((ushort)(x + (font.Width - cx)), (ushort)(y + cy), color);
+                    }
+                }
+            }
+
         }
 
 
@@ -600,26 +459,6 @@ namespace GraphicsSystem.Core
 
         public unsafe static void DrawBitmapFromData(int aX, int aY, int aWidth, int aHeight, Bitmap data, uint transColor)
         {
-            //if (aWidth + aX > width)
-            //{
-            //    aWidth -= (width - (aWidth + aX));
-            //}
-            //if (aHeight + aY > height)
-            //{
-            //    aHeight -= (height - (aHeight + aY));
-            //}
-
-            //for (int xx = 0; xx < aWidth; xx++)
-            //{
-            //    for (int yy = 0; yy < aHeight; yy++)
-            //    {
-            //        if (data.rawData[xx + yy * aWidth] != transColor)
-            //        {
-            //            buffer[(aX + xx) + (aY + yy) * width] = (uint)data.rawData[xx + yy * aWidth];
-            //        }
-            //    }
-            //}
-
             fixed (uint* bufferPtr = &buffer[0])
             {
                 fixed (int* falseImgPtr = &data.rawData[0])
@@ -634,8 +473,9 @@ namespace GraphicsSystem.Core
             }
         }
 
-        public static void DrawString(uint x, uint y, Font font, char[] text, uint color = 0)
+        public static void DrawString(uint x, uint y, Sys.Graphics.Fonts.Font font, char[] text, uint color = 0)
         {
+            Debugger debugger = new Debugger("", "");
             if (text.Length > 0 && font != null)
             {
                 int xx = (int)x;
@@ -647,10 +487,10 @@ namespace GraphicsSystem.Core
                     {
                         break;
                     }
-                    DrawChar(xx, yy, item, color, font);
+                    DrawCharNew(xx, yy, item, color, font);
 
-                    if (item == '\n') { yy += font.characterHeight + 1; xx = (int)x; }
-                    else { xx += font.characterWidth + FONT_SPACING; }
+                    if (item == '\n') { yy += font.Width + 1; xx = (int)x; }
+                    else { xx += font.Height - 5; }
                 }
             }
         }

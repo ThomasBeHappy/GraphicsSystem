@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\movec\\source\\repos\\GraphicsSystem\\GifTesting\\GifTesting.csproj": {}
+    "G:\\Documents\\GitHub\\GraphicsSystem\\GifTesting\\GifTesting.csproj": {}
   },
   "projects": {
-    "C:\\Users\\movec\\source\\repos\\GraphicsSystem\\GifParser\\GifParser.csproj": {
+    "G:\\Documents\\GitHub\\GraphicsSystem\\GifParser\\GifParser.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\movec\\source\\repos\\GraphicsSystem\\GifParser\\GifParser.csproj",
+        "projectUniqueName": "G:\\Documents\\GitHub\\GraphicsSystem\\GifParser\\GifParser.csproj",
         "projectName": "GifParser",
-        "projectPath": "C:\\Users\\movec\\source\\repos\\GraphicsSystem\\GifParser\\GifParser.csproj",
-        "packagesPath": "C:\\Users\\movec\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\movec\\source\\repos\\GraphicsSystem\\GifParser\\obj\\",
+        "projectPath": "G:\\Documents\\GitHub\\GraphicsSystem\\GifParser\\GifParser.csproj",
+        "packagesPath": "C:\\Users\\thoma\\.nuget\\packages\\",
+        "outputPath": "G:\\Documents\\GitHub\\GraphicsSystem\\GifParser\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
         ],
         "configFilePaths": [
-          "C:\\Users\\movec\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "F:\\AppData\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -25,7 +25,7 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Users\\movec\\AppData\\Roaming\\Cosmos User Kit\\packages\\": {},
+          "F:\\AppData\\Cosmos User Kit\\packages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -61,24 +61,24 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.401\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.400\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\Users\\movec\\source\\repos\\GraphicsSystem\\GifTesting\\GifTesting.csproj": {
+    "G:\\Documents\\GitHub\\GraphicsSystem\\GifTesting\\GifTesting.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\movec\\source\\repos\\GraphicsSystem\\GifTesting\\GifTesting.csproj",
+        "projectUniqueName": "G:\\Documents\\GitHub\\GraphicsSystem\\GifTesting\\GifTesting.csproj",
         "projectName": "GifTesting",
-        "projectPath": "C:\\Users\\movec\\source\\repos\\GraphicsSystem\\GifTesting\\GifTesting.csproj",
-        "packagesPath": "C:\\Users\\movec\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\movec\\source\\repos\\GraphicsSystem\\GifTesting\\obj\\",
+        "projectPath": "G:\\Documents\\GitHub\\GraphicsSystem\\GifTesting\\GifTesting.csproj",
+        "packagesPath": "C:\\Users\\thoma\\.nuget\\packages\\",
+        "outputPath": "G:\\Documents\\GitHub\\GraphicsSystem\\GifTesting\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
         ],
         "configFilePaths": [
-          "C:\\Users\\movec\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "F:\\AppData\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -86,15 +86,15 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Users\\movec\\AppData\\Roaming\\Cosmos User Kit\\packages\\": {},
+          "F:\\AppData\\Cosmos User Kit\\packages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "netcoreapp2.0": {
             "targetAlias": "netcoreapp2.0",
             "projectReferences": {
-              "C:\\Users\\movec\\source\\repos\\GraphicsSystem\\GifParser\\GifParser.csproj": {
-                "projectPath": "C:\\Users\\movec\\source\\repos\\GraphicsSystem\\GifParser\\GifParser.csproj"
+              "G:\\Documents\\GitHub\\GraphicsSystem\\GifParser\\GifParser.csproj": {
+                "projectPath": "G:\\Documents\\GitHub\\GraphicsSystem\\GifParser\\GifParser.csproj"
               }
             }
           }
@@ -126,7 +126,7 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.401\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.400\\RuntimeIdentifierGraph.json"
         }
       }
     }

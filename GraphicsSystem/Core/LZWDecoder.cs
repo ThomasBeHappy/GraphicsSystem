@@ -21,7 +21,6 @@ namespace GifParser
         /// <returns></returns>
         public static byte[] Decode(byte[] data, int maxKeySize = 16, int dictionarySize = 256, int dictionaryBaseOffset = 0, int minIndexSize = 8, bool isGIF = false, bool LSB = false)
         {
-            Debugger debugger = new Debugger("", "");
             //debugger.Send("Hello?");
             int indexSize = minIndexSize;
             if (maxKeySize > 16)
@@ -41,9 +40,7 @@ namespace GifParser
                 LSB = true;
             }
 
-            debugger.Send("Creating BinaryStream");
             BinaryStream input = new BinaryStream(data, data.Length) { LSB = LSB };
-            debugger.Send("Created BinaryStream");
             if (isGIF)
             {
                 input.Position += indexSize;
@@ -130,7 +127,6 @@ namespace GifParser
                 }
                 //debugger.Send("Read next part (wtf is going wrong)");
             }
-            debugger.Send("Finished decoding, sending result back");
             return output.ToArray();
         }
 

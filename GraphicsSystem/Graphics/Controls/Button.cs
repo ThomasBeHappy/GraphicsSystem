@@ -1,6 +1,7 @@
 ﻿#define COSMOSDEBUG
 using Cosmos.Debug.Kernel;
 using Cosmos.System;
+using Cosmos.System.Graphics.Fonts;
 using GraphicsSystem.Core;
 using GraphicsSystem.Hardware;
 using GraphicsSystem.Types;
@@ -32,7 +33,7 @@ namespace GraphicsSystem.Graphic.Controls
 
         public object value;
 
-        public Button(Window app, int width, int height, uint x, uint y, uint textColor, uint color, uint hoverColor, Font font, char[] text, object value)
+        public Button(Window app, int width, int height, uint x, uint y, uint textColor, uint color, uint hoverColor, PCScreenFont font, char[] text, object value)
         {
             this.window = app;
             this.width = width;
@@ -64,7 +65,7 @@ namespace GraphicsSystem.Graphic.Controls
         public override void Draw()
         {
             Graphics.Rectangle(window.x + x, window.y + y, (uint)(window.x + x + width), (uint)(window.y + y + height), drawColor);
-            Graphics.DrawString(window.x + x, (uint)((uint)(window.y + y + (height/2)) - (font.characterHeight / 2)), font, text, textColor);
+            Graphics.DrawString(window.x + x, (uint)((uint)(window.y + y + (height/2)) - (font.Width / 2)), font, text, textColor);
         }
 
 

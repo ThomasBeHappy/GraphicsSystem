@@ -1,4 +1,5 @@
 ﻿using Cosmos.Debug.Kernel;
+using Cosmos.System.Graphics.Fonts;
 using GraphicsSystem.Data;
 using GraphicsSystem.Graphic;
 using System;
@@ -15,12 +16,16 @@ namespace GraphicsSystem.Core
         public static void Run()
         {
             Debugger debugger = new Debugger("", "");
+
             Graphics.Initialize();
             Graphics.DrawBitmapFromData(0, 0, 1920, 1080, BootBitmap.bitmap);
             Graphics.Update();
+
+            Kernel.mainFont = PCScreenFont.LoadFont(Fonts.Font);
+
             //RTTTLParser.Play(RTTTL);
-            //FileSystem.Initialize();
-            //GifData.InitGif();
+/*            FileSystem.Initialize();
+            GifData.InitGif();*/
             //UserManager.Initialize();
 
             debugger.Send("yeet");

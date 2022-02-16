@@ -24,7 +24,7 @@ namespace GraphicsSystem
         public char[] fps = new char[] { 'F', 'P', 'S', ':' , ' ', '\0' };
         public char[] final = new char[32];
         public char[] number = new char[32];
-        Font font = new FontMono9x11();
+        public static Cosmos.System.Graphics.Fonts.PCScreenFont mainFont;
         protected override void Run()
         {
             try
@@ -47,7 +47,6 @@ namespace GraphicsSystem
 
                 // Now draw the Taskbar which should always be over the windows.
                 Taskbar.Draw();
-
                 /*if (GifData.gif.currentIndex < GifData.gif.images.Count - 1)
                 {
                     Graphics.DrawBitmapFromData(10, 10, (int)GifData.gif.images[GifData.gif.currentIndex].width, (int)GifData.gif.images[GifData.gif.currentIndex].height, GifData.gif.images[GifData.gif.currentIndex].imageData);
@@ -65,9 +64,9 @@ namespace GraphicsSystem
                 // Draw FPS counter
                 // Draw a FPS counter to keep track of FPS, draw this above the mouse to avoid confusion with applications.
 
-                /*InternalString.IntToString(Graphics.fps, ref number);
+                InternalString.IntToString(Graphics.fps, ref number);
                 InternalString.combineString(ref fps, ref number, ref final);
-                Graphics.DrawString(0, 0, font, final, Color.white);*/
+                Graphics.DrawString(0, 0, Kernel.mainFont, final, Color.white);
 
                 Graphics.Update();
 
@@ -83,8 +82,8 @@ namespace GraphicsSystem
         public void Panic(Exception e)
         {
             mDebugger.Send(e.Message);
-            Graphics.ClearBuffer(Color.lightBlue);
-            Graphics.DrawString(10, 10, new FontMono9x11(), ("FATAL ERROR: " + e).ToCharArray());
+            Graphics.ClearBuffer(Color.darkBlue);
+            Graphics.DrawString(10, Graphics.height/2, Kernel.mainFont, ("FATAL ERROR: " + e).ToCharArray(), Color.white);
             Graphics.Update();
         }
     }

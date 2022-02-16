@@ -32,7 +32,7 @@ namespace GraphicsSystem.Graphic
                 ProcessManager.windows[i].dockY = Graphics.height - 55;
                 ProcessManager.windows[i].dockHeight = 50;
                 ProcessManager.windows[i].dockWidth = 50;
-                Graphics.DrawBitmapFromData((int)ProcessManager.windows[i].dockX, (int)ProcessManager.windows[i].dockY, 50, 50, ProcessManager.windows[i].icon, Color.FromARGB(0, 0, 0, 255));
+                Graphics.DrawBitmapFromData((int)ProcessManager.windows[i].dockX, (int)ProcessManager.windows[i].dockY, 50, 50, ProcessManager.windows[i].icon, 0);
             }
         }
 

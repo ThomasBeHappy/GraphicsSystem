@@ -97,6 +97,7 @@
         <USB_ISOFile>bin\Debug\netcoreapp2.0\cosmos\GraphicsSystem.iso</USB_ISOFile>
         <CompileVBEMultiboot>False</CompileVBEMultiboot>
         <VBEResolution>a</VBEResolution>
+        <ExtractMapFile>True</ExtractMapFile>
     </PropertyGroup>
 
     <PropertyGroup>
@@ -128,6 +129,7 @@
       <None Remove="Data\Bitmaps\File.bmp" />
       <None Remove="Data\Bitmaps\Folder.bmp" />
       <None Remove="Data\Bitmaps\Gaming Frame.bmp" />
+      <None Remove="Data\Fonts\zap-ext-light16.psf" />
       <None Remove="Data\Gaming Frame.bmp" />
       <None Remove="Data\Gifs\test3.gif" />
     </ItemGroup>
@@ -139,6 +141,7 @@
       <EmbeddedResource Include="Data\Bitmaps\File.bmp" />
       <EmbeddedResource Include="Data\Bitmaps\Folder.bmp" />
       <EmbeddedResource Include="Data\Bitmaps\Gaming Frame.bmp" />
+      <EmbeddedResource Include="Data\Fonts\zap-ext-light16.psf" />
       <EmbeddedResource Include="Data\Gifs\test3.gif" />
     </ItemGroup>
 

@@ -11,7 +11,6 @@ namespace GraphicsSystem.Apps
     {
         static char[] name = new char[] { 'C', 'l', 'o', 'c', 'k', '\0' };
         static char[] number = new char[32];
-        FontMono9x11 font = new FontMono9x11();
 
         static Bitmap icon = ProgramBitmaps.bitmap;
 
@@ -29,7 +28,7 @@ namespace GraphicsSystem.Apps
             {
                 InternalString.IntToString(i, ref number);
                 GetTextLocation(i * 30, 60);
-                Graphics.DrawString((uint)(x + (width / 2) + point.x - ((font.characterWidth * (1 + i/10))) / 2), (uint)(y + (height / 2) - point.y - (font.characterHeight / 2)), font, number, Color.gold);
+                Graphics.DrawString((uint)(x + (width / 2) + point.x - ((Kernel.mainFont.Width * (1 + i/10))) / 2), (uint)(y + (height / 2) - point.y - (Kernel.mainFont.Height / 2)), Kernel.mainFont, number, Color.gold);
             }
         }
 

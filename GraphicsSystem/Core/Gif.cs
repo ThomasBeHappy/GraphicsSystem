@@ -50,8 +50,6 @@ namespace GifParser
     {
         public static Gif Parse(byte[] data)
         {
-            Debugger debugger = new Debugger("", "");
-            debugger.Send("Starting parse");
             Gif gif = new Gif();
 
             #region Header
@@ -95,10 +93,9 @@ namespace GifParser
                 }
             }
             #endregion
-            debugger.Send("Fuck this part");
             while (data[pos] != 0x3b)
             {
-                debugger.Send("Image!");
+                Cosmos.Core.Memory.Heap.Collect();
                 while (data[pos] == 0x21)
                 {
                     #region Comment Block
@@ -247,12 +244,10 @@ namespace GifParser
                         }
 
                     }
-                    debugger.Send("Time to decompress");
                     //decompress it
                     if (localColorTableFlag)
                     {
                         byte[] decompressed = LZWDecoder.Decode(compressedData, dictionarySize: localColorTableSize, minIndexSize: minimumCodeSize, isGIF: true);
-                        debugger.Send(decompressed.Length + "");
                         for (int i = 0; i < decompressed.Length; i++)
                         {
                             image.imageData[compressPos++] = localColorTable[decompressed[i]];
@@ -261,7 +256,6 @@ namespace GifParser
                     else
                     {
                         byte[] decompressed = LZWDecoder.Decode(compressedData, dictionarySize: sizeGlobalColorTable, minIndexSize: minimumCodeSize, isGIF: true);
-                        debugger.Send(decompressed.Length + "");
                         for (int i = 0; i < decompressed.Length; i++)
                         {
                             image.imageData[compressPos] = colorTable[decompressed[i]];
@@ -273,7 +267,6 @@ namespace GifParser
                 }
                 #endregion
             }
-            debugger.Send("Returning gif result");
 
             return gif;
         }

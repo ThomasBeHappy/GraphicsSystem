@@ -18,7 +18,6 @@ namespace GraphicsSystem.Apps
         static Bitmap icon = ProgramBitmaps.bitmap;
         List<char> input = new List<char>();
         List<char> drawText = new List<char>();
-        FontMono7x9 font = new FontMono7x9();
         public Notepad(uint x, uint y, uint width, uint height) : base(name, x, y, width, height, icon)
         {
         }
@@ -49,7 +48,7 @@ namespace GraphicsSystem.Apps
                 }
             }
 
-            Graphics.DrawString(this.x + 10, (uint)(this.y + 10), font, input.ToArray(), Color.white);
+            Graphics.DrawString(this.x + 10, (uint)(this.y + 10), Kernel.mainFont, input.ToArray(), Color.white);
         }
     }
 }

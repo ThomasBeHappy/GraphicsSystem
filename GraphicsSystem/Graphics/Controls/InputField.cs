@@ -17,7 +17,6 @@ namespace GraphicsSystem.Graphic.Controls
         List<char> input;
         public Window window;
         private uint drawColor;
-        FontMono7x9 font = new FontMono7x9();
 
         public bool focused = false;
 
@@ -39,12 +38,12 @@ namespace GraphicsSystem.Graphic.Controls
             Graphics.Rectangle(window.x + x, window.y + y, (uint)(window.x + x + width), (uint)(window.y + y + height), drawColor);
 
             drawText = input;
-            while (font.characterWidth * drawText.Count > width)
+            while (Kernel.mainFont.Width* drawText.Count > width)
             {
                 drawText.RemoveAt(0);
             }
 
-            Graphics.DrawString(window.x + x, (uint)(window.y + y + (font.characterHeight / 2)), font, drawText.ToArray(), textColor);
+            Graphics.DrawString(window.x + x, (uint)(window.y + y + (Kernel.mainFont.Height / 2)), Kernel.mainFont, drawText.ToArray(), textColor);
         }
 
         public override void Update()

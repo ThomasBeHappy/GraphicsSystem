@@ -18,23 +18,17 @@ namespace GraphicsSystem.Core
 
             VFSManager.RegisterVFS(fs);
 
-            try
+            //fs.GetDirectoryListing(@"0:\");
+
+            if (!Directory.Exists(@"0:\System"))
             {
-                //fs.GetDirectoryListing(@"0:\");
-                if (!Directory.Exists(@"0:\System"))
-                {
-                    Directory.CreateDirectory(@"0:\System");
-                    Directory.CreateDirectory(@"0:\System\SystemApps");
-                    Directory.CreateDirectory(@"0:\System\Audio");
-                    Directory.CreateDirectory(@"0:\System\Images");
-                    Directory.CreateDirectory(@"0:\System\Images\Bitmaps");
-                    Directory.CreateDirectory(@"0:\System\Images\Gifs");
-                    Directory.CreateDirectory(@"0:\System\Logs");
-                }
-            }
-            catch (Exception)
-            {
-                Console.WriteLine("WARNING: Could not access drive 0!");
+                Directory.CreateDirectory(@"0:\System");
+                Directory.CreateDirectory(@"0:\System\SystemApps");
+                Directory.CreateDirectory(@"0:\System\Audio");
+                Directory.CreateDirectory(@"0:\System\Images");
+                Directory.CreateDirectory(@"0:\System\Images\Bitmaps");
+                Directory.CreateDirectory(@"0:\System\Images\Gifs");
+                Directory.CreateDirectory(@"0:\System\Logs");
             }
         }
 

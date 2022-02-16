@@ -14,12 +14,14 @@ namespace GraphicsSystem.Core
 
         public static void UpdateProcesses()
         {
+            Debugger debugger = new Debugger("", "");
             tick++;
 
             BubbleSort(windows);
 
             for (int i = 0; i < windows.Count; i++)
             {
+                debugger.Send("Updating window: " + windows[i].name);
                 windows[i]._Update();
             }
 

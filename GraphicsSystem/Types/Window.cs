@@ -34,7 +34,6 @@ namespace GraphicsSystem.Types
         private uint mouseMoveOffsetY = 0;
         private int tempOffset = 0, tempOffsetY = 0;
 
-        FontMono9x11 font = new FontMono9x11();
 
         uint quitColor = Color.white;
 
@@ -68,7 +67,7 @@ namespace GraphicsSystem.Types
             // Draw dock string when hovering over app icon
             if (MouseManager.X > dockX && MouseManager.X < dockX + dockWidth && MouseManager.Y > dockY && MouseManager.Y < dockY + dockHeight)
             {
-                Graphics.DrawString((uint)(dockX - ((name.Length * 8) / 2) + dockWidth / 2), dockY - 20, font, name, Color.white);
+                Graphics.DrawString((uint)(dockX - ((name.Length * 8) / 2) + dockWidth / 2), dockY - 20, Kernel.mainFont, name, Color.white);
             }
 
 
@@ -178,7 +177,7 @@ namespace GraphicsSystem.Types
             Graphics.Rectangle(x, y, (x + width), (y + height), Color.gray32);
             Graphics.Rectangle((uint)(appX), (uint)appY, (uint)(appX + width), (uint)(appY + 22), Color.black);
             Graphics.Rectangle((uint)(appX + width - 22 - 5), (uint)appY + 5, (uint)(appX + width - 5), (uint)(appY + 22 - 5), quitColor);
-            Graphics.DrawString((uint)appX, (uint)(appY + (font.characterHeight / 2)), font, name, Color.white);
+            Graphics.DrawString((uint)appX, (uint)(appY + (Kernel.mainFont.Width / 2)), Kernel.mainFont, name, Color.white);
             Update();
             end:;
         }

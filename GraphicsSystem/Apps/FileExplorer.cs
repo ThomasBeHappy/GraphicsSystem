@@ -20,7 +20,6 @@ namespace GraphicsSystem.Apps
         static char[] name = new char[] { 'F', 'i', 'l', 'e', ' ', 'E','x','p','l','o','r','e','r','\0' };
         static char[] returnButton = new char[] { '<', '-', '\0' };
         bool refresh = true;
-        FontMono9x11 font = new FontMono9x11();
 
         List<DirectoryEntry> directoryEntries;
         public List<char[]> folderNames = new List<char[]>();
@@ -82,13 +81,13 @@ namespace GraphicsSystem.Apps
                     //Graphics.DrawString(x + 120, (uint)(y + 35 + ((i * 50) + 10)), font, folderNames[i], Color.white);
                     if (directoryEntries[i].mEntryType == DirectoryEntryTypeEnum.Directory)
                     {
-                        Button button = new Button(this, 200, 50, 120, (uint)(35 + ((i * 60))), Color.white, Color.black, Color.gray160, font, folderNames[i], directoryEntries[i].mFullPath);
+                        Button button = new Button(this, 200, 50, 120, (uint)(35 + ((i * 60))), Color.white, Color.black, Color.gray160, Kernel.mainFont, folderNames[i], directoryEntries[i].mFullPath);
                         button.OnClick += ChangeDirectory;
                         controls.Add(button);
                     }
                 }
                 
-                Button returnB = new Button(this, 20, 20, 0, 0, Color.white, Color.black, Color.gray160, font, returnButton, null);
+                Button returnB = new Button(this, 20, 20, 0, 0, Color.white, Color.black, Color.gray160, Kernel.mainFont, returnButton, null);
                 returnB.OnClick += FolderBack;
                 controls.Add(returnB);
             }
@@ -115,11 +114,11 @@ namespace GraphicsSystem.Apps
                 else if (directoryEntries[i].mEntryType == DirectoryEntryTypeEnum.File)
                 {
                     Graphics.DrawBitmapFromData((int)(x + 65), (int)(y + 35 + (i * 60)), 50, 50, FileSystemBitmaps.fileBitmap, Color.black);
-                    Graphics.DrawString(x + 120, (uint)(y + 35 + ((i * 60))), font, folderNames[i], Color.white);
+                    Graphics.DrawString(x + 120, (uint)(y + 35 + ((i * 60))), Kernel.mainFont, folderNames[i], Color.white);
                 }
                 else if (directoryEntries[i].mEntryType == DirectoryEntryTypeEnum.Unknown)
                 {
-                    Graphics.DrawString(x + 120, (uint)(y + 35 + ((i * 60))), font, folderNames[i], Color.white);
+                    Graphics.DrawString(x + 120, (uint)(y + 35 + ((i * 60))), Kernel.mainFont, folderNames[i], Color.white);
                 }
 
                 //Graphics.DrawString(x + 120, (uint)(y + 35 + ((i * 50) + 10)), font, folderNames[i], Color.white);
